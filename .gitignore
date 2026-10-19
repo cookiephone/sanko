@@ -1,0 +1,11 @@
+/target
+/target-*/
+/pgo/
+**/*.rs.bk
+
+# Editor / IDE.
+/.vscode/
+/.idea/
+*.swp
+*.swo
+.DS_Store

@@ -1,0 +1,6 @@
+# Build for the host ISA. The solver is bitboard-popcount / bit-iteration heavy
+# (BitBoard::count, the trailing_zeros loop in bitboard::Iter), so unlocking
+# POPCNT / TZCNT / BMI / AVX2 over the baseline x86-64 (SSE2-only) target is a
+# near-free win. This locks the binary to CPUs like the build host.
+[build]
+rustflags = ["-C", "target-cpu=native"]

@@ -1,0 +1,17 @@
+[package]
+name = "sanko-search"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+authors.workspace = true
+description = "Depth-first proof-number search with sound proof transfer under positional superko."
+
+[lints]
+workspace = true
+
+[dependencies]
+sanko-core.workspace = true
+
+[dev-dependencies]

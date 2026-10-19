@@ -1,0 +1,17 @@
+[package]
+name = "sanko-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+authors.workspace = true
+description = "Board representation and positional-superko rules engine for the Sanko Go solver."
+
+[lints]
+workspace = true
+
+[dependencies]
+
+[dev-dependencies]
+proptest.workspace = true
