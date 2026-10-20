@@ -2311,11 +2311,11 @@ fn solve_inner<const ROWS: usize, const COLS: usize, const LANES: usize, const N
     assert!(NPOINTS <= 30, "boards above 30 points need a wider board hash for an exact superko check");
     let layout = crate::pntt::Layout::for_points(NPOINTS);
     let tt = if cfg.proof_buckets > 0 {
-        PnTable::with_sizes(cfg.tt_log_buckets, cfg.proof_buckets as usize, layout)
+        PnTable::with_sizes(cfg.tt_log_buckets, cfg.proof_buckets as usize, layout, cfg.threads)
     } else {
-        PnTable::with_layout(cfg.tt_log_buckets, cfg.proof_log, layout)
+        PnTable::with_layout(cfg.tt_log_buckets, cfg.proof_log, layout, cfg.threads)
     };
-    let sc = StaticCache::new(cfg.static_cache_log_slots);
+    let sc = StaticCache::new(cfg.static_cache_log_slots, cfg.threads);
     let sh = Shared::new(cfg.threads);
     let mut res = search_all::<ROWS, COLS, LANES, NPOINTS>(prefix, &tt, &sc, cfg, &sh);
     {
@@ -2480,7 +2480,7 @@ mod tests {
         for (first, second) in [(&a, &b), (&b, &a)] {
             for k in 1..=second.len() {
                 let tt = PnTable::new(cfg.tt_log_buckets, cfg.proof_log, false);
-                let sc = StaticCache::new(cfg.static_cache_log_slots);
+                let sc = StaticCache::new(cfg.static_cache_log_slots, 1);
                 search_all::<1, 5, 1, 5>(first, &tt, &sc, cfg, &Shared::new(1));
                 let r = search_all::<1, 5, 1, 5>(&second[..k], &tt, &sc, cfg, &Shared::new(1));
                 let want = solve_dfpn::<1, 5, 1, 5>(&second[..k], oracle).winner;
@@ -2541,7 +2541,7 @@ mod tests {
             };
             let oracle = DfpnConfig { exact_only: true, no_static: true, region_solver: false, ..cfg };
             let tt = PnTable::new(cfg.tt_log_buckets, cfg.proof_log, false);
-            let sc = StaticCache::new(cfg.static_cache_log_slots);
+            let sc = StaticCache::new(cfg.static_cache_log_slots, 1);
             for _ in 0..games {
                 let line = random_line::<R, C, L, N>(&mut rng, plies);
                 for n in 0..=line.len() {
@@ -2677,11 +2677,11 @@ mod tests {
             // The mid layout (any board up to 32 points) in a table whose size
             // is not a power of two, or the narrow layout of these boards.
             let tt = if mid {
-                PnTable::with_sizes(cfg.tt_log_buckets, 3 << (cfg.proof_log - 2), crate::pntt::Layout::Mid)
+                PnTable::with_sizes(cfg.tt_log_buckets, 3 << (cfg.proof_log - 2), crate::pntt::Layout::Mid, 1)
             } else {
                 PnTable::new(cfg.tt_log_buckets, cfg.proof_log, false)
             };
-            let sc = StaticCache::new(cfg.static_cache_log_slots);
+            let sc = StaticCache::new(cfg.static_cache_log_slots, 1);
             for _ in 0..games {
                 let line = random_line::<R, C, L, N>(&mut rng, plies);
                 let mut truth = vec![None; line.len() + 1];

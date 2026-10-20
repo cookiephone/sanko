@@ -49,15 +49,15 @@ pub struct StaticCache {
 }
 
 impl StaticCache {
-    /// `2^log_slots` slots, disabled when `log_slots == 0`. `log_slots` must be in
-    /// `2..=32` when enabled.
+    /// `2^log_slots` slots, disabled when `log_slots == 0`, filled by `threads`
+    /// threads. `log_slots` must be in `2..=32` when enabled.
     #[must_use]
-    pub fn new(log_slots: u32) -> Self {
+    pub fn new(log_slots: u32, threads: usize) -> Self {
         let slots = if log_slots == 0 {
             Vec::new()
         } else {
             assert!((2..=32).contains(&log_slots), "log_slots out of range");
-            (0..1usize << log_slots).map(|_| AtomicU64::new(0)).collect()
+            crate::pntt::filled_vec(1usize << log_slots, threads, || AtomicU64::new(0))
         };
         let mask = (slots.len() as u64).wrapping_sub(1);
         Self { slots, mask }
@@ -139,7 +139,7 @@ mod tests {
 
     #[test]
     fn mark_and_miss() {
-        let c = StaticCache::new(8);
+        let c = StaticCache::new(8, 1);
         assert!(!c.is_undecided(5)); // miss
         c.mark_undecided(5);
         c.mark_undecided(6);
@@ -154,7 +154,7 @@ mod tests {
 
     #[test]
     fn disabled_always_misses() {
-        let c = StaticCache::new(0);
+        let c = StaticCache::new(0, 1);
         assert!(!c.enabled());
         c.mark_undecided(1);
         assert!(!c.is_undecided(1));

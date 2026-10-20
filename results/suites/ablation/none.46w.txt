@@ -1,0 +1,14 @@
+sanko 0.4.1 (source 63014da88da067d1): bench --threads 1 --pn-tt-log 22 --proof-log 22 --sc-log 22 --regions --region-interior 8 --keep-tempo --node-limit 100000000 --rows 4 --cols 6 --komi 8.5 --prune-for white --bench-n 12 --bench-plies 10 --rng-seed 61 --prior eye --eye-init 0
+bench #0: winner=None nodes=2891688 secs=4.93 moves=00,31,35,20,32,02,23,15,12,14
+bench #1: winner=None nodes=408056 secs=0.71 moves=22,00,11,14,34,15,04,10,13,25
+bench #2: winner=Some(White) nodes=231954 secs=0.44 moves=14,23,31,11,13,02,20,32,34,21
+bench #3: winner=Some(White) nodes=64437 secs=0.16 moves=03,31,20,22,10,25,11,32,33,24
+bench #4: winner=Some(White) nodes=7822 secs=0.08 moves=24,23,01,33,35,04,30,15,31,03
+bench #5: winner=Some(White) nodes=67614 secs=0.18 moves=15,10,22,34,33,11,30,14,35,13
+bench #6: winner=Some(White) nodes=321965 secs=0.55 moves=34,14,15,12,23,22,31,11,05,25
+bench #7: winner=Some(White) nodes=152445 secs=0.28 moves=33,11,30,15,13,24,31,22,20,34
+bench #8: winner=None nodes=156056 secs=0.34 moves=33,31,11,15,21,10,25,35,24,00
+bench #9: winner=None nodes=2199566 secs=5.84 moves=25,14,34,03,12,15,32,13,04,05
+bench #10: winner=Some(White) nodes=94784 secs=0.22 moves=35,12,10,21,31,15,33,34,05,13
+bench #11: winner=Some(White) nodes=26929 secs=0.11 moves=25,12,11,31,33,21,01,03,00,22
+bench total: solved=12/12 nodes=6623316 secs=13.9

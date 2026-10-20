@@ -1,0 +1,1529 @@
+host htc-cmp302.zib.de Mo 19. Okt 16:14:01 CEST 2026 B=./bin/sanko N=1500 EXTRA=--regions --region-interior 8 --keep-tempo
+[2x6 s11] NOTE #986: static said Black but full solver says Some(White)
+[2x6 s11] [staticcheck 2x6] 1000/1500 positions, 252 probes, 252 agreed, 0 unknown, 0 counterexamples, 3.4s
+[2x6 s11] [staticcheck 2x6] 1050/1500 positions, 265 probes, 265 agreed, 0 unknown, 0 counterexamples, 3.6s
+[2x6 s11] [staticcheck 2x6] 1100/1500 positions, 270 probes, 270 agreed, 0 unknown, 0 counterexamples, 3.7s
+[2x6 s11] [staticcheck 2x6] 1150/1500 positions, 276 probes, 276 agreed, 0 unknown, 0 counterexamples, 3.8s
+[2x6 s11] [staticcheck 2x6] 1200/1500 positions, 287 probes, 287 agreed, 0 unknown, 0 counterexamples, 4.0s
+[2x6 s11] [staticcheck 2x6] 1250/1500 positions, 294 probes, 294 agreed, 0 unknown, 0 counterexamples, 4.0s
+[2x6 s11] [staticcheck 2x6] 1300/1500 positions, 297 probes, 297 agreed, 0 unknown, 0 counterexamples, 4.1s
+[2x6 s11] [staticcheck 2x6] 1350/1500 positions, 306 probes, 306 agreed, 0 unknown, 0 counterexamples, 4.2s
+[2x6 s11] --
+[2x6 s11] [staticcheck 2x6] done: 346 probes, 346 agreed, 0 unknown, 0 counterexamples
+[2x5 s13] NOTE #465: static said White but full solver says Some(Black)
+[2x5 s13] [staticcheck 2x5] 500/1500 positions, 95 probes, 95 agreed, 0 unknown, 0 counterexamples, 1.2s
+[2x5 s13] [staticcheck 2x5] 550/1500 positions, 117 probes, 117 agreed, 0 unknown, 0 counterexamples, 1.5s
+[2x5 s13] [staticcheck 2x5] 600/1500 positions, 131 probes, 131 agreed, 0 unknown, 0 counterexamples, 1.7s
+[2x5 s13] [staticcheck 2x5] 650/1500 positions, 144 probes, 144 agreed, 0 unknown, 0 counterexamples, 1.9s
+[2x5 s13] [staticcheck 2x5] 700/1500 positions, 162 probes, 162 agreed, 0 unknown, 0 counterexamples, 2.2s
+[2x5 s13] [staticcheck 2x5] 750/1500 positions, 176 probes, 176 agreed, 0 unknown, 0 counterexamples, 2.3s
+[2x5 s13] [staticcheck 2x5] 800/1500 positions, 184 probes, 184 agreed, 0 unknown, 0 counterexamples, 2.4s
+[2x5 s13] [staticcheck 2x5] 850/1500 positions, 192 probes, 192 agreed, 0 unknown, 0 counterexamples, 2.6s
+[2x5 s13] --
+[2x5 s13] [staticcheck 2x5] done: 353 probes, 353 agreed, 0 unknown, 0 counterexamples
+[3x4 s11] NOTE #366: static said White but full solver says Some(Black)
+[3x4 s11] [staticcheck 3x4] 400/1500 positions, 110 probes, 110 agreed, 0 unknown, 0 counterexamples, 1.6s
+[3x4 s11] [staticcheck 3x4] 450/1500 positions, 114 probes, 114 agreed, 0 unknown, 0 counterexamples, 1.7s
+[3x4 s11] [staticcheck 3x4] 500/1500 positions, 127 probes, 127 agreed, 0 unknown, 0 counterexamples, 1.9s
+[3x4 s11] [staticcheck 3x4] 550/1500 positions, 147 probes, 147 agreed, 0 unknown, 0 counterexamples, 2.1s
+[3x4 s11] [staticcheck 3x4] 600/1500 positions, 160 probes, 160 agreed, 0 unknown, 0 counterexamples, 2.3s
+[3x4 s11] [staticcheck 3x4] 650/1500 positions, 171 probes, 171 agreed, 0 unknown, 0 counterexamples, 2.5s
+[3x4 s11] [staticcheck 3x4] 700/1500 positions, 184 probes, 184 agreed, 0 unknown, 0 counterexamples, 2.6s
+[3x4 s11] NOTE #717: static said Black but full solver says Some(White)
+[3x4 s11] [staticcheck 3x4] 750/1500 positions, 193 probes, 193 agreed, 0 unknown, 0 counterexamples, 2.8s
+[3x4 s11] [staticcheck 3x4] 800/1500 positions, 203 probes, 203 agreed, 0 unknown, 0 counterexamples, 2.9s
+[3x4 s11] [staticcheck 3x4] 850/1500 positions, 216 probes, 216 agreed, 0 unknown, 0 counterexamples, 3.1s
+[3x4 s11] [staticcheck 3x4] 900/1500 positions, 223 probes, 223 agreed, 0 unknown, 0 counterexamples, 3.2s
+[3x4 s11] [staticcheck 3x4] 950/1500 positions, 235 probes, 235 agreed, 0 unknown, 0 counterexamples, 3.3s
+[3x4 s11] NOTE #980: static said White but full solver says Some(Black)
+[3x4 s11] [staticcheck 3x4] 1000/1500 positions, 238 probes, 238 agreed, 0 unknown, 0 counterexamples, 3.4s
+[3x4 s11] [staticcheck 3x4] 1050/1500 positions, 248 probes, 248 agreed, 0 unknown, 0 counterexamples, 3.5s
+[3x4 s11] [staticcheck 3x4] 1100/1500 positions, 266 probes, 266 agreed, 0 unknown, 0 counterexamples, 3.7s
+[3x4 s11] [staticcheck 3x4] 1150/1500 positions, 282 probes, 282 agreed, 0 unknown, 0 counterexamples, 3.9s
+[3x4 s11] [staticcheck 3x4] 1200/1500 positions, 299 probes, 299 agreed, 0 unknown, 0 counterexamples, 4.2s
+[3x4 s11] [staticcheck 3x4] 1250/1500 positions, 307 probes, 307 agreed, 0 unknown, 0 counterexamples, 4.3s
+[3x4 s11] [staticcheck 3x4] 1300/1500 positions, 320 probes, 320 agreed, 0 unknown, 0 counterexamples, 4.5s
+[3x4 s11] [staticcheck 3x4] 1350/1500 positions, 326 probes, 326 agreed, 0 unknown, 0 counterexamples, 4.6s
+[3x4 s11] --
+[3x4 s11] [staticcheck 3x4] done: 367 probes, 367 agreed, 0 unknown, 0 counterexamples
+[2x5 s16] NOTE #278: static said Black but full solver says Some(White)
+[2x5 s16] [staticcheck 2x5] 300/1500 positions, 87 probes, 87 agreed, 0 unknown, 0 counterexamples, 1.3s
+[2x5 s16] [staticcheck 2x5] 350/1500 positions, 100 probes, 100 agreed, 0 unknown, 0 counterexamples, 1.5s
+[2x5 s16] [staticcheck 2x5] 400/1500 positions, 109 probes, 109 agreed, 0 unknown, 0 counterexamples, 1.6s
+[2x5 s16] NOTE #401: static said White but full solver says Some(Black)
+[2x5 s16] [staticcheck 2x5] 450/1500 positions, 121 probes, 121 agreed, 0 unknown, 0 counterexamples, 1.8s
+[2x5 s16] [staticcheck 2x5] 500/1500 positions, 129 probes, 129 agreed, 0 unknown, 0 counterexamples, 1.9s
+[2x5 s16] [staticcheck 2x5] 550/1500 positions, 141 probes, 141 agreed, 0 unknown, 0 counterexamples, 2.1s
+[2x5 s16] [staticcheck 2x5] 600/1500 positions, 148 probes, 148 agreed, 0 unknown, 0 counterexamples, 2.2s
+[2x5 s16] [staticcheck 2x5] 650/1500 positions, 157 probes, 157 agreed, 0 unknown, 0 counterexamples, 2.3s
+[2x5 s16] [staticcheck 2x5] 700/1500 positions, 172 probes, 172 agreed, 0 unknown, 0 counterexamples, 2.5s
+[2x5 s16] [staticcheck 2x5] 750/1500 positions, 184 probes, 184 agreed, 0 unknown, 0 counterexamples, 2.7s
+[2x5 s16] [staticcheck 2x5] 800/1500 positions, 200 probes, 200 agreed, 0 unknown, 0 counterexamples, 2.9s
+[2x5 s16] NOTE #845: static said Black but full solver says Some(White)
+[2x5 s16] [staticcheck 2x5] 850/1500 positions, 214 probes, 214 agreed, 0 unknown, 0 counterexamples, 3.1s
+[2x5 s16] [staticcheck 2x5] 900/1500 positions, 219 probes, 219 agreed, 0 unknown, 0 counterexamples, 3.2s
+[2x5 s16] [staticcheck 2x5] 950/1500 positions, 230 probes, 230 agreed, 0 unknown, 0 counterexamples, 3.3s
+[2x5 s16] [staticcheck 2x5] 1000/1500 positions, 247 probes, 247 agreed, 0 unknown, 0 counterexamples, 3.5s
+[2x5 s16] [staticcheck 2x5] 1050/1500 positions, 259 probes, 259 agreed, 0 unknown, 0 counterexamples, 3.6s
+[2x5 s16] [staticcheck 2x5] 1100/1500 positions, 264 probes, 264 agreed, 0 unknown, 0 counterexamples, 3.7s
+[2x5 s16] [staticcheck 2x5] 1150/1500 positions, 283 probes, 283 agreed, 0 unknown, 0 counterexamples, 4.0s
+[2x5 s16] [staticcheck 2x5] 1200/1500 positions, 293 probes, 293 agreed, 0 unknown, 0 counterexamples, 4.1s
+[2x5 s16] --
+[2x5 s16] [staticcheck 2x5] done: 367 probes, 367 agreed, 0 unknown, 0 counterexamples
+[4x4 s16] NOTE #338: static said Black but full solver says Some(White)
+[4x4 s16] [staticcheck 4x4] 350/1500 positions, 108 probes, 108 agreed, 0 unknown, 0 counterexamples, 1.5s
+[4x4 s16] [staticcheck 4x4] 400/1500 positions, 120 probes, 120 agreed, 0 unknown, 0 counterexamples, 1.6s
+[4x4 s16] [staticcheck 4x4] 450/1500 positions, 133 probes, 133 agreed, 0 unknown, 0 counterexamples, 1.8s
+[4x4 s16] [staticcheck 4x4] 500/1500 positions, 158 probes, 158 agreed, 0 unknown, 0 counterexamples, 2.1s
+[4x4 s16] [staticcheck 4x4] 550/1500 positions, 172 probes, 172 agreed, 0 unknown, 0 counterexamples, 2.3s
+[4x4 s16] [staticcheck 4x4] 600/1500 positions, 180 probes, 180 agreed, 0 unknown, 0 counterexamples, 2.4s
+[4x4 s16] [staticcheck 4x4] 650/1500 positions, 186 probes, 186 agreed, 0 unknown, 0 counterexamples, 2.4s
+[4x4 s16] [staticcheck 4x4] 700/1500 positions, 200 probes, 200 agreed, 0 unknown, 0 counterexamples, 2.6s
+[4x4 s16] NOTE #711: static said White but full solver says Some(Black)
+[4x4 s16] [staticcheck 4x4] 750/1500 positions, 211 probes, 211 agreed, 0 unknown, 0 counterexamples, 2.7s
+[4x4 s16] [staticcheck 4x4] 800/1500 positions, 221 probes, 221 agreed, 0 unknown, 0 counterexamples, 2.9s
+[4x4 s16] [staticcheck 4x4] 850/1500 positions, 229 probes, 229 agreed, 0 unknown, 0 counterexamples, 3.0s
+[4x4 s16] [staticcheck 4x4] 900/1500 positions, 247 probes, 247 agreed, 0 unknown, 0 counterexamples, 3.2s
+[4x4 s16] [staticcheck 4x4] 950/1500 positions, 262 probes, 262 agreed, 0 unknown, 0 counterexamples, 3.3s
+[4x4 s16] [staticcheck 4x4] 1000/1500 positions, 271 probes, 271 agreed, 0 unknown, 0 counterexamples, 3.5s
+[4x4 s16] [staticcheck 4x4] 1050/1500 positions, 283 probes, 283 agreed, 0 unknown, 0 counterexamples, 3.6s
+[4x4 s16] [staticcheck 4x4] 1100/1500 positions, 305 probes, 305 agreed, 0 unknown, 0 counterexamples, 3.9s
+[4x4 s16] --
+[4x4 s16] [staticcheck 4x4] done: 427 probes, 427 agreed, 0 unknown, 0 counterexamples
+[2x4 s11] NOTE #715: static said Black but full solver says Some(White)
+[2x4 s11] [staticcheck 2x4] 750/1500 positions, 174 probes, 174 agreed, 0 unknown, 0 counterexamples, 2.4s
+[2x4 s11] [staticcheck 2x4] 800/1500 positions, 198 probes, 198 agreed, 0 unknown, 0 counterexamples, 2.7s
+[2x4 s11] [staticcheck 2x4] 850/1500 positions, 224 probes, 224 agreed, 0 unknown, 0 counterexamples, 3.0s
+[2x4 s11] [staticcheck 2x4] 900/1500 positions, 234 probes, 234 agreed, 0 unknown, 0 counterexamples, 3.1s
+[2x4 s11] [staticcheck 2x4] 950/1500 positions, 246 probes, 246 agreed, 0 unknown, 0 counterexamples, 3.2s
+[2x4 s11] [staticcheck 2x4] 1000/1500 positions, 270 probes, 270 agreed, 0 unknown, 0 counterexamples, 3.6s
+[2x4 s11] [staticcheck 2x4] 1050/1500 positions, 281 probes, 281 agreed, 0 unknown, 0 counterexamples, 3.8s
+[2x4 s11] [staticcheck 2x4] 1100/1500 positions, 294 probes, 294 agreed, 0 unknown, 0 counterexamples, 4.0s
+[2x4 s11] --
+[2x4 s11] NOTE #1434: static said Black but full solver says Some(White)
+[2x4 s11] [staticcheck 2x4] 1450/1500 positions, 390 probes, 390 agreed, 0 unknown, 0 counterexamples, 5.4s
+[2x4 s11] [staticcheck 2x4] 1500/1500 positions, 408 probes, 408 agreed, 0 unknown, 0 counterexamples, 5.7s
+[2x4 s11] [staticcheck 2x4] done: 408 probes, 408 agreed, 0 unknown, 0 counterexamples
+[4x4 s18] NOTE #825: static said Black but full solver says Some(White)
+[4x4 s18] [staticcheck 4x4] 850/1500 positions, 238 probes, 238 agreed, 0 unknown, 0 counterexamples, 3.3s
+[4x4 s18] [staticcheck 4x4] 900/1500 positions, 258 probes, 258 agreed, 0 unknown, 0 counterexamples, 3.6s
+[4x4 s18] [staticcheck 4x4] 950/1500 positions, 270 probes, 270 agreed, 0 unknown, 0 counterexamples, 3.8s
+[4x4 s18] [staticcheck 4x4] 1000/1500 positions, 286 probes, 286 agreed, 0 unknown, 0 counterexamples, 4.0s
+[4x4 s18] [staticcheck 4x4] 1050/1500 positions, 295 probes, 295 agreed, 0 unknown, 0 counterexamples, 4.1s
+[4x4 s18] [staticcheck 4x4] 1100/1500 positions, 307 probes, 307 agreed, 0 unknown, 0 counterexamples, 4.2s
+[4x4 s18] [staticcheck 4x4] 1150/1500 positions, 317 probes, 317 agreed, 0 unknown, 0 counterexamples, 4.4s
+[4x4 s18] [staticcheck 4x4] 1200/1500 positions, 326 probes, 326 agreed, 0 unknown, 0 counterexamples, 4.5s
+[4x4 s18] --
+[4x4 s18] [staticcheck 4x4] done: 416 probes, 416 agreed, 0 unknown, 0 counterexamples
+[4x4 s13] NOTE #278: static said Black but full solver says Some(White)
+[4x4 s13] [staticcheck 4x4] 300/1500 positions, 85 probes, 85 agreed, 0 unknown, 0 counterexamples, 1.1s
+[4x4 s13] [staticcheck 4x4] 350/1500 positions, 102 probes, 102 agreed, 0 unknown, 0 counterexamples, 1.4s
+[4x4 s13] [staticcheck 4x4] 400/1500 positions, 113 probes, 113 agreed, 0 unknown, 0 counterexamples, 1.5s
+[4x4 s13] [staticcheck 4x4] 450/1500 positions, 126 probes, 126 agreed, 0 unknown, 0 counterexamples, 1.7s
+[4x4 s13] [staticcheck 4x4] 500/1500 positions, 137 probes, 137 agreed, 0 unknown, 0 counterexamples, 1.9s
+[4x4 s13] [staticcheck 4x4] 550/1500 positions, 152 probes, 152 agreed, 0 unknown, 0 counterexamples, 2.1s
+[4x4 s13] [staticcheck 4x4] 600/1500 positions, 166 probes, 166 agreed, 0 unknown, 0 counterexamples, 2.2s
+[4x4 s13] [staticcheck 4x4] 650/1500 positions, 177 probes, 177 agreed, 0 unknown, 0 counterexamples, 2.3s
+[4x4 s13] --
+[4x4 s13] [staticcheck 4x4] done: 426 probes, 426 agreed, 0 unknown, 0 counterexamples
+[2x5 s14] NOTE #399: static said Black but full solver says Some(White)
+[2x5 s14] [staticcheck 2x5] 400/1500 positions, 107 probes, 107 agreed, 0 unknown, 0 counterexamples, 2.1s
+[2x5 s14] [staticcheck 2x5] 450/1500 positions, 121 probes, 121 agreed, 0 unknown, 0 counterexamples, 2.3s
+[2x5 s14] [staticcheck 2x5] 500/1500 positions, 136 probes, 136 agreed, 0 unknown, 0 counterexamples, 2.6s
+[2x5 s14] [staticcheck 2x5] 550/1500 positions, 147 probes, 147 agreed, 0 unknown, 0 counterexamples, 2.8s
+[2x5 s14] [staticcheck 2x5] 600/1500 positions, 159 probes, 159 agreed, 0 unknown, 0 counterexamples, 2.9s
+[2x5 s14] [staticcheck 2x5] 650/1500 positions, 170 probes, 170 agreed, 0 unknown, 0 counterexamples, 3.0s
+[2x5 s14] NOTE #658: static said White but full solver says Some(Black)
+[2x5 s14] [staticcheck 2x5] 700/1500 positions, 183 probes, 183 agreed, 0 unknown, 0 counterexamples, 3.2s
+[2x5 s14] [staticcheck 2x5] 750/1500 positions, 200 probes, 200 agreed, 0 unknown, 0 counterexamples, 3.5s
+[2x5 s14] [staticcheck 2x5] 800/1500 positions, 207 probes, 207 agreed, 0 unknown, 0 counterexamples, 3.6s
+[2x5 s14] [staticcheck 2x5] 850/1500 positions, 218 probes, 218 agreed, 0 unknown, 0 counterexamples, 3.7s
+[2x5 s14] NOTE #852: static said White but full solver says Some(Black)
+[2x5 s14] [staticcheck 2x5] 900/1500 positions, 239 probes, 239 agreed, 0 unknown, 0 counterexamples, 4.0s
+[2x5 s14] [staticcheck 2x5] 950/1500 positions, 254 probes, 254 agreed, 0 unknown, 0 counterexamples, 4.2s
+[2x5 s14] [staticcheck 2x5] 1000/1500 positions, 266 probes, 266 agreed, 0 unknown, 0 counterexamples, 4.4s
+[2x5 s14] [staticcheck 2x5] 1050/1500 positions, 277 probes, 277 agreed, 0 unknown, 0 counterexamples, 4.5s
+[2x5 s14] [staticcheck 2x5] 1100/1500 positions, 285 probes, 285 agreed, 0 unknown, 0 counterexamples, 4.6s
+[2x5 s14] [staticcheck 2x5] 1150/1500 positions, 295 probes, 295 agreed, 0 unknown, 0 counterexamples, 4.8s
+[2x5 s14] [staticcheck 2x5] 1200/1500 positions, 306 probes, 306 agreed, 0 unknown, 0 counterexamples, 4.9s
+[2x5 s14] [staticcheck 2x5] 1250/1500 positions, 316 probes, 316 agreed, 0 unknown, 0 counterexamples, 5.0s
+[2x5 s14] --
+[2x5 s14] [staticcheck 2x5] done: 379 probes, 379 agreed, 0 unknown, 0 counterexamples
+[4x4 s15] NOTE #513: static said White but full solver says Some(Black)
+[4x4 s15] [staticcheck 4x4] 550/1500 positions, 158 probes, 158 agreed, 0 unknown, 0 counterexamples, 2.2s
+[4x4 s15] [staticcheck 4x4] 600/1500 positions, 171 probes, 171 agreed, 0 unknown, 0 counterexamples, 2.4s
+[4x4 s15] [staticcheck 4x4] 650/1500 positions, 181 probes, 181 agreed, 0 unknown, 0 counterexamples, 2.6s
+[4x4 s15] [staticcheck 4x4] 700/1500 positions, 196 probes, 196 agreed, 0 unknown, 0 counterexamples, 2.7s
+[4x4 s15] [staticcheck 4x4] 750/1500 positions, 208 probes, 208 agreed, 0 unknown, 0 counterexamples, 2.9s
+[4x4 s15] [staticcheck 4x4] 800/1500 positions, 223 probes, 223 agreed, 0 unknown, 0 counterexamples, 3.1s
+[4x4 s15] [staticcheck 4x4] 850/1500 positions, 234 probes, 234 agreed, 0 unknown, 0 counterexamples, 3.2s
+[4x4 s15] NOTE #871: static said White but full solver says Some(Black)
+[4x4 s15] [staticcheck 4x4] 900/1500 positions, 251 probes, 251 agreed, 0 unknown, 0 counterexamples, 3.4s
+[4x4 s15] [staticcheck 4x4] 950/1500 positions, 262 probes, 262 agreed, 0 unknown, 0 counterexamples, 3.6s
+[4x4 s15] [staticcheck 4x4] 1000/1500 positions, 282 probes, 282 agreed, 0 unknown, 0 counterexamples, 3.8s
+[4x4 s15] [staticcheck 4x4] 1050/1500 positions, 305 probes, 305 agreed, 0 unknown, 0 counterexamples, 4.1s
+[4x4 s15] [staticcheck 4x4] 1100/1500 positions, 313 probes, 313 agreed, 0 unknown, 0 counterexamples, 4.2s
+[4x4 s15] [staticcheck 4x4] 1150/1500 positions, 330 probes, 330 agreed, 0 unknown, 0 counterexamples, 4.5s
+[4x4 s15] [staticcheck 4x4] 1200/1500 positions, 340 probes, 340 agreed, 0 unknown, 0 counterexamples, 4.6s
+[4x4 s15] [staticcheck 4x4] 1250/1500 positions, 355 probes, 355 agreed, 0 unknown, 0 counterexamples, 4.8s
+[4x4 s15] --
+[4x4 s15] [staticcheck 4x4] done: 430 probes, 430 agreed, 0 unknown, 0 counterexamples
+[2x6 s15] NOTE #349: static said Black but full solver says Some(White)
+[2x6 s15] [staticcheck 2x6] 350/1500 positions, 83 probes, 83 agreed, 0 unknown, 0 counterexamples, 1.6s
+[2x6 s15] NOTE #388: static said Black but full solver says Some(White)
+[2x6 s15] [staticcheck 2x6] 400/1500 positions, 98 probes, 98 agreed, 0 unknown, 0 counterexamples, 1.8s
+[2x6 s15] [staticcheck 2x6] 450/1500 positions, 110 probes, 110 agreed, 0 unknown, 0 counterexamples, 2.0s
+[2x6 s15] [staticcheck 2x6] 500/1500 positions, 121 probes, 121 agreed, 0 unknown, 0 counterexamples, 2.1s
+[2x6 s15] [staticcheck 2x6] 550/1500 positions, 134 probes, 134 agreed, 0 unknown, 0 counterexamples, 2.3s
+[2x6 s15] [staticcheck 2x6] 600/1500 positions, 141 probes, 141 agreed, 0 unknown, 0 counterexamples, 2.5s
+[2x6 s15] [staticcheck 2x6] 650/1500 positions, 155 probes, 155 agreed, 0 unknown, 0 counterexamples, 2.7s
+[2x6 s15] NOTE #688: static said White but full solver says Some(Black)
+[2x6 s15] [staticcheck 2x6] 700/1500 positions, 169 probes, 169 agreed, 0 unknown, 0 counterexamples, 2.9s
+[2x6 s15] [staticcheck 2x6] 750/1500 positions, 179 probes, 179 agreed, 0 unknown, 0 counterexamples, 3.1s
+[2x6 s15] [staticcheck 2x6] 800/1500 positions, 193 probes, 193 agreed, 0 unknown, 0 counterexamples, 3.3s
+[2x6 s15] [staticcheck 2x6] 850/1500 positions, 207 probes, 207 agreed, 0 unknown, 0 counterexamples, 3.5s
+[2x6 s15] [staticcheck 2x6] 900/1500 positions, 219 probes, 219 agreed, 0 unknown, 0 counterexamples, 3.7s
+[2x6 s15] [staticcheck 2x6] 950/1500 positions, 234 probes, 234 agreed, 0 unknown, 0 counterexamples, 3.9s
+[2x6 s15] [staticcheck 2x6] 1000/1500 positions, 244 probes, 244 agreed, 0 unknown, 0 counterexamples, 4.0s
+[2x6 s15] [staticcheck 2x6] 1050/1500 positions, 253 probes, 253 agreed, 0 unknown, 0 counterexamples, 4.1s
+[2x6 s15] --
+[2x6 s15] NOTE #1495: static said Black but full solver says Some(White)
+[2x6 s15] [staticcheck 2x6] 1500/1500 positions, 372 probes, 372 agreed, 0 unknown, 0 counterexamples, 5.9s
+[2x6 s15] [staticcheck 2x6] done: 372 probes, 372 agreed, 0 unknown, 0 counterexamples
+[2x5 s18] [staticcheck 2x5] done: 379 probes, 379 agreed, 0 unknown, 0 counterexamples
+[2x6 s17] NOTE #61: static said Black but full solver says Some(White)
+[2x6 s17] [staticcheck 2x6] 100/1500 positions, 23 probes, 23 agreed, 0 unknown, 0 counterexamples, 0.4s
+[2x6 s17] [staticcheck 2x6] 150/1500 positions, 36 probes, 36 agreed, 0 unknown, 0 counterexamples, 0.6s
+[2x6 s17] [staticcheck 2x6] 200/1500 positions, 47 probes, 47 agreed, 0 unknown, 0 counterexamples, 0.8s
+[2x6 s17] [staticcheck 2x6] 250/1500 positions, 57 probes, 57 agreed, 0 unknown, 0 counterexamples, 1.0s
+[2x6 s17] [staticcheck 2x6] 300/1500 positions, 66 probes, 66 agreed, 0 unknown, 0 counterexamples, 1.2s
+[2x6 s17] [staticcheck 2x6] 350/1500 positions, 73 probes, 73 agreed, 0 unknown, 0 counterexamples, 1.3s
+[2x6 s17] [staticcheck 2x6] 400/1500 positions, 86 probes, 86 agreed, 0 unknown, 0 counterexamples, 1.5s
+[2x6 s17] [staticcheck 2x6] 450/1500 positions, 92 probes, 92 agreed, 0 unknown, 0 counterexamples, 1.6s
+[2x6 s17] --
+[2x6 s17] [staticcheck 2x6] done: 337 probes, 337 agreed, 0 unknown, 0 counterexamples
+[4x4 s17] NOTE #100: static said White but full solver says Some(Black)
+[4x4 s17] [staticcheck 4x4] 150/1500 positions, 45 probes, 45 agreed, 0 unknown, 0 counterexamples, 0.8s
+[4x4 s17] [staticcheck 4x4] 200/1500 positions, 50 probes, 50 agreed, 0 unknown, 0 counterexamples, 0.8s
+[4x4 s17] [staticcheck 4x4] 250/1500 positions, 65 probes, 65 agreed, 0 unknown, 0 counterexamples, 1.1s
+[4x4 s17] [staticcheck 4x4] 300/1500 positions, 84 probes, 84 agreed, 0 unknown, 0 counterexamples, 1.3s
+[4x4 s17] [staticcheck 4x4] 350/1500 positions, 90 probes, 90 agreed, 0 unknown, 0 counterexamples, 1.4s
+[4x4 s17] [staticcheck 4x4] 400/1500 positions, 109 probes, 109 agreed, 0 unknown, 0 counterexamples, 1.7s
+[4x4 s17] [staticcheck 4x4] 450/1500 positions, 122 probes, 122 agreed, 0 unknown, 0 counterexamples, 1.9s
+[4x4 s17] [staticcheck 4x4] 500/1500 positions, 132 probes, 132 agreed, 0 unknown, 0 counterexamples, 2.0s
+[4x4 s17] --
+[4x4 s17] NOTE #574: static said White but full solver says Some(Black)
+[4x4 s17] NOTE #599: static said Black but full solver says Some(White)
+[4x4 s17] [staticcheck 4x4] 600/1500 positions, 159 probes, 159 agreed, 0 unknown, 0 counterexamples, 2.4s
+[4x4 s17] [staticcheck 4x4] 650/1500 positions, 188 probes, 188 agreed, 0 unknown, 0 counterexamples, 2.8s
+[4x4 s17] [staticcheck 4x4] 700/1500 positions, 202 probes, 202 agreed, 0 unknown, 0 counterexamples, 3.0s
+[4x4 s17] [staticcheck 4x4] 750/1500 positions, 221 probes, 221 agreed, 0 unknown, 0 counterexamples, 3.3s
+[4x4 s17] [staticcheck 4x4] 800/1500 positions, 231 probes, 231 agreed, 0 unknown, 0 counterexamples, 3.5s
+[4x4 s17] [staticcheck 4x4] 850/1500 positions, 249 probes, 249 agreed, 0 unknown, 0 counterexamples, 3.8s
+[4x4 s17] [staticcheck 4x4] 900/1500 positions, 268 probes, 268 agreed, 0 unknown, 0 counterexamples, 4.0s
+[4x4 s17] [staticcheck 4x4] 950/1500 positions, 284 probes, 284 agreed, 0 unknown, 0 counterexamples, 4.2s
+[4x4 s17] --
+[4x4 s17] NOTE #1054: static said Black but full solver says Some(White)
+[4x4 s17] [staticcheck 4x4] 1100/1500 positions, 336 probes, 336 agreed, 0 unknown, 0 counterexamples, 5.0s
+[4x4 s17] [staticcheck 4x4] 1150/1500 positions, 342 probes, 342 agreed, 0 unknown, 0 counterexamples, 5.1s
+[4x4 s17] [staticcheck 4x4] 1200/1500 positions, 354 probes, 354 agreed, 0 unknown, 0 counterexamples, 5.3s
+[4x4 s17] [staticcheck 4x4] 1250/1500 positions, 379 probes, 379 agreed, 0 unknown, 0 counterexamples, 5.6s
+[4x4 s17] [staticcheck 4x4] 1300/1500 positions, 390 probes, 390 agreed, 0 unknown, 0 counterexamples, 5.7s
+[4x4 s17] [staticcheck 4x4] 1350/1500 positions, 401 probes, 401 agreed, 0 unknown, 0 counterexamples, 5.8s
+[4x4 s17] [staticcheck 4x4] 1400/1500 positions, 412 probes, 412 agreed, 0 unknown, 0 counterexamples, 5.9s
+[4x4 s17] [staticcheck 4x4] 1450/1500 positions, 431 probes, 431 agreed, 0 unknown, 0 counterexamples, 6.1s
+[4x4 s17] --
+[4x4 s17] [staticcheck 4x4] done: 436 probes, 436 agreed, 0 unknown, 0 counterexamples
+[2x5 s12] NOTE #70: static said Black but full solver says Some(White)
+[2x5 s12] [staticcheck 2x5] 100/1500 positions, 23 probes, 23 agreed, 0 unknown, 0 counterexamples, 0.3s
+[2x5 s12] [staticcheck 2x5] 150/1500 positions, 34 probes, 34 agreed, 0 unknown, 0 counterexamples, 0.5s
+[2x5 s12] [staticcheck 2x5] 200/1500 positions, 40 probes, 40 agreed, 0 unknown, 0 counterexamples, 0.7s
+[2x5 s12] [staticcheck 2x5] 250/1500 positions, 56 probes, 56 agreed, 0 unknown, 0 counterexamples, 0.9s
+[2x5 s12] [staticcheck 2x5] 300/1500 positions, 64 probes, 64 agreed, 0 unknown, 0 counterexamples, 1.1s
+[2x5 s12] [staticcheck 2x5] 350/1500 positions, 80 probes, 80 agreed, 0 unknown, 0 counterexamples, 1.4s
+[2x5 s12] [staticcheck 2x5] 400/1500 positions, 95 probes, 95 agreed, 0 unknown, 0 counterexamples, 1.7s
+[2x5 s12] [staticcheck 2x5] 450/1500 positions, 100 probes, 100 agreed, 0 unknown, 0 counterexamples, 1.7s
+[2x5 s12] --
+[2x5 s12] [staticcheck 2x5] done: 370 probes, 370 agreed, 0 unknown, 0 counterexamples
+[3x5 s15] NOTE #1038: static said Black but full solver says Some(White)
+[3x5 s15] [staticcheck 3x5] 1050/1500 positions, 261 probes, 261 agreed, 0 unknown, 0 counterexamples, 4.6s
+[3x5 s15] NOTE #1058: static said Black but full solver says Some(White)
+[3x5 s15] [staticcheck 3x5] 1100/1500 positions, 275 probes, 275 agreed, 0 unknown, 0 counterexamples, 4.8s
+[3x5 s15] [staticcheck 3x5] 1150/1500 positions, 284 probes, 284 agreed, 0 unknown, 0 counterexamples, 5.0s
+[3x5 s15] [staticcheck 3x5] 1200/1500 positions, 299 probes, 299 agreed, 0 unknown, 0 counterexamples, 5.2s
+[3x5 s15] [staticcheck 3x5] 1250/1500 positions, 308 probes, 308 agreed, 0 unknown, 0 counterexamples, 5.4s
+[3x5 s15] [staticcheck 3x5] 1300/1500 positions, 317 probes, 317 agreed, 0 unknown, 0 counterexamples, 5.5s
+[3x5 s15] [staticcheck 3x5] 1350/1500 positions, 337 probes, 337 agreed, 0 unknown, 0 counterexamples, 5.8s
+[3x5 s15] [staticcheck 3x5] 1400/1500 positions, 349 probes, 349 agreed, 0 unknown, 0 counterexamples, 6.0s
+[3x5 s15] [staticcheck 3x5] 1450/1500 positions, 357 probes, 357 agreed, 0 unknown, 0 counterexamples, 6.1s
+[3x5 s15] NOTE #1458: static said Black but full solver says Some(White)
+[3x5 s15] [staticcheck 3x5] 1500/1500 positions, 379 probes, 379 agreed, 0 unknown, 0 counterexamples, 6.3s
+[3x5 s15] [staticcheck 3x5] done: 379 probes, 379 agreed, 0 unknown, 0 counterexamples
+[2x6 s18] [staticcheck 2x6] done: 308 probes, 308 agreed, 0 unknown, 0 counterexamples
+[2x6 s16] [staticcheck 2x6] done: 356 probes, 356 agreed, 0 unknown, 0 counterexamples
+[3x3 s16] NOTE #146: static said White but full solver says Some(Black)
+[3x3 s16] [staticcheck 3x3] 150/1500 positions, 56 probes, 56 agreed, 0 unknown, 0 counterexamples, 0.9s
+[3x3 s16] [staticcheck 3x3] 200/1500 positions, 74 probes, 74 agreed, 0 unknown, 0 counterexamples, 1.1s
+[3x3 s16] [staticcheck 3x3] 250/1500 positions, 93 probes, 93 agreed, 0 unknown, 0 counterexamples, 1.4s
+[3x3 s16] [staticcheck 3x3] 300/1500 positions, 101 probes, 101 agreed, 0 unknown, 0 counterexamples, 1.5s
+[3x3 s16] NOTE #317: static said Black but full solver says Some(White)
+[3x3 s16] [staticcheck 3x3] 350/1500 positions, 121 probes, 121 agreed, 0 unknown, 0 counterexamples, 1.8s
+[3x3 s16] [staticcheck 3x3] 400/1500 positions, 132 probes, 132 agreed, 0 unknown, 0 counterexamples, 1.9s
+[3x3 s16] [staticcheck 3x3] 450/1500 positions, 157 probes, 157 agreed, 0 unknown, 0 counterexamples, 2.2s
+[3x3 s16] [staticcheck 3x3] 500/1500 positions, 171 probes, 171 agreed, 0 unknown, 0 counterexamples, 2.4s
+[3x3 s16] [staticcheck 3x3] 550/1500 positions, 183 probes, 183 agreed, 0 unknown, 0 counterexamples, 2.6s
+[3x3 s16] [staticcheck 3x3] 600/1500 positions, 193 probes, 193 agreed, 0 unknown, 0 counterexamples, 2.7s
+[3x3 s16] [staticcheck 3x3] 650/1500 positions, 217 probes, 217 agreed, 0 unknown, 0 counterexamples, 3.0s
+[3x3 s16] NOTE #687: static said White but full solver says Some(Black)
+[3x3 s16] [staticcheck 3x3] 700/1500 positions, 231 probes, 231 agreed, 0 unknown, 0 counterexamples, 3.1s
+[3x3 s16] [staticcheck 3x3] 750/1500 positions, 246 probes, 246 agreed, 0 unknown, 0 counterexamples, 3.3s
+[3x3 s16] [staticcheck 3x3] 800/1500 positions, 265 probes, 265 agreed, 0 unknown, 0 counterexamples, 3.6s
+[3x3 s16] [staticcheck 3x3] 850/1500 positions, 280 probes, 280 agreed, 0 unknown, 0 counterexamples, 3.8s
+[3x3 s16] [staticcheck 3x3] 900/1500 positions, 298 probes, 298 agreed, 0 unknown, 0 counterexamples, 4.0s
+[3x3 s16] [staticcheck 3x3] 950/1500 positions, 317 probes, 317 agreed, 0 unknown, 0 counterexamples, 4.3s
+[3x3 s16] NOTE #980: static said White but full solver says Some(Black)
+[3x3 s16] [staticcheck 3x3] 1000/1500 positions, 337 probes, 337 agreed, 0 unknown, 0 counterexamples, 4.6s
+[3x3 s16] [staticcheck 3x3] 1050/1500 positions, 348 probes, 348 agreed, 0 unknown, 0 counterexamples, 4.7s
+[3x3 s16] [staticcheck 3x3] 1100/1500 positions, 366 probes, 366 agreed, 0 unknown, 0 counterexamples, 5.0s
+[3x3 s16] [staticcheck 3x3] 1150/1500 positions, 382 probes, 382 agreed, 0 unknown, 0 counterexamples, 5.2s
+[3x3 s16] [staticcheck 3x3] 1200/1500 positions, 395 probes, 395 agreed, 0 unknown, 0 counterexamples, 5.4s
+[3x3 s16] [staticcheck 3x3] 1250/1500 positions, 417 probes, 417 agreed, 0 unknown, 0 counterexamples, 5.7s
+[3x3 s16] [staticcheck 3x3] 1300/1500 positions, 429 probes, 429 agreed, 0 unknown, 0 counterexamples, 5.8s
+[3x3 s16] NOTE #1313: static said White but full solver says Some(Black)
+[3x3 s16] [staticcheck 3x3] 1350/1500 positions, 451 probes, 451 agreed, 0 unknown, 0 counterexamples, 6.1s
+[3x3 s16] NOTE #1371: static said White but full solver says Some(Black)
+[3x3 s16] [staticcheck 3x3] 1400/1500 positions, 473 probes, 473 agreed, 0 unknown, 0 counterexamples, 6.3s
+[3x3 s16] [staticcheck 3x3] 1450/1500 positions, 494 probes, 494 agreed, 0 unknown, 0 counterexamples, 6.4s
+[3x3 s16] NOTE #1493: static said White but full solver says Some(Black)
+[3x3 s16] [staticcheck 3x3] 1500/1500 positions, 511 probes, 511 agreed, 0 unknown, 0 counterexamples, 6.6s
+[3x3 s16] [staticcheck 3x3] done: 511 probes, 511 agreed, 0 unknown, 0 counterexamples
+[4x5 s15] NOTE #201: static said Black but full solver says Some(White)
+[4x5 s15] [staticcheck 4x5] 250/1500 positions, 89 probes, 89 agreed, 0 unknown, 0 counterexamples, 1.4s
+[4x5 s15] [staticcheck 4x5] 300/1500 positions, 98 probes, 98 agreed, 0 unknown, 0 counterexamples, 1.5s
+[4x5 s15] [staticcheck 4x5] 350/1500 positions, 117 probes, 117 agreed, 0 unknown, 0 counterexamples, 1.8s
+[4x5 s15] NOTE #380: static said Black but full solver says Some(White)
+[4x5 s15] [staticcheck 4x5] 400/1500 positions, 135 probes, 135 agreed, 0 unknown, 0 counterexamples, 2.0s
+[4x5 s15] [staticcheck 4x5] 450/1500 positions, 140 probes, 140 agreed, 0 unknown, 0 counterexamples, 2.1s
+[4x5 s15] [staticcheck 4x5] 500/1500 positions, 159 probes, 159 agreed, 0 unknown, 0 counterexamples, 2.4s
+[4x5 s15] [staticcheck 4x5] 550/1500 positions, 173 probes, 173 agreed, 0 unknown, 0 counterexamples, 2.7s
+[4x5 s15] [staticcheck 4x5] 600/1500 positions, 191 probes, 191 agreed, 0 unknown, 0 counterexamples, 2.9s
+[4x5 s15] [staticcheck 4x5] 650/1500 positions, 209 probes, 209 agreed, 0 unknown, 0 counterexamples, 3.2s
+[4x5 s15] [staticcheck 4x5] 700/1500 positions, 217 probes, 217 agreed, 0 unknown, 0 counterexamples, 3.3s
+[4x5 s15] [staticcheck 4x5] 750/1500 positions, 242 probes, 242 agreed, 0 unknown, 0 counterexamples, 3.6s
+[4x5 s15] --
+[4x5 s15] NOTE #1081: static said White but full solver says Some(Black)
+[4x5 s15] [staticcheck 4x5] 1100/1500 positions, 339 probes, 339 agreed, 0 unknown, 0 counterexamples, 5.2s
+[4x5 s15] NOTE #1128: static said White but full solver says Some(Black)
+[4x5 s15] [staticcheck 4x5] 1150/1500 positions, 361 probes, 361 agreed, 0 unknown, 0 counterexamples, 5.5s
+[4x5 s15] [staticcheck 4x5] 1200/1500 positions, 379 probes, 379 agreed, 0 unknown, 0 counterexamples, 5.7s
+[4x5 s15] [staticcheck 4x5] 1250/1500 positions, 387 probes, 387 agreed, 0 unknown, 0 counterexamples, 5.9s
+[4x5 s15] NOTE #1282: static said Black but full solver says Some(White)
+[4x5 s15] [staticcheck 4x5] 1300/1500 positions, 402 probes, 402 agreed, 0 unknown, 0 counterexamples, 6.1s
+[4x5 s15] [staticcheck 4x5] 1350/1500 positions, 424 probes, 424 agreed, 0 unknown, 0 counterexamples, 6.3s
+[4x5 s15] [staticcheck 4x5] 1400/1500 positions, 437 probes, 437 agreed, 0 unknown, 0 counterexamples, 6.4s
+[4x5 s15] [staticcheck 4x5] 1450/1500 positions, 454 probes, 454 agreed, 0 unknown, 0 counterexamples, 6.6s
+[4x5 s15] [staticcheck 4x5] 1500/1500 positions, 473 probes, 473 agreed, 0 unknown, 0 counterexamples, 6.7s
+[4x5 s15] [staticcheck 4x5] done: 473 probes, 473 agreed, 0 unknown, 0 counterexamples
+[3x3 s12] NOTE #696: static said Black but full solver says Some(White)
+[3x3 s12] [staticcheck 3x3] 700/1500 positions, 274 probes, 274 agreed, 0 unknown, 0 counterexamples, 3.7s
+[3x3 s12] [staticcheck 3x3] 750/1500 positions, 288 probes, 288 agreed, 0 unknown, 0 counterexamples, 3.9s
+[3x3 s12] [staticcheck 3x3] 800/1500 positions, 297 probes, 297 agreed, 0 unknown, 0 counterexamples, 4.0s
+[3x3 s12] [staticcheck 3x3] 850/1500 positions, 313 probes, 313 agreed, 0 unknown, 0 counterexamples, 4.2s
+[3x3 s12] [staticcheck 3x3] 900/1500 positions, 342 probes, 342 agreed, 0 unknown, 0 counterexamples, 4.6s
+[3x3 s12] [staticcheck 3x3] 950/1500 positions, 355 probes, 355 agreed, 0 unknown, 0 counterexamples, 4.8s
+[3x3 s12] NOTE #983: static said White but full solver says Some(Black)
+[3x3 s12] [staticcheck 3x3] 1000/1500 positions, 365 probes, 365 agreed, 0 unknown, 0 counterexamples, 4.9s
+[3x3 s12] [staticcheck 3x3] 1050/1500 positions, 384 probes, 384 agreed, 0 unknown, 0 counterexamples, 5.2s
+[3x3 s12] [staticcheck 3x3] 1100/1500 positions, 399 probes, 399 agreed, 0 unknown, 0 counterexamples, 5.4s
+[3x3 s12] [staticcheck 3x3] 1150/1500 positions, 416 probes, 416 agreed, 0 unknown, 0 counterexamples, 5.7s
+[3x3 s12] [staticcheck 3x3] 1200/1500 positions, 431 probes, 431 agreed, 0 unknown, 0 counterexamples, 5.9s
+[3x3 s12] [staticcheck 3x3] 1250/1500 positions, 454 probes, 454 agreed, 0 unknown, 0 counterexamples, 6.1s
+[3x3 s12] [staticcheck 3x3] 1300/1500 positions, 465 probes, 465 agreed, 0 unknown, 0 counterexamples, 6.2s
+[3x3 s12] [staticcheck 3x3] 1350/1500 positions, 481 probes, 481 agreed, 0 unknown, 0 counterexamples, 6.4s
+[3x3 s12] --
+[3x3 s12] [staticcheck 3x3] done: 543 probes, 543 agreed, 0 unknown, 0 counterexamples
+[3x4 s17] NOTE #1326: static said White but full solver says Some(Black)
+[3x4 s17] [staticcheck 3x4] 1350/1500 positions, 351 probes, 351 agreed, 0 unknown, 0 counterexamples, 6.3s
+[3x4 s17] [staticcheck 3x4] 1400/1500 positions, 361 probes, 361 agreed, 0 unknown, 0 counterexamples, 6.4s
+[3x4 s17] [staticcheck 3x4] 1450/1500 positions, 376 probes, 376 agreed, 0 unknown, 0 counterexamples, 6.7s
+[3x4 s17] [staticcheck 3x4] 1500/1500 positions, 392 probes, 392 agreed, 0 unknown, 0 counterexamples, 6.9s
+[3x4 s17] [staticcheck 3x4] done: 392 probes, 392 agreed, 0 unknown, 0 counterexamples
+[2x6 s12] NOTE #71: static said White but full solver says Some(Black)
+[2x6 s12] [staticcheck 2x6] 100/1500 positions, 19 probes, 19 agreed, 0 unknown, 0 counterexamples, 0.2s
+[2x6 s12] [staticcheck 2x6] 150/1500 positions, 34 probes, 34 agreed, 0 unknown, 0 counterexamples, 0.4s
+[2x6 s12] [staticcheck 2x6] 200/1500 positions, 44 probes, 44 agreed, 0 unknown, 0 counterexamples, 0.7s
+[2x6 s12] [staticcheck 2x6] 250/1500 positions, 54 probes, 54 agreed, 0 unknown, 0 counterexamples, 0.9s
+[2x6 s12] [staticcheck 2x6] 300/1500 positions, 67 probes, 67 agreed, 0 unknown, 0 counterexamples, 1.1s
+[2x6 s12] [staticcheck 2x6] 350/1500 positions, 80 probes, 80 agreed, 0 unknown, 0 counterexamples, 1.4s
+[2x6 s12] NOTE #388: static said Black but full solver says Some(White)
+[2x6 s12] [staticcheck 2x6] 400/1500 positions, 94 probes, 94 agreed, 0 unknown, 0 counterexamples, 1.7s
+[2x6 s12] [staticcheck 2x6] 450/1500 positions, 112 probes, 112 agreed, 0 unknown, 0 counterexamples, 2.1s
+[2x6 s12] [staticcheck 2x6] 500/1500 positions, 124 probes, 124 agreed, 0 unknown, 0 counterexamples, 2.4s
+[2x6 s12] NOTE #526: static said White but full solver says Some(Black)
+[2x6 s12] [staticcheck 2x6] 550/1500 positions, 132 probes, 132 agreed, 0 unknown, 0 counterexamples, 2.5s
+[2x6 s12] [staticcheck 2x6] 600/1500 positions, 148 probes, 148 agreed, 0 unknown, 0 counterexamples, 2.9s
+[2x6 s12] [staticcheck 2x6] 650/1500 positions, 159 probes, 159 agreed, 0 unknown, 0 counterexamples, 3.1s
+[2x6 s12] [staticcheck 2x6] 700/1500 positions, 168 probes, 168 agreed, 0 unknown, 0 counterexamples, 3.3s
+[2x6 s12] [staticcheck 2x6] 750/1500 positions, 181 probes, 181 agreed, 0 unknown, 0 counterexamples, 3.5s
+[2x6 s12] [staticcheck 2x6] 800/1500 positions, 187 probes, 187 agreed, 0 unknown, 0 counterexamples, 3.7s
+[2x6 s12] [staticcheck 2x6] 850/1500 positions, 196 probes, 196 agreed, 0 unknown, 0 counterexamples, 3.8s
+[2x6 s12] [staticcheck 2x6] 900/1500 positions, 210 probes, 210 agreed, 0 unknown, 0 counterexamples, 4.1s
+[2x6 s12] --
+[2x6 s12] NOTE #1037: static said White but full solver says Some(Black)
+[2x6 s12] [staticcheck 2x6] 1050/1500 positions, 273 probes, 273 agreed, 0 unknown, 0 counterexamples, 5.5s
+[2x6 s12] [staticcheck 2x6] 1100/1500 positions, 283 probes, 283 agreed, 0 unknown, 0 counterexamples, 5.7s
+[2x6 s12] [staticcheck 2x6] 1150/1500 positions, 300 probes, 300 agreed, 0 unknown, 0 counterexamples, 6.0s
+[2x6 s12] [staticcheck 2x6] 1200/1500 positions, 315 probes, 315 agreed, 0 unknown, 0 counterexamples, 6.2s
+[2x6 s12] [staticcheck 2x6] 1250/1500 positions, 326 probes, 326 agreed, 0 unknown, 0 counterexamples, 6.4s
+[2x6 s12] [staticcheck 2x6] 1300/1500 positions, 336 probes, 336 agreed, 0 unknown, 0 counterexamples, 6.5s
+[2x6 s12] NOTE #1301: static said White but full solver says Some(Black)
+[2x6 s12] [staticcheck 2x6] 1350/1500 positions, 352 probes, 352 agreed, 0 unknown, 0 counterexamples, 6.6s
+[2x6 s12] [staticcheck 2x6] 1400/1500 positions, 359 probes, 359 agreed, 0 unknown, 0 counterexamples, 6.7s
+[2x6 s12] [staticcheck 2x6] 1450/1500 positions, 370 probes, 370 agreed, 0 unknown, 0 counterexamples, 6.8s
+[2x6 s12] [staticcheck 2x6] 1500/1500 positions, 382 probes, 382 agreed, 0 unknown, 0 counterexamples, 6.9s
+[2x6 s12] [staticcheck 2x6] done: 382 probes, 382 agreed, 0 unknown, 0 counterexamples
+[3x4 s13] NOTE #795: static said Black but full solver says Some(White)
+[3x4 s13] [staticcheck 3x4] 800/1500 positions, 223 probes, 223 agreed, 0 unknown, 0 counterexamples, 3.8s
+[3x4 s13] [staticcheck 3x4] 850/1500 positions, 239 probes, 239 agreed, 0 unknown, 0 counterexamples, 4.1s
+[3x4 s13] [staticcheck 3x4] 900/1500 positions, 257 probes, 257 agreed, 0 unknown, 0 counterexamples, 4.5s
+[3x4 s13] [staticcheck 3x4] 950/1500 positions, 263 probes, 263 agreed, 0 unknown, 0 counterexamples, 4.6s
+[3x4 s13] [staticcheck 3x4] 1000/1500 positions, 278 probes, 278 agreed, 0 unknown, 0 counterexamples, 4.9s
+[3x4 s13] [staticcheck 3x4] 1050/1500 positions, 288 probes, 288 agreed, 0 unknown, 0 counterexamples, 5.1s
+[3x4 s13] [staticcheck 3x4] 1100/1500 positions, 302 probes, 302 agreed, 0 unknown, 0 counterexamples, 5.3s
+[3x4 s13] [staticcheck 3x4] 1150/1500 positions, 313 probes, 313 agreed, 0 unknown, 0 counterexamples, 5.6s
+[3x4 s13] --
+[3x4 s13] [staticcheck 3x4] done: 408 probes, 408 agreed, 0 unknown, 0 counterexamples
+[3x5 s12] NOTE #812: static said Black but full solver says Some(White)
+[3x5 s12] [staticcheck 3x5] 850/1500 positions, 231 probes, 231 agreed, 0 unknown, 0 counterexamples, 4.6s
+[3x5 s12] NOTE #872: static said Black but full solver says Some(White)
+[3x5 s12] [staticcheck 3x5] 900/1500 positions, 256 probes, 256 agreed, 0 unknown, 0 counterexamples, 4.9s
+[3x5 s12] [staticcheck 3x5] 950/1500 positions, 273 probes, 273 agreed, 0 unknown, 0 counterexamples, 5.2s
+[3x5 s12] [staticcheck 3x5] 1000/1500 positions, 290 probes, 290 agreed, 0 unknown, 0 counterexamples, 5.5s
+[3x5 s12] [staticcheck 3x5] 1050/1500 positions, 306 probes, 306 agreed, 0 unknown, 0 counterexamples, 5.7s
+[3x5 s12] [staticcheck 3x5] 1100/1500 positions, 319 probes, 319 agreed, 0 unknown, 0 counterexamples, 5.9s
+[3x5 s12] NOTE #1106: static said Black but full solver says Some(White)
+[3x5 s12] [staticcheck 3x5] 1150/1500 positions, 329 probes, 329 agreed, 0 unknown, 0 counterexamples, 6.0s
+[3x5 s12] [staticcheck 3x5] 1200/1500 positions, 350 probes, 350 agreed, 0 unknown, 0 counterexamples, 6.3s
+[3x5 s12] NOTE #1227: static said White but full solver says Some(Black)
+[3x5 s12] [staticcheck 3x5] 1250/1500 positions, 356 probes, 356 agreed, 0 unknown, 0 counterexamples, 6.3s
+[3x5 s12] [staticcheck 3x5] 1300/1500 positions, 363 probes, 363 agreed, 0 unknown, 0 counterexamples, 6.5s
+[3x5 s12] [staticcheck 3x5] 1350/1500 positions, 374 probes, 374 agreed, 0 unknown, 0 counterexamples, 6.6s
+[3x5 s12] [staticcheck 3x5] 1400/1500 positions, 386 probes, 386 agreed, 0 unknown, 0 counterexamples, 6.7s
+[3x5 s12] [staticcheck 3x5] 1450/1500 positions, 397 probes, 397 agreed, 0 unknown, 0 counterexamples, 6.8s
+[3x5 s12] [staticcheck 3x5] 1500/1500 positions, 415 probes, 415 agreed, 0 unknown, 0 counterexamples, 7.0s
+[3x5 s12] [staticcheck 3x5] done: 415 probes, 415 agreed, 0 unknown, 0 counterexamples
+[3x3 s13] NOTE #119: static said White but full solver says Some(Black)
+[3x3 s13] [staticcheck 3x3] 150/1500 positions, 52 probes, 52 agreed, 0 unknown, 0 counterexamples, 1.0s
+[3x3 s13] [staticcheck 3x3] 200/1500 positions, 63 probes, 63 agreed, 0 unknown, 0 counterexamples, 1.1s
+[3x3 s13] [staticcheck 3x3] 250/1500 positions, 78 probes, 78 agreed, 0 unknown, 0 counterexamples, 1.4s
+[3x3 s13] [staticcheck 3x3] 300/1500 positions, 87 probes, 87 agreed, 0 unknown, 0 counterexamples, 1.5s
+[3x3 s13] [staticcheck 3x3] 350/1500 positions, 102 probes, 102 agreed, 0 unknown, 0 counterexamples, 1.8s
+[3x3 s13] [staticcheck 3x3] 400/1500 positions, 114 probes, 114 agreed, 0 unknown, 0 counterexamples, 2.0s
+[3x3 s13] [staticcheck 3x3] 450/1500 positions, 126 probes, 126 agreed, 0 unknown, 0 counterexamples, 2.2s
+[3x3 s13] NOTE #487: static said Black but full solver says Some(White)
+[3x3 s13] [staticcheck 3x3] 500/1500 positions, 140 probes, 140 agreed, 0 unknown, 0 counterexamples, 2.5s
+[3x3 s13] [staticcheck 3x3] 550/1500 positions, 163 probes, 163 agreed, 0 unknown, 0 counterexamples, 2.7s
+[3x3 s13] [staticcheck 3x3] 600/1500 positions, 188 probes, 188 agreed, 0 unknown, 0 counterexamples, 3.1s
+[3x3 s13] [staticcheck 3x3] 650/1500 positions, 203 probes, 203 agreed, 0 unknown, 0 counterexamples, 3.3s
+[3x3 s13] [staticcheck 3x3] 700/1500 positions, 217 probes, 217 agreed, 0 unknown, 0 counterexamples, 3.6s
+[3x3 s13] [staticcheck 3x3] 750/1500 positions, 223 probes, 223 agreed, 0 unknown, 0 counterexamples, 3.8s
+[3x3 s13] [staticcheck 3x3] 800/1500 positions, 237 probes, 237 agreed, 0 unknown, 0 counterexamples, 4.0s
+[3x3 s13] [staticcheck 3x3] 850/1500 positions, 250 probes, 250 agreed, 0 unknown, 0 counterexamples, 4.2s
+[3x3 s13] --
+[3x3 s13] NOTE #976: static said White but full solver says Some(Black)
+[3x3 s13] NOTE #995: static said Black but full solver says Some(White)
+[3x3 s13] [staticcheck 3x3] 1000/1500 positions, 289 probes, 289 agreed, 0 unknown, 0 counterexamples, 4.9s
+[3x3 s13] [staticcheck 3x3] 1050/1500 positions, 304 probes, 304 agreed, 0 unknown, 0 counterexamples, 5.2s
+[3x3 s13] [staticcheck 3x3] 1100/1500 positions, 324 probes, 324 agreed, 0 unknown, 0 counterexamples, 5.6s
+[3x3 s13] [staticcheck 3x3] 1150/1500 positions, 341 probes, 341 agreed, 0 unknown, 0 counterexamples, 5.9s
+[3x3 s13] NOTE #1161: static said Black but full solver says Some(White)
+[3x3 s13] [staticcheck 3x3] 1200/1500 positions, 367 probes, 367 agreed, 0 unknown, 0 counterexamples, 6.2s
+[3x3 s13] [staticcheck 3x3] 1250/1500 positions, 385 probes, 385 agreed, 0 unknown, 0 counterexamples, 6.3s
+[3x3 s13] [staticcheck 3x3] 1300/1500 positions, 401 probes, 401 agreed, 0 unknown, 0 counterexamples, 6.5s
+[3x3 s13] [staticcheck 3x3] 1350/1500 positions, 411 probes, 411 agreed, 0 unknown, 0 counterexamples, 6.6s
+[3x3 s13] [staticcheck 3x3] 1400/1500 positions, 422 probes, 422 agreed, 0 unknown, 0 counterexamples, 6.7s
+[3x3 s13] [staticcheck 3x3] 1450/1500 positions, 439 probes, 439 agreed, 0 unknown, 0 counterexamples, 6.8s
+[3x3 s13] [staticcheck 3x3] 1500/1500 positions, 456 probes, 456 agreed, 0 unknown, 0 counterexamples, 7.1s
+[3x3 s13] [staticcheck 3x3] done: 456 probes, 456 agreed, 0 unknown, 0 counterexamples
+[2x5 s17] NOTE #9: static said Black but full solver says Some(White)
+[2x5 s17] [staticcheck 2x5] 50/1500 positions, 16 probes, 16 agreed, 0 unknown, 0 counterexamples, 0.2s
+[2x5 s17] [staticcheck 2x5] 100/1500 positions, 28 probes, 28 agreed, 0 unknown, 0 counterexamples, 0.5s
+[2x5 s17] [staticcheck 2x5] 150/1500 positions, 47 probes, 47 agreed, 0 unknown, 0 counterexamples, 0.9s
+[2x5 s17] [staticcheck 2x5] 200/1500 positions, 57 probes, 57 agreed, 0 unknown, 0 counterexamples, 1.1s
+[2x5 s17] [staticcheck 2x5] 250/1500 positions, 70 probes, 70 agreed, 0 unknown, 0 counterexamples, 1.3s
+[2x5 s17] [staticcheck 2x5] 300/1500 positions, 80 probes, 80 agreed, 0 unknown, 0 counterexamples, 1.5s
+[2x5 s17] NOTE #311: static said Black but full solver says Some(White)
+[2x5 s17] [staticcheck 2x5] 350/1500 positions, 93 probes, 93 agreed, 0 unknown, 0 counterexamples, 1.7s
+[2x5 s17] [staticcheck 2x5] 400/1500 positions, 102 probes, 102 agreed, 0 unknown, 0 counterexamples, 2.0s
+[2x5 s17] [staticcheck 2x5] 450/1500 positions, 121 probes, 121 agreed, 0 unknown, 0 counterexamples, 2.3s
+[2x5 s17] [staticcheck 2x5] 500/1500 positions, 128 probes, 128 agreed, 0 unknown, 0 counterexamples, 2.5s
+[2x5 s17] [staticcheck 2x5] 550/1500 positions, 136 probes, 136 agreed, 0 unknown, 0 counterexamples, 2.6s
+[2x5 s17] [staticcheck 2x5] 600/1500 positions, 150 probes, 150 agreed, 0 unknown, 0 counterexamples, 2.9s
+[2x5 s17] NOTE #620: static said Black but full solver says Some(White)
+[2x5 s17] [staticcheck 2x5] 650/1500 positions, 166 probes, 166 agreed, 0 unknown, 0 counterexamples, 3.3s
+[2x5 s17] [staticcheck 2x5] 700/1500 positions, 183 probes, 183 agreed, 0 unknown, 0 counterexamples, 3.7s
+[2x5 s17] [staticcheck 2x5] 750/1500 positions, 201 probes, 201 agreed, 0 unknown, 0 counterexamples, 4.0s
+[2x5 s17] [staticcheck 2x5] 800/1500 positions, 215 probes, 215 agreed, 0 unknown, 0 counterexamples, 4.3s
+[2x5 s17] [staticcheck 2x5] 850/1500 positions, 232 probes, 232 agreed, 0 unknown, 0 counterexamples, 4.7s
+[2x5 s17] [staticcheck 2x5] 900/1500 positions, 248 probes, 248 agreed, 0 unknown, 0 counterexamples, 5.1s
+[2x5 s17] [staticcheck 2x5] 950/1500 positions, 263 probes, 263 agreed, 0 unknown, 0 counterexamples, 5.5s
+[2x5 s17] [staticcheck 2x5] 1000/1500 positions, 278 probes, 278 agreed, 0 unknown, 0 counterexamples, 5.8s
+[2x5 s17] --
+[2x5 s17] [staticcheck 2x5] done: 396 probes, 396 agreed, 0 unknown, 0 counterexamples
+[4x5 s12] NOTE #153: static said White but full solver says Some(Black)
+[4x5 s12] [staticcheck 4x5] 200/1500 positions, 69 probes, 69 agreed, 0 unknown, 0 counterexamples, 1.1s
+[4x5 s12] [staticcheck 4x5] 250/1500 positions, 80 probes, 80 agreed, 0 unknown, 0 counterexamples, 1.2s
+[4x5 s12] [staticcheck 4x5] 300/1500 positions, 95 probes, 95 agreed, 0 unknown, 0 counterexamples, 1.4s
+[4x5 s12] [staticcheck 4x5] 350/1500 positions, 111 probes, 111 agreed, 0 unknown, 0 counterexamples, 1.8s
+[4x5 s12] [staticcheck 4x5] 400/1500 positions, 130 probes, 130 agreed, 0 unknown, 0 counterexamples, 2.2s
+[4x5 s12] [staticcheck 4x5] 450/1500 positions, 146 probes, 146 agreed, 0 unknown, 0 counterexamples, 2.5s
+[4x5 s12] [staticcheck 4x5] 500/1500 positions, 166 probes, 166 agreed, 0 unknown, 0 counterexamples, 3.0s
+[4x5 s12] [staticcheck 4x5] 550/1500 positions, 183 probes, 183 agreed, 0 unknown, 0 counterexamples, 3.5s
+[4x5 s12] --
+[4x5 s12] NOTE #971: static said White but full solver says Some(Black)
+[4x5 s12] [staticcheck 4x5] 1000/1500 positions, 293 probes, 293 agreed, 0 unknown, 0 counterexamples, 5.6s
+[4x5 s12] [staticcheck 4x5] 1050/1500 positions, 302 probes, 302 agreed, 0 unknown, 0 counterexamples, 5.7s
+[4x5 s12] [staticcheck 4x5] 1100/1500 positions, 315 probes, 315 agreed, 0 unknown, 0 counterexamples, 5.8s
+[4x5 s12] [staticcheck 4x5] 1150/1500 positions, 336 probes, 336 agreed, 0 unknown, 0 counterexamples, 6.0s
+[4x5 s12] [staticcheck 4x5] 1200/1500 positions, 349 probes, 349 agreed, 0 unknown, 0 counterexamples, 6.2s
+[4x5 s12] [staticcheck 4x5] 1250/1500 positions, 365 probes, 365 agreed, 0 unknown, 0 counterexamples, 6.3s
+[4x5 s12] [staticcheck 4x5] 1300/1500 positions, 377 probes, 377 agreed, 0 unknown, 0 counterexamples, 6.5s
+[4x5 s12] [staticcheck 4x5] 1350/1500 positions, 390 probes, 390 agreed, 0 unknown, 0 counterexamples, 6.6s
+[4x5 s12] --
+[4x5 s12] [staticcheck 4x5] done: 442 probes, 442 agreed, 0 unknown, 0 counterexamples
+[3x3 s11] NOTE #204: static said Black but full solver says Some(White)
+[3x3 s11] [staticcheck 3x3] 250/1500 positions, 89 probes, 89 agreed, 0 unknown, 0 counterexamples, 1.2s
+[3x3 s11] [staticcheck 3x3] 300/1500 positions, 109 probes, 109 agreed, 0 unknown, 0 counterexamples, 1.5s
+[3x3 s11] [staticcheck 3x3] 350/1500 positions, 130 probes, 130 agreed, 0 unknown, 0 counterexamples, 1.8s
+[3x3 s11] [staticcheck 3x3] 400/1500 positions, 139 probes, 139 agreed, 0 unknown, 0 counterexamples, 1.9s
+[3x3 s11] [staticcheck 3x3] 450/1500 positions, 156 probes, 156 agreed, 0 unknown, 0 counterexamples, 2.1s
+[3x3 s11] NOTE #485: static said Black but full solver says Some(White)
+[3x3 s11] [staticcheck 3x3] 500/1500 positions, 166 probes, 166 agreed, 0 unknown, 0 counterexamples, 2.2s
+[3x3 s11] [staticcheck 3x3] 550/1500 positions, 182 probes, 182 agreed, 0 unknown, 0 counterexamples, 2.4s
+[3x3 s11] NOTE #569: static said Black but full solver says Some(White)
+[3x3 s11] [staticcheck 3x3] 600/1500 positions, 202 probes, 202 agreed, 0 unknown, 0 counterexamples, 2.7s
+[3x3 s11] [staticcheck 3x3] 650/1500 positions, 223 probes, 223 agreed, 0 unknown, 0 counterexamples, 3.0s
+[3x3 s11] [staticcheck 3x3] 700/1500 positions, 235 probes, 235 agreed, 0 unknown, 0 counterexamples, 3.2s
+[3x3 s11] [staticcheck 3x3] 750/1500 positions, 263 probes, 263 agreed, 0 unknown, 0 counterexamples, 3.7s
+[3x3 s11] [staticcheck 3x3] 800/1500 positions, 275 probes, 275 agreed, 0 unknown, 0 counterexamples, 3.9s
+[3x3 s11] [staticcheck 3x3] 850/1500 positions, 296 probes, 296 agreed, 0 unknown, 0 counterexamples, 4.1s
+[3x3 s11] [staticcheck 3x3] 900/1500 positions, 312 probes, 312 agreed, 0 unknown, 0 counterexamples, 4.3s
+[3x3 s11] [staticcheck 3x3] 950/1500 positions, 332 probes, 332 agreed, 0 unknown, 0 counterexamples, 4.6s
+[3x3 s11] --
+[3x3 s11] NOTE #1265: static said White but full solver says Some(Black)
+[3x3 s11] [staticcheck 3x3] 1300/1500 positions, 469 probes, 469 agreed, 0 unknown, 0 counterexamples, 6.5s
+[3x3 s11] [staticcheck 3x3] 1350/1500 positions, 487 probes, 487 agreed, 0 unknown, 0 counterexamples, 6.6s
+[3x3 s11] [staticcheck 3x3] 1400/1500 positions, 508 probes, 508 agreed, 0 unknown, 0 counterexamples, 6.8s
+[3x3 s11] [staticcheck 3x3] 1450/1500 positions, 534 probes, 534 agreed, 0 unknown, 0 counterexamples, 7.0s
+[3x3 s11] [staticcheck 3x3] 1500/1500 positions, 548 probes, 548 agreed, 0 unknown, 0 counterexamples, 7.1s
+[3x3 s11] [staticcheck 3x3] done: 548 probes, 548 agreed, 0 unknown, 0 counterexamples
+[2x6 s13] NOTE #225: static said Black but full solver says Some(White)
+[2x6 s13] [staticcheck 2x6] 250/1500 positions, 78 probes, 78 agreed, 0 unknown, 0 counterexamples, 1.5s
+[2x6 s13] [staticcheck 2x6] 300/1500 positions, 94 probes, 94 agreed, 0 unknown, 0 counterexamples, 1.9s
+[2x6 s13] [staticcheck 2x6] 350/1500 positions, 110 probes, 110 agreed, 0 unknown, 0 counterexamples, 2.2s
+[2x6 s13] [staticcheck 2x6] 400/1500 positions, 117 probes, 117 agreed, 0 unknown, 0 counterexamples, 2.4s
+[2x6 s13] [staticcheck 2x6] 450/1500 positions, 128 probes, 128 agreed, 0 unknown, 0 counterexamples, 2.6s
+[2x6 s13] [staticcheck 2x6] 500/1500 positions, 147 probes, 147 agreed, 0 unknown, 0 counterexamples, 3.0s
+[2x6 s13] [staticcheck 2x6] 550/1500 positions, 161 probes, 161 agreed, 0 unknown, 0 counterexamples, 3.2s
+[2x6 s13] [staticcheck 2x6] 600/1500 positions, 169 probes, 169 agreed, 0 unknown, 0 counterexamples, 3.4s
+[2x6 s13] --
+[2x6 s13] NOTE #674: static said Black but full solver says Some(White)
+[2x6 s13] [staticcheck 2x6] 700/1500 positions, 196 probes, 196 agreed, 0 unknown, 0 counterexamples, 3.9s
+[2x6 s13] [staticcheck 2x6] 750/1500 positions, 206 probes, 206 agreed, 0 unknown, 0 counterexamples, 4.2s
+[2x6 s13] [staticcheck 2x6] 800/1500 positions, 218 probes, 218 agreed, 0 unknown, 0 counterexamples, 4.4s
+[2x6 s13] [staticcheck 2x6] 850/1500 positions, 233 probes, 233 agreed, 0 unknown, 0 counterexamples, 4.7s
+[2x6 s13] [staticcheck 2x6] 900/1500 positions, 248 probes, 248 agreed, 0 unknown, 0 counterexamples, 5.1s
+[2x6 s13] [staticcheck 2x6] 950/1500 positions, 256 probes, 256 agreed, 0 unknown, 0 counterexamples, 5.3s
+[2x6 s13] [staticcheck 2x6] 1000/1500 positions, 262 probes, 262 agreed, 0 unknown, 0 counterexamples, 5.4s
+[2x6 s13] [staticcheck 2x6] 1050/1500 positions, 275 probes, 275 agreed, 0 unknown, 0 counterexamples, 5.7s
+[2x6 s13] --
+[2x6 s13] [staticcheck 2x6] done: 373 probes, 373 agreed, 0 unknown, 0 counterexamples
+[2x5 s15] [staticcheck 2x5] done: 382 probes, 382 agreed, 0 unknown, 0 counterexamples
+[2x5 s11] NOTE #916: static said Black but full solver says Some(White)
+[2x5 s11] [staticcheck 2x5] 950/1500 positions, 281 probes, 281 agreed, 0 unknown, 0 counterexamples, 5.3s
+[2x5 s11] [staticcheck 2x5] 1000/1500 positions, 290 probes, 290 agreed, 0 unknown, 0 counterexamples, 5.5s
+[2x5 s11] [staticcheck 2x5] 1050/1500 positions, 308 probes, 308 agreed, 0 unknown, 0 counterexamples, 5.8s
+[2x5 s11] [staticcheck 2x5] 1100/1500 positions, 322 probes, 322 agreed, 0 unknown, 0 counterexamples, 6.1s
+[2x5 s11] [staticcheck 2x5] 1150/1500 positions, 329 probes, 329 agreed, 0 unknown, 0 counterexamples, 6.2s
+[2x5 s11] [staticcheck 2x5] 1200/1500 positions, 344 probes, 344 agreed, 0 unknown, 0 counterexamples, 6.4s
+[2x5 s11] [staticcheck 2x5] 1250/1500 positions, 354 probes, 354 agreed, 0 unknown, 0 counterexamples, 6.5s
+[2x5 s11] [staticcheck 2x5] 1300/1500 positions, 375 probes, 375 agreed, 0 unknown, 0 counterexamples, 6.8s
+[2x5 s11] --
+[2x5 s11] [staticcheck 2x5] done: 418 probes, 418 agreed, 0 unknown, 0 counterexamples
+[2x6 s14] NOTE #260: static said Black but full solver says Some(White)
+[2x6 s14] [staticcheck 2x6] 300/1500 positions, 79 probes, 79 agreed, 0 unknown, 0 counterexamples, 1.4s
+[2x6 s14] [staticcheck 2x6] 350/1500 positions, 99 probes, 99 agreed, 0 unknown, 0 counterexamples, 1.9s
+[2x6 s14] [staticcheck 2x6] 400/1500 positions, 117 probes, 117 agreed, 0 unknown, 0 counterexamples, 2.3s
+[2x6 s14] [staticcheck 2x6] 450/1500 positions, 131 probes, 131 agreed, 0 unknown, 0 counterexamples, 2.5s
+[2x6 s14] [staticcheck 2x6] 500/1500 positions, 145 probes, 145 agreed, 0 unknown, 0 counterexamples, 2.8s
+[2x6 s14] [staticcheck 2x6] 550/1500 positions, 160 probes, 160 agreed, 0 unknown, 0 counterexamples, 3.1s
+[2x6 s14] [staticcheck 2x6] 600/1500 positions, 167 probes, 167 agreed, 0 unknown, 0 counterexamples, 3.2s
+[2x6 s14] [staticcheck 2x6] 650/1500 positions, 188 probes, 188 agreed, 0 unknown, 0 counterexamples, 3.6s
+[2x6 s14] --
+[2x6 s14] NOTE #817: static said White but full solver says Some(Black)
+[2x6 s14] [staticcheck 2x6] 850/1500 positions, 242 probes, 242 agreed, 0 unknown, 0 counterexamples, 4.7s
+[2x6 s14] [staticcheck 2x6] 900/1500 positions, 252 probes, 252 agreed, 0 unknown, 0 counterexamples, 4.9s
+[2x6 s14] [staticcheck 2x6] 950/1500 positions, 267 probes, 267 agreed, 0 unknown, 0 counterexamples, 5.2s
+[2x6 s14] [staticcheck 2x6] 1000/1500 positions, 277 probes, 277 agreed, 0 unknown, 0 counterexamples, 5.4s
+[2x6 s14] [staticcheck 2x6] 1050/1500 positions, 287 probes, 287 agreed, 0 unknown, 0 counterexamples, 5.5s
+[2x6 s14] [staticcheck 2x6] 1100/1500 positions, 309 probes, 309 agreed, 0 unknown, 0 counterexamples, 5.9s
+[2x6 s14] [staticcheck 2x6] 1150/1500 positions, 321 probes, 321 agreed, 0 unknown, 0 counterexamples, 6.1s
+[2x6 s14] [staticcheck 2x6] 1200/1500 positions, 331 probes, 331 agreed, 0 unknown, 0 counterexamples, 6.2s
+[2x6 s14] --
+[2x6 s14] [staticcheck 2x6] done: 407 probes, 407 agreed, 0 unknown, 0 counterexamples
+[3x4 s12] NOTE #257: static said Black but full solver says Some(White)
+[3x4 s12] [staticcheck 3x4] 300/1500 positions, 91 probes, 91 agreed, 0 unknown, 0 counterexamples, 1.9s
+[3x4 s12] [staticcheck 3x4] 350/1500 positions, 102 probes, 102 agreed, 0 unknown, 0 counterexamples, 2.2s
+[3x4 s12] NOTE #387: static said White but full solver says Some(Black)
+[3x4 s12] [staticcheck 3x4] 400/1500 positions, 119 probes, 119 agreed, 0 unknown, 0 counterexamples, 2.5s
+[3x4 s12] [staticcheck 3x4] 450/1500 positions, 130 probes, 130 agreed, 0 unknown, 0 counterexamples, 2.8s
+[3x4 s12] [staticcheck 3x4] 500/1500 positions, 146 probes, 146 agreed, 0 unknown, 0 counterexamples, 3.1s
+[3x4 s12] [staticcheck 3x4] 550/1500 positions, 157 probes, 157 agreed, 0 unknown, 0 counterexamples, 3.3s
+[3x4 s12] [staticcheck 3x4] 600/1500 positions, 169 probes, 169 agreed, 0 unknown, 0 counterexamples, 3.6s
+[3x4 s12] [staticcheck 3x4] 650/1500 positions, 176 probes, 176 agreed, 0 unknown, 0 counterexamples, 3.7s
+[3x4 s12] [staticcheck 3x4] 700/1500 positions, 191 probes, 191 agreed, 0 unknown, 0 counterexamples, 4.0s
+[3x4 s12] [staticcheck 3x4] 750/1500 positions, 208 probes, 208 agreed, 0 unknown, 0 counterexamples, 4.4s
+[3x4 s12] --
+[3x4 s12] NOTE #1040: static said White but full solver says Some(Black)
+[3x4 s12] [staticcheck 3x4] 1050/1500 positions, 289 probes, 289 agreed, 0 unknown, 0 counterexamples, 5.9s
+[3x4 s12] [staticcheck 3x4] 1100/1500 positions, 301 probes, 301 agreed, 0 unknown, 0 counterexamples, 6.1s
+[3x4 s12] [staticcheck 3x4] 1150/1500 positions, 314 probes, 314 agreed, 0 unknown, 0 counterexamples, 6.3s
+[3x4 s12] [staticcheck 3x4] 1200/1500 positions, 326 probes, 326 agreed, 0 unknown, 0 counterexamples, 6.4s
+[3x4 s12] [staticcheck 3x4] 1250/1500 positions, 340 probes, 340 agreed, 0 unknown, 0 counterexamples, 6.6s
+[3x4 s12] [staticcheck 3x4] 1300/1500 positions, 345 probes, 345 agreed, 0 unknown, 0 counterexamples, 6.6s
+[3x4 s12] [staticcheck 3x4] 1350/1500 positions, 353 probes, 353 agreed, 0 unknown, 0 counterexamples, 6.7s
+[3x4 s12] [staticcheck 3x4] 1400/1500 positions, 371 probes, 371 agreed, 0 unknown, 0 counterexamples, 6.9s
+[3x4 s12] --
+[3x4 s12] [staticcheck 3x4] done: 391 probes, 391 agreed, 0 unknown, 0 counterexamples
+[4x4 s11] NOTE #70: static said Black but full solver says Some(White)
+[4x4 s11] [staticcheck 4x4] 100/1500 positions, 22 probes, 22 agreed, 0 unknown, 0 counterexamples, 0.5s
+[4x4 s11] [staticcheck 4x4] 150/1500 positions, 33 probes, 33 agreed, 0 unknown, 0 counterexamples, 0.6s
+[4x4 s11] [staticcheck 4x4] 200/1500 positions, 51 probes, 51 agreed, 0 unknown, 0 counterexamples, 1.0s
+[4x4 s11] [staticcheck 4x4] 250/1500 positions, 65 probes, 65 agreed, 0 unknown, 0 counterexamples, 1.3s
+[4x4 s11] [staticcheck 4x4] 300/1500 positions, 80 probes, 80 agreed, 0 unknown, 0 counterexamples, 1.6s
+[4x4 s11] [staticcheck 4x4] 350/1500 positions, 89 probes, 89 agreed, 0 unknown, 0 counterexamples, 1.8s
+[4x4 s11] [staticcheck 4x4] 400/1500 positions, 99 probes, 99 agreed, 0 unknown, 0 counterexamples, 2.0s
+[4x4 s11] [staticcheck 4x4] 450/1500 positions, 114 probes, 114 agreed, 0 unknown, 0 counterexamples, 2.3s
+[4x4 s11] NOTE #462: static said Black but full solver says Some(White)
+[4x4 s11] [staticcheck 4x4] 500/1500 positions, 128 probes, 128 agreed, 0 unknown, 0 counterexamples, 2.6s
+[4x4 s11] [staticcheck 4x4] 550/1500 positions, 139 probes, 139 agreed, 0 unknown, 0 counterexamples, 2.8s
+[4x4 s11] [staticcheck 4x4] 600/1500 positions, 162 probes, 162 agreed, 0 unknown, 0 counterexamples, 3.2s
+[4x4 s11] [staticcheck 4x4] 650/1500 positions, 167 probes, 167 agreed, 0 unknown, 0 counterexamples, 3.3s
+[4x4 s11] [staticcheck 4x4] 700/1500 positions, 182 probes, 182 agreed, 0 unknown, 0 counterexamples, 3.6s
+[4x4 s11] [staticcheck 4x4] 750/1500 positions, 196 probes, 196 agreed, 0 unknown, 0 counterexamples, 3.9s
+[4x4 s11] [staticcheck 4x4] 800/1500 positions, 206 probes, 206 agreed, 0 unknown, 0 counterexamples, 4.2s
+[4x4 s11] [staticcheck 4x4] 850/1500 positions, 221 probes, 221 agreed, 0 unknown, 0 counterexamples, 4.5s
+[4x4 s11] --
+[4x4 s11] NOTE #1203: static said Black but full solver says Some(White)
+[4x4 s11] [staticcheck 4x4] 1250/1500 positions, 328 probes, 328 agreed, 0 unknown, 0 counterexamples, 6.6s
+[4x4 s11] [staticcheck 4x4] 1300/1500 positions, 344 probes, 344 agreed, 0 unknown, 0 counterexamples, 6.7s
+[4x4 s11] NOTE #1332: static said Black but full solver says Some(White)
+[4x4 s11] NOTE #1335: static said White but full solver says Some(Black)
+[4x4 s11] [staticcheck 4x4] 1350/1500 positions, 360 probes, 360 agreed, 0 unknown, 0 counterexamples, 6.9s
+[4x4 s11] NOTE #1366: static said Black but full solver says Some(White)
+[4x4 s11] [staticcheck 4x4] 1400/1500 positions, 377 probes, 377 agreed, 0 unknown, 0 counterexamples, 7.0s
+[4x4 s11] [staticcheck 4x4] 1450/1500 positions, 387 probes, 387 agreed, 0 unknown, 0 counterexamples, 7.1s
+[4x4 s11] [staticcheck 4x4] 1500/1500 positions, 396 probes, 396 agreed, 0 unknown, 0 counterexamples, 7.2s
+[4x4 s11] [staticcheck 4x4] done: 396 probes, 396 agreed, 0 unknown, 0 counterexamples
+[2x4 s12] NOTE #1298: static said Black but full solver says Some(White)
+[2x4 s12] [staticcheck 2x4] 1300/1500 positions, 355 probes, 355 agreed, 0 unknown, 0 counterexamples, 6.7s
+[2x4 s12] [staticcheck 2x4] 1350/1500 positions, 373 probes, 373 agreed, 0 unknown, 0 counterexamples, 6.9s
+[2x4 s12] [staticcheck 2x4] 1400/1500 positions, 384 probes, 384 agreed, 0 unknown, 0 counterexamples, 7.0s
+[2x4 s12] [staticcheck 2x4] 1450/1500 positions, 398 probes, 398 agreed, 0 unknown, 0 counterexamples, 7.1s
+[2x4 s12] [staticcheck 2x4] 1500/1500 positions, 410 probes, 410 agreed, 0 unknown, 0 counterexamples, 7.3s
+[2x4 s12] [staticcheck 2x4] done: 410 probes, 410 agreed, 0 unknown, 0 counterexamples
+[3x5 s18] NOTE #30: static said White but full solver says Some(Black)
+[3x5 s18] [staticcheck 3x5] 50/1500 positions, 15 probes, 15 agreed, 0 unknown, 0 counterexamples, 0.3s
+[3x5 s18] [staticcheck 3x5] 100/1500 positions, 28 probes, 28 agreed, 0 unknown, 0 counterexamples, 0.6s
+[3x5 s18] [staticcheck 3x5] 150/1500 positions, 43 probes, 43 agreed, 0 unknown, 0 counterexamples, 0.9s
+[3x5 s18] [staticcheck 3x5] 200/1500 positions, 50 probes, 50 agreed, 0 unknown, 0 counterexamples, 1.0s
+[3x5 s18] [staticcheck 3x5] 250/1500 positions, 66 probes, 66 agreed, 0 unknown, 0 counterexamples, 1.3s
+[3x5 s18] [staticcheck 3x5] 300/1500 positions, 81 probes, 81 agreed, 0 unknown, 0 counterexamples, 1.6s
+[3x5 s18] [staticcheck 3x5] 350/1500 positions, 101 probes, 101 agreed, 0 unknown, 0 counterexamples, 1.9s
+[3x5 s18] [staticcheck 3x5] 400/1500 positions, 121 probes, 121 agreed, 0 unknown, 0 counterexamples, 2.3s
+[3x5 s18] --
+[3x5 s18] NOTE #1148: static said Black but full solver says Some(White)
+[3x5 s18] [staticcheck 3x5] 1150/1500 positions, 328 probes, 328 agreed, 0 unknown, 0 counterexamples, 6.1s
+[3x5 s18] [staticcheck 3x5] 1200/1500 positions, 341 probes, 341 agreed, 0 unknown, 0 counterexamples, 6.2s
+[3x5 s18] [staticcheck 3x5] 1250/1500 positions, 348 probes, 348 agreed, 0 unknown, 0 counterexamples, 6.3s
+[3x5 s18] [staticcheck 3x5] 1300/1500 positions, 359 probes, 359 agreed, 0 unknown, 0 counterexamples, 6.5s
+[3x5 s18] [staticcheck 3x5] 1350/1500 positions, 383 probes, 383 agreed, 0 unknown, 0 counterexamples, 6.8s
+[3x5 s18] NOTE #1361: static said White but full solver says Some(Black)
+[3x5 s18] [staticcheck 3x5] 1400/1500 positions, 399 probes, 399 agreed, 0 unknown, 0 counterexamples, 7.0s
+[3x5 s18] [staticcheck 3x5] 1450/1500 positions, 415 probes, 415 agreed, 0 unknown, 0 counterexamples, 7.2s
+[3x5 s18] [staticcheck 3x5] 1500/1500 positions, 425 probes, 425 agreed, 0 unknown, 0 counterexamples, 7.2s
+[3x5 s18] [staticcheck 3x5] done: 425 probes, 425 agreed, 0 unknown, 0 counterexamples
+[3x3 s15] NOTE #43: static said Black but full solver says Some(White)
+[3x3 s15] [staticcheck 3x3] 50/1500 positions, 16 probes, 16 agreed, 0 unknown, 0 counterexamples, 0.3s
+[3x3 s15] [staticcheck 3x3] 100/1500 positions, 34 probes, 34 agreed, 0 unknown, 0 counterexamples, 0.5s
+[3x3 s15] NOTE #110: static said White but full solver says Some(Black)
+[3x3 s15] [staticcheck 3x3] 150/1500 positions, 56 probes, 56 agreed, 0 unknown, 0 counterexamples, 0.9s
+[3x3 s15] [staticcheck 3x3] 200/1500 positions, 75 probes, 75 agreed, 0 unknown, 0 counterexamples, 1.1s
+[3x3 s15] [staticcheck 3x3] 250/1500 positions, 87 probes, 87 agreed, 0 unknown, 0 counterexamples, 1.3s
+[3x3 s15] [staticcheck 3x3] 300/1500 positions, 102 probes, 102 agreed, 0 unknown, 0 counterexamples, 1.5s
+[3x3 s15] [staticcheck 3x3] 350/1500 positions, 122 probes, 122 agreed, 0 unknown, 0 counterexamples, 1.7s
+[3x3 s15] [staticcheck 3x3] 400/1500 positions, 142 probes, 142 agreed, 0 unknown, 0 counterexamples, 2.0s
+[3x3 s15] [staticcheck 3x3] 450/1500 positions, 158 probes, 158 agreed, 0 unknown, 0 counterexamples, 2.3s
+[3x3 s15] NOTE #476: static said White but full solver says Some(Black)
+[3x3 s15] [staticcheck 3x3] 500/1500 positions, 180 probes, 180 agreed, 0 unknown, 0 counterexamples, 2.6s
+[3x3 s15] [staticcheck 3x3] 550/1500 positions, 193 probes, 193 agreed, 0 unknown, 0 counterexamples, 2.8s
+[3x3 s15] [staticcheck 3x3] 600/1500 positions, 214 probes, 214 agreed, 0 unknown, 0 counterexamples, 3.2s
+[3x3 s15] [staticcheck 3x3] 650/1500 positions, 227 probes, 227 agreed, 0 unknown, 0 counterexamples, 3.4s
+[3x3 s15] [staticcheck 3x3] 700/1500 positions, 241 probes, 241 agreed, 0 unknown, 0 counterexamples, 3.6s
+[3x3 s15] [staticcheck 3x3] 750/1500 positions, 262 probes, 262 agreed, 0 unknown, 0 counterexamples, 3.9s
+[3x3 s15] [staticcheck 3x3] 800/1500 positions, 274 probes, 274 agreed, 0 unknown, 0 counterexamples, 4.1s
+[3x3 s15] [staticcheck 3x3] 850/1500 positions, 293 probes, 293 agreed, 0 unknown, 0 counterexamples, 4.5s
+[3x3 s15] --
+[3x3 s15] NOTE #950: static said Black but full solver says Some(White)
+[3x3 s15] [staticcheck 3x3] 1000/1500 positions, 345 probes, 345 agreed, 0 unknown, 0 counterexamples, 5.6s
+[3x3 s15] [staticcheck 3x3] 1050/1500 positions, 359 probes, 359 agreed, 0 unknown, 0 counterexamples, 5.8s
+[3x3 s15] [staticcheck 3x3] 1100/1500 positions, 369 probes, 369 agreed, 0 unknown, 0 counterexamples, 6.0s
+[3x3 s15] [staticcheck 3x3] 1150/1500 positions, 390 probes, 390 agreed, 0 unknown, 0 counterexamples, 6.2s
+[3x3 s15] NOTE #1176: static said Black but full solver says Some(White)
+[3x3 s15] [staticcheck 3x3] 1200/1500 positions, 408 probes, 408 agreed, 0 unknown, 0 counterexamples, 6.4s
+[3x3 s15] [staticcheck 3x3] 1250/1500 positions, 425 probes, 425 agreed, 0 unknown, 0 counterexamples, 6.6s
+[3x3 s15] [staticcheck 3x3] 1300/1500 positions, 435 probes, 435 agreed, 0 unknown, 0 counterexamples, 6.7s
+[3x3 s15] [staticcheck 3x3] 1350/1500 positions, 452 probes, 452 agreed, 0 unknown, 0 counterexamples, 6.9s
+[3x3 s15] [staticcheck 3x3] 1400/1500 positions, 468 probes, 468 agreed, 0 unknown, 0 counterexamples, 7.1s
+[3x3 s15] [staticcheck 3x3] 1450/1500 positions, 486 probes, 486 agreed, 0 unknown, 0 counterexamples, 7.2s
+[3x3 s15] [staticcheck 3x3] 1500/1500 positions, 496 probes, 496 agreed, 0 unknown, 0 counterexamples, 7.3s
+[3x3 s15] [staticcheck 3x3] done: 496 probes, 496 agreed, 0 unknown, 0 counterexamples
+[2x4 s13] NOTE #134: static said Black but full solver says Some(White)
+[2x4 s13] [staticcheck 2x4] 150/1500 positions, 49 probes, 49 agreed, 0 unknown, 0 counterexamples, 0.8s
+[2x4 s13] [staticcheck 2x4] 200/1500 positions, 58 probes, 58 agreed, 0 unknown, 0 counterexamples, 1.0s
+[2x4 s13] [staticcheck 2x4] 250/1500 positions, 69 probes, 69 agreed, 0 unknown, 0 counterexamples, 1.2s
+[2x4 s13] [staticcheck 2x4] 300/1500 positions, 93 probes, 93 agreed, 0 unknown, 0 counterexamples, 1.7s
+[2x4 s13] [staticcheck 2x4] 350/1500 positions, 106 probes, 106 agreed, 0 unknown, 0 counterexamples, 2.0s
+[2x4 s13] [staticcheck 2x4] 400/1500 positions, 122 probes, 122 agreed, 0 unknown, 0 counterexamples, 2.3s
+[2x4 s13] [staticcheck 2x4] 450/1500 positions, 133 probes, 133 agreed, 0 unknown, 0 counterexamples, 2.5s
+[2x4 s13] [staticcheck 2x4] 500/1500 positions, 144 probes, 144 agreed, 0 unknown, 0 counterexamples, 2.8s
+[2x4 s13] --
+[2x4 s13] NOTE #1199: static said Black but full solver says Some(White)
+[2x4 s13] [staticcheck 2x4] 1200/1500 positions, 338 probes, 338 agreed, 0 unknown, 0 counterexamples, 6.5s
+[2x4 s13] [staticcheck 2x4] 1250/1500 positions, 353 probes, 353 agreed, 0 unknown, 0 counterexamples, 6.7s
+[2x4 s13] [staticcheck 2x4] 1300/1500 positions, 366 probes, 366 agreed, 0 unknown, 0 counterexamples, 6.9s
+[2x4 s13] [staticcheck 2x4] 1350/1500 positions, 376 probes, 376 agreed, 0 unknown, 0 counterexamples, 7.0s
+[2x4 s13] [staticcheck 2x4] 1400/1500 positions, 395 probes, 395 agreed, 0 unknown, 0 counterexamples, 7.2s
+[2x4 s13] [staticcheck 2x4] 1450/1500 positions, 407 probes, 407 agreed, 0 unknown, 0 counterexamples, 7.3s
+[2x4 s13] [staticcheck 2x4] 1500/1500 positions, 416 probes, 416 agreed, 0 unknown, 0 counterexamples, 7.3s
+[2x4 s13] [staticcheck 2x4] done: 416 probes, 416 agreed, 0 unknown, 0 counterexamples
+[3x4 s16] NOTE #45: static said Black but full solver says Some(White)
+[3x4 s16] [staticcheck 3x4] 50/1500 positions, 16 probes, 16 agreed, 0 unknown, 0 counterexamples, 0.4s
+[3x4 s16] [staticcheck 3x4] 100/1500 positions, 35 probes, 35 agreed, 0 unknown, 0 counterexamples, 0.7s
+[3x4 s16] [staticcheck 3x4] 150/1500 positions, 50 probes, 50 agreed, 0 unknown, 0 counterexamples, 1.0s
+[3x4 s16] [staticcheck 3x4] 200/1500 positions, 63 probes, 63 agreed, 0 unknown, 0 counterexamples, 1.3s
+[3x4 s16] [staticcheck 3x4] 250/1500 positions, 78 probes, 78 agreed, 0 unknown, 0 counterexamples, 1.6s
+[3x4 s16] [staticcheck 3x4] 300/1500 positions, 86 probes, 86 agreed, 0 unknown, 0 counterexamples, 1.8s
+[3x4 s16] NOTE #311: static said Black but full solver says Some(White)
+[3x4 s16] [staticcheck 3x4] 350/1500 positions, 100 probes, 100 agreed, 0 unknown, 0 counterexamples, 2.0s
+[3x4 s16] [staticcheck 3x4] 400/1500 positions, 122 probes, 122 agreed, 0 unknown, 0 counterexamples, 2.5s
+[3x4 s16] [staticcheck 3x4] 450/1500 positions, 133 probes, 133 agreed, 0 unknown, 0 counterexamples, 2.7s
+[3x4 s16] [staticcheck 3x4] 500/1500 positions, 154 probes, 154 agreed, 0 unknown, 0 counterexamples, 3.0s
+[3x4 s16] NOTE #525: static said Black but full solver says Some(White)
+[3x4 s16] [staticcheck 3x4] 550/1500 positions, 166 probes, 166 agreed, 0 unknown, 0 counterexamples, 3.2s
+[3x4 s16] [staticcheck 3x4] 600/1500 positions, 183 probes, 183 agreed, 0 unknown, 0 counterexamples, 3.7s
+[3x4 s16] [staticcheck 3x4] 650/1500 positions, 190 probes, 190 agreed, 0 unknown, 0 counterexamples, 3.9s
+[3x4 s16] [staticcheck 3x4] 700/1500 positions, 204 probes, 204 agreed, 0 unknown, 0 counterexamples, 4.1s
+[3x4 s16] [staticcheck 3x4] 750/1500 positions, 214 probes, 214 agreed, 0 unknown, 0 counterexamples, 4.3s
+[3x4 s16] [staticcheck 3x4] 800/1500 positions, 225 probes, 225 agreed, 0 unknown, 0 counterexamples, 4.6s
+[3x4 s16] [staticcheck 3x4] 850/1500 positions, 244 probes, 244 agreed, 0 unknown, 0 counterexamples, 5.1s
+[3x4 s16] [staticcheck 3x4] 900/1500 positions, 257 probes, 257 agreed, 0 unknown, 0 counterexamples, 5.3s
+[3x4 s16] --
+[3x4 s16] NOTE #997: static said Black but full solver says Some(White)
+[3x4 s16] [staticcheck 3x4] 1000/1500 positions, 288 probes, 288 agreed, 0 unknown, 0 counterexamples, 5.9s
+[3x4 s16] [staticcheck 3x4] 1050/1500 positions, 299 probes, 299 agreed, 0 unknown, 0 counterexamples, 6.1s
+[3x4 s16] [staticcheck 3x4] 1100/1500 positions, 311 probes, 311 agreed, 0 unknown, 0 counterexamples, 6.2s
+[3x4 s16] [staticcheck 3x4] 1150/1500 positions, 323 probes, 323 agreed, 0 unknown, 0 counterexamples, 6.4s
+[3x4 s16] [staticcheck 3x4] 1200/1500 positions, 335 probes, 335 agreed, 0 unknown, 0 counterexamples, 6.6s
+[3x4 s16] [staticcheck 3x4] 1250/1500 positions, 344 probes, 344 agreed, 0 unknown, 0 counterexamples, 6.7s
+[3x4 s16] [staticcheck 3x4] 1300/1500 positions, 358 probes, 358 agreed, 0 unknown, 0 counterexamples, 6.9s
+[3x4 s16] [staticcheck 3x4] 1350/1500 positions, 369 probes, 369 agreed, 0 unknown, 0 counterexamples, 7.0s
+[3x4 s16] --
+[3x4 s16] [staticcheck 3x4] done: 417 probes, 417 agreed, 0 unknown, 0 counterexamples
+[4x5 s17] NOTE #1050: static said Black but full solver says Some(White)
+[4x5 s17] [staticcheck 4x5] 1100/1500 positions, 337 probes, 337 agreed, 0 unknown, 0 counterexamples, 6.5s
+[4x5 s17] [staticcheck 4x5] 1150/1500 positions, 356 probes, 356 agreed, 0 unknown, 0 counterexamples, 6.7s
+[4x5 s17] NOTE #1179: static said White but full solver says Some(Black)
+[4x5 s17] [staticcheck 4x5] 1200/1500 positions, 376 probes, 376 agreed, 0 unknown, 0 counterexamples, 6.8s
+[4x5 s17] [staticcheck 4x5] 1250/1500 positions, 391 probes, 391 agreed, 0 unknown, 0 counterexamples, 6.9s
+[4x5 s17] [staticcheck 4x5] 1300/1500 positions, 401 probes, 401 agreed, 0 unknown, 0 counterexamples, 7.0s
+[4x5 s17] [staticcheck 4x5] 1350/1500 positions, 419 probes, 419 agreed, 0 unknown, 0 counterexamples, 7.2s
+[4x5 s17] [staticcheck 4x5] 1400/1500 positions, 431 probes, 431 agreed, 0 unknown, 0 counterexamples, 7.2s
+[4x5 s17] [staticcheck 4x5] 1450/1500 positions, 441 probes, 441 agreed, 0 unknown, 0 counterexamples, 7.3s
+[4x5 s17] [staticcheck 4x5] 1500/1500 positions, 462 probes, 462 agreed, 0 unknown, 0 counterexamples, 7.4s
+[4x5 s17] [staticcheck 4x5] done: 462 probes, 462 agreed, 0 unknown, 0 counterexamples
+[3x5 s13] NOTE #731: static said Black but full solver says Some(White)
+[3x5 s13] [staticcheck 3x5] 750/1500 positions, 218 probes, 218 agreed, 0 unknown, 0 counterexamples, 4.5s
+[3x5 s13] [staticcheck 3x5] 800/1500 positions, 238 probes, 238 agreed, 0 unknown, 0 counterexamples, 4.9s
+[3x5 s13] [staticcheck 3x5] 850/1500 positions, 252 probes, 252 agreed, 0 unknown, 0 counterexamples, 5.3s
+[3x5 s13] [staticcheck 3x5] 900/1500 positions, 263 probes, 263 agreed, 0 unknown, 0 counterexamples, 5.5s
+[3x5 s13] [staticcheck 3x5] 950/1500 positions, 273 probes, 273 agreed, 0 unknown, 0 counterexamples, 5.7s
+[3x5 s13] [staticcheck 3x5] 1000/1500 positions, 288 probes, 288 agreed, 0 unknown, 0 counterexamples, 6.0s
+[3x5 s13] [staticcheck 3x5] 1050/1500 positions, 306 probes, 306 agreed, 0 unknown, 0 counterexamples, 6.3s
+[3x5 s13] [staticcheck 3x5] 1100/1500 positions, 324 probes, 324 agreed, 0 unknown, 0 counterexamples, 6.5s
+[3x5 s13] --
+[3x5 s13] [staticcheck 3x5] done: 402 probes, 402 agreed, 0 unknown, 0 counterexamples
+[4x5 s14] NOTE #182: static said Black but full solver says Some(White)
+[4x5 s14] [staticcheck 4x5] 200/1500 positions, 61 probes, 61 agreed, 0 unknown, 0 counterexamples, 0.9s
+[4x5 s14] NOTE #248: static said White but full solver says Some(Black)
+[4x5 s14] [staticcheck 4x5] 250/1500 positions, 76 probes, 76 agreed, 0 unknown, 0 counterexamples, 1.2s
+[4x5 s14] [staticcheck 4x5] 300/1500 positions, 85 probes, 85 agreed, 0 unknown, 0 counterexamples, 1.3s
+[4x5 s14] [staticcheck 4x5] 350/1500 positions, 94 probes, 94 agreed, 0 unknown, 0 counterexamples, 1.4s
+[4x5 s14] [staticcheck 4x5] 400/1500 positions, 100 probes, 100 agreed, 0 unknown, 0 counterexamples, 1.5s
+[4x5 s14] [staticcheck 4x5] 450/1500 positions, 111 probes, 111 agreed, 0 unknown, 0 counterexamples, 1.6s
+[4x5 s14] [staticcheck 4x5] 500/1500 positions, 122 probes, 122 agreed, 0 unknown, 0 counterexamples, 1.8s
+[4x5 s14] [staticcheck 4x5] 550/1500 positions, 140 probes, 140 agreed, 0 unknown, 0 counterexamples, 2.0s
+[4x5 s14] [staticcheck 4x5] 600/1500 positions, 146 probes, 146 agreed, 0 unknown, 0 counterexamples, 2.1s
+[4x5 s14] NOTE #641: static said Black but full solver says Some(White)
+[4x5 s14] [staticcheck 4x5] 650/1500 positions, 160 probes, 160 agreed, 0 unknown, 0 counterexamples, 2.4s
+[4x5 s14] [staticcheck 4x5] 700/1500 positions, 169 probes, 169 agreed, 0 unknown, 0 counterexamples, 2.5s
+[4x5 s14] [staticcheck 4x5] 750/1500 positions, 184 probes, 184 agreed, 0 unknown, 0 counterexamples, 2.7s
+[4x5 s14] NOTE #770: static said White but full solver says Some(Black)
+[4x5 s14] [staticcheck 4x5] 800/1500 positions, 198 probes, 198 agreed, 0 unknown, 0 counterexamples, 2.9s
+[4x5 s14] [staticcheck 4x5] 850/1500 positions, 218 probes, 218 agreed, 0 unknown, 0 counterexamples, 3.4s
+[4x5 s14] [staticcheck 4x5] 900/1500 positions, 235 probes, 235 agreed, 0 unknown, 0 counterexamples, 3.8s
+[4x5 s14] [staticcheck 4x5] 950/1500 positions, 258 probes, 258 agreed, 0 unknown, 0 counterexamples, 4.5s
+[4x5 s14] [staticcheck 4x5] 1000/1500 positions, 270 probes, 270 agreed, 0 unknown, 0 counterexamples, 4.9s
+[4x5 s14] [staticcheck 4x5] 1050/1500 positions, 290 probes, 290 agreed, 0 unknown, 0 counterexamples, 5.7s
+[4x5 s14] [staticcheck 4x5] 1100/1500 positions, 305 probes, 305 agreed, 0 unknown, 0 counterexamples, 5.9s
+[4x5 s14] [staticcheck 4x5] 1150/1500 positions, 315 probes, 315 agreed, 0 unknown, 0 counterexamples, 6.1s
+[4x5 s14] --
+[4x5 s14] [staticcheck 4x5] done: 414 probes, 414 agreed, 0 unknown, 0 counterexamples
+[3x5 s16] NOTE #98: static said Black but full solver says Some(White)
+[3x5 s16] [staticcheck 3x5] 100/1500 positions, 41 probes, 41 agreed, 0 unknown, 0 counterexamples, 0.9s
+[3x5 s16] [staticcheck 3x5] 150/1500 positions, 56 probes, 56 agreed, 0 unknown, 0 counterexamples, 1.2s
+[3x5 s16] [staticcheck 3x5] 200/1500 positions, 69 probes, 69 agreed, 0 unknown, 0 counterexamples, 1.4s
+[3x5 s16] [staticcheck 3x5] 250/1500 positions, 82 probes, 82 agreed, 0 unknown, 0 counterexamples, 1.7s
+[3x5 s16] [staticcheck 3x5] 300/1500 positions, 99 probes, 99 agreed, 0 unknown, 0 counterexamples, 2.1s
+[3x5 s16] [staticcheck 3x5] 350/1500 positions, 118 probes, 118 agreed, 0 unknown, 0 counterexamples, 2.4s
+[3x5 s16] [staticcheck 3x5] 400/1500 positions, 134 probes, 134 agreed, 0 unknown, 0 counterexamples, 2.7s
+[3x5 s16] [staticcheck 3x5] 450/1500 positions, 157 probes, 157 agreed, 0 unknown, 0 counterexamples, 3.2s
+[3x5 s16] --
+[3x5 s16] NOTE #501: static said White but full solver says Some(Black)
+[3x5 s16] [staticcheck 3x5] 550/1500 positions, 184 probes, 184 agreed, 0 unknown, 0 counterexamples, 3.6s
+[3x5 s16] [staticcheck 3x5] 600/1500 positions, 195 probes, 195 agreed, 0 unknown, 0 counterexamples, 3.8s
+[3x5 s16] [staticcheck 3x5] 650/1500 positions, 204 probes, 204 agreed, 0 unknown, 0 counterexamples, 4.0s
+[3x5 s16] [staticcheck 3x5] 700/1500 positions, 219 probes, 219 agreed, 0 unknown, 0 counterexamples, 4.3s
+[3x5 s16] [staticcheck 3x5] 750/1500 positions, 233 probes, 233 agreed, 0 unknown, 0 counterexamples, 4.7s
+[3x5 s16] [staticcheck 3x5] 800/1500 positions, 244 probes, 244 agreed, 0 unknown, 0 counterexamples, 4.9s
+[3x5 s16] NOTE #807: static said Black but full solver says Some(White)
+[3x5 s16] [staticcheck 3x5] 850/1500 positions, 272 probes, 272 agreed, 0 unknown, 0 counterexamples, 5.5s
+[3x5 s16] [staticcheck 3x5] 900/1500 positions, 292 probes, 292 agreed, 0 unknown, 0 counterexamples, 5.9s
+[3x5 s16] [staticcheck 3x5] 950/1500 positions, 301 probes, 301 agreed, 0 unknown, 0 counterexamples, 6.0s
+[3x5 s16] [staticcheck 3x5] 1000/1500 positions, 312 probes, 312 agreed, 0 unknown, 0 counterexamples, 6.1s
+[3x5 s16] [staticcheck 3x5] 1050/1500 positions, 330 probes, 330 agreed, 0 unknown, 0 counterexamples, 6.4s
+[3x5 s16] [staticcheck 3x5] 1100/1500 positions, 344 probes, 344 agreed, 0 unknown, 0 counterexamples, 6.5s
+[3x5 s16] [staticcheck 3x5] 1150/1500 positions, 361 probes, 361 agreed, 0 unknown, 0 counterexamples, 6.7s
+[3x5 s16] [staticcheck 3x5] 1200/1500 positions, 379 probes, 379 agreed, 0 unknown, 0 counterexamples, 6.9s
+[3x5 s16] --
+[3x5 s16] [staticcheck 3x5] done: 448 probes, 448 agreed, 0 unknown, 0 counterexamples
+[3x4 s15] NOTE #38: static said Black but full solver says Some(White)
+[3x4 s15] [staticcheck 3x4] 50/1500 positions, 14 probes, 14 agreed, 0 unknown, 0 counterexamples, 0.3s
+[3x4 s15] [staticcheck 3x4] 100/1500 positions, 26 probes, 26 agreed, 0 unknown, 0 counterexamples, 0.5s
+[3x4 s15] [staticcheck 3x4] 150/1500 positions, 36 probes, 36 agreed, 0 unknown, 0 counterexamples, 0.7s
+[3x4 s15] [staticcheck 3x4] 200/1500 positions, 51 probes, 51 agreed, 0 unknown, 0 counterexamples, 1.0s
+[3x4 s15] [staticcheck 3x4] 250/1500 positions, 65 probes, 65 agreed, 0 unknown, 0 counterexamples, 1.3s
+[3x4 s15] [staticcheck 3x4] 300/1500 positions, 74 probes, 74 agreed, 0 unknown, 0 counterexamples, 1.4s
+[3x4 s15] [staticcheck 3x4] 350/1500 positions, 89 probes, 89 agreed, 0 unknown, 0 counterexamples, 1.7s
+[3x4 s15] [staticcheck 3x4] 400/1500 positions, 104 probes, 104 agreed, 0 unknown, 0 counterexamples, 2.0s
+[3x4 s15] --
+[3x4 s15] NOTE #681: static said White but full solver says Some(Black)
+[3x4 s15] NOTE #689: static said White but full solver says Some(Black)
+[3x4 s15] [staticcheck 3x4] 700/1500 positions, 190 probes, 190 agreed, 0 unknown, 0 counterexamples, 4.0s
+[3x4 s15] [staticcheck 3x4] 750/1500 positions, 206 probes, 206 agreed, 0 unknown, 0 counterexamples, 4.4s
+[3x4 s15] [staticcheck 3x4] 800/1500 positions, 221 probes, 221 agreed, 0 unknown, 0 counterexamples, 4.7s
+[3x4 s15] NOTE #824: static said White but full solver says Some(Black)
+[3x4 s15] [staticcheck 3x4] 850/1500 positions, 237 probes, 237 agreed, 0 unknown, 0 counterexamples, 5.1s
+[3x4 s15] [staticcheck 3x4] 900/1500 positions, 253 probes, 253 agreed, 0 unknown, 0 counterexamples, 5.4s
+[3x4 s15] [staticcheck 3x4] 950/1500 positions, 266 probes, 266 agreed, 0 unknown, 0 counterexamples, 5.7s
+[3x4 s15] [staticcheck 3x4] 1000/1500 positions, 284 probes, 284 agreed, 0 unknown, 0 counterexamples, 6.0s
+[3x4 s15] NOTE #1011: static said Black but full solver says Some(White)
+[3x4 s15] [staticcheck 3x4] 1050/1500 positions, 297 probes, 297 agreed, 0 unknown, 0 counterexamples, 6.2s
+[3x4 s15] [staticcheck 3x4] 1100/1500 positions, 308 probes, 308 agreed, 0 unknown, 0 counterexamples, 6.3s
+[3x4 s15] [staticcheck 3x4] 1150/1500 positions, 320 probes, 320 agreed, 0 unknown, 0 counterexamples, 6.5s
+[3x4 s15] NOTE #1197: static said Black but full solver says Some(White)
+[3x4 s15] [staticcheck 3x4] 1200/1500 positions, 336 probes, 336 agreed, 0 unknown, 0 counterexamples, 6.7s
+[3x4 s15] [staticcheck 3x4] 1250/1500 positions, 350 probes, 350 agreed, 0 unknown, 0 counterexamples, 6.9s
+[3x4 s15] [staticcheck 3x4] 1300/1500 positions, 363 probes, 363 agreed, 0 unknown, 0 counterexamples, 7.0s
+[3x4 s15] [staticcheck 3x4] 1350/1500 positions, 379 probes, 379 agreed, 0 unknown, 0 counterexamples, 7.2s
+[3x4 s15] NOTE #1399: static said White but full solver says Some(Black)
+[3x4 s15] [staticcheck 3x4] 1400/1500 positions, 393 probes, 393 agreed, 0 unknown, 0 counterexamples, 7.3s
+[3x4 s15] [staticcheck 3x4] 1450/1500 positions, 407 probes, 407 agreed, 0 unknown, 0 counterexamples, 7.4s
+[3x4 s15] [staticcheck 3x4] 1500/1500 positions, 417 probes, 417 agreed, 0 unknown, 0 counterexamples, 7.5s
+[3x4 s15] [staticcheck 3x4] done: 417 probes, 417 agreed, 0 unknown, 0 counterexamples
+[2x4 s16] NOTE #454: static said Black but full solver says Some(White)
+[2x4 s16] [staticcheck 2x4] 500/1500 positions, 133 probes, 133 agreed, 0 unknown, 0 counterexamples, 2.3s
+[2x4 s16] [staticcheck 2x4] 550/1500 positions, 149 probes, 149 agreed, 0 unknown, 0 counterexamples, 2.6s
+[2x4 s16] [staticcheck 2x4] 600/1500 positions, 158 probes, 158 agreed, 0 unknown, 0 counterexamples, 2.8s
+[2x4 s16] [staticcheck 2x4] 650/1500 positions, 166 probes, 166 agreed, 0 unknown, 0 counterexamples, 3.0s
+[2x4 s16] [staticcheck 2x4] 700/1500 positions, 177 probes, 177 agreed, 0 unknown, 0 counterexamples, 3.2s
+[2x4 s16] [staticcheck 2x4] 750/1500 positions, 191 probes, 191 agreed, 0 unknown, 0 counterexamples, 3.6s
+[2x4 s16] [staticcheck 2x4] 800/1500 positions, 206 probes, 206 agreed, 0 unknown, 0 counterexamples, 3.9s
+[2x4 s16] [staticcheck 2x4] 850/1500 positions, 225 probes, 225 agreed, 0 unknown, 0 counterexamples, 4.2s
+[2x4 s16] --
+[2x4 s16] NOTE #1478: static said Black but full solver says Some(White)
+[2x4 s16] [staticcheck 2x4] 1500/1500 positions, 457 probes, 457 agreed, 0 unknown, 0 counterexamples, 7.5s
+[2x4 s16] [staticcheck 2x4] done: 457 probes, 457 agreed, 0 unknown, 0 counterexamples
+[3x5 s17] NOTE #415: static said White but full solver says Some(Black)
+[3x5 s17] [staticcheck 3x5] 450/1500 positions, 146 probes, 146 agreed, 0 unknown, 0 counterexamples, 2.9s
+[3x5 s17] [staticcheck 3x5] 500/1500 positions, 154 probes, 154 agreed, 0 unknown, 0 counterexamples, 3.0s
+[3x5 s17] NOTE #506: static said White but full solver says Some(Black)
+[3x5 s17] [staticcheck 3x5] 550/1500 positions, 169 probes, 169 agreed, 0 unknown, 0 counterexamples, 3.3s
+[3x5 s17] [staticcheck 3x5] 600/1500 positions, 180 probes, 180 agreed, 0 unknown, 0 counterexamples, 3.5s
+[3x5 s17] [staticcheck 3x5] 650/1500 positions, 191 probes, 191 agreed, 0 unknown, 0 counterexamples, 3.8s
+[3x5 s17] [staticcheck 3x5] 700/1500 positions, 210 probes, 210 agreed, 0 unknown, 0 counterexamples, 4.2s
+[3x5 s17] [staticcheck 3x5] 750/1500 positions, 221 probes, 221 agreed, 0 unknown, 0 counterexamples, 4.4s
+[3x5 s17] [staticcheck 3x5] 800/1500 positions, 226 probes, 226 agreed, 0 unknown, 0 counterexamples, 4.5s
+[3x5 s17] [staticcheck 3x5] 850/1500 positions, 234 probes, 234 agreed, 0 unknown, 0 counterexamples, 4.7s
+[3x5 s17] [staticcheck 3x5] 900/1500 positions, 255 probes, 255 agreed, 0 unknown, 0 counterexamples, 5.1s
+[3x5 s17] --
+[3x5 s17] NOTE #1217: static said White but full solver says Some(Black)
+[3x5 s17] [staticcheck 3x5] 1250/1500 positions, 359 probes, 359 agreed, 0 unknown, 0 counterexamples, 6.7s
+[3x5 s17] [staticcheck 3x5] 1300/1500 positions, 382 probes, 382 agreed, 0 unknown, 0 counterexamples, 7.0s
+[3x5 s17] [staticcheck 3x5] 1350/1500 positions, 389 probes, 389 agreed, 0 unknown, 0 counterexamples, 7.1s
+[3x5 s17] [staticcheck 3x5] 1400/1500 positions, 409 probes, 409 agreed, 0 unknown, 0 counterexamples, 7.3s
+[3x5 s17] [staticcheck 3x5] 1450/1500 positions, 422 probes, 422 agreed, 0 unknown, 0 counterexamples, 7.4s
+[3x5 s17] [staticcheck 3x5] 1500/1500 positions, 434 probes, 434 agreed, 0 unknown, 0 counterexamples, 7.5s
+[3x5 s17] [staticcheck 3x5] done: 434 probes, 434 agreed, 0 unknown, 0 counterexamples
+[2x4 s18] NOTE #652: static said White but full solver says Some(Black)
+[2x4 s18] [staticcheck 2x4] 700/1500 positions, 218 probes, 218 agreed, 0 unknown, 0 counterexamples, 4.3s
+[2x4 s18] [staticcheck 2x4] 750/1500 positions, 234 probes, 234 agreed, 0 unknown, 0 counterexamples, 4.6s
+[2x4 s18] [staticcheck 2x4] 800/1500 positions, 251 probes, 251 agreed, 0 unknown, 0 counterexamples, 5.0s
+[2x4 s18] [staticcheck 2x4] 850/1500 positions, 266 probes, 266 agreed, 0 unknown, 0 counterexamples, 5.4s
+[2x4 s18] [staticcheck 2x4] 900/1500 positions, 280 probes, 280 agreed, 0 unknown, 0 counterexamples, 5.7s
+[2x4 s18] [staticcheck 2x4] 950/1500 positions, 290 probes, 290 agreed, 0 unknown, 0 counterexamples, 5.9s
+[2x4 s18] [staticcheck 2x4] 1000/1500 positions, 301 probes, 301 agreed, 0 unknown, 0 counterexamples, 6.1s
+[2x4 s18] [staticcheck 2x4] 1050/1500 positions, 312 probes, 312 agreed, 0 unknown, 0 counterexamples, 6.3s
+[2x4 s18] --
+[2x4 s18] [staticcheck 2x4] done: 441 probes, 441 agreed, 0 unknown, 0 counterexamples
+[3x4 s18] NOTE #188: static said Black but full solver says Some(White)
+[3x4 s18] [staticcheck 3x4] 200/1500 positions, 49 probes, 49 agreed, 0 unknown, 0 counterexamples, 1.0s
+[3x4 s18] [staticcheck 3x4] 250/1500 positions, 59 probes, 59 agreed, 0 unknown, 0 counterexamples, 1.2s
+[3x4 s18] [staticcheck 3x4] 300/1500 positions, 72 probes, 72 agreed, 0 unknown, 0 counterexamples, 1.5s
+[3x4 s18] [staticcheck 3x4] 350/1500 positions, 81 probes, 81 agreed, 0 unknown, 0 counterexamples, 1.6s
+[3x4 s18] [staticcheck 3x4] 400/1500 positions, 93 probes, 93 agreed, 0 unknown, 0 counterexamples, 1.9s
+[3x4 s18] [staticcheck 3x4] 450/1500 positions, 106 probes, 106 agreed, 0 unknown, 0 counterexamples, 2.1s
+[3x4 s18] [staticcheck 3x4] 500/1500 positions, 133 probes, 133 agreed, 0 unknown, 0 counterexamples, 2.7s
+[3x4 s18] [staticcheck 3x4] 550/1500 positions, 143 probes, 143 agreed, 0 unknown, 0 counterexamples, 2.8s
+[3x4 s18] --
+[3x4 s18] NOTE #1254: static said White but full solver says Some(Black)
+[3x4 s18] [staticcheck 3x4] 1300/1500 positions, 375 probes, 375 agreed, 0 unknown, 0 counterexamples, 7.1s
+[3x4 s18] [staticcheck 3x4] 1350/1500 positions, 391 probes, 391 agreed, 0 unknown, 0 counterexamples, 7.3s
+[3x4 s18] [staticcheck 3x4] 1400/1500 positions, 408 probes, 408 agreed, 0 unknown, 0 counterexamples, 7.4s
+[3x4 s18] [staticcheck 3x4] 1450/1500 positions, 415 probes, 415 agreed, 0 unknown, 0 counterexamples, 7.4s
+[3x4 s18] [staticcheck 3x4] 1500/1500 positions, 430 probes, 430 agreed, 0 unknown, 0 counterexamples, 7.5s
+[3x4 s18] [staticcheck 3x4] done: 430 probes, 430 agreed, 0 unknown, 0 counterexamples
+[2x4 s17] NOTE #194: static said White but full solver says Some(Black)
+[2x4 s17] [staticcheck 2x4] 200/1500 positions, 56 probes, 56 agreed, 0 unknown, 0 counterexamples, 1.0s
+[2x4 s17] [staticcheck 2x4] 250/1500 positions, 66 probes, 66 agreed, 0 unknown, 0 counterexamples, 1.2s
+[2x4 s17] [staticcheck 2x4] 300/1500 positions, 81 probes, 81 agreed, 0 unknown, 0 counterexamples, 1.6s
+[2x4 s17] [staticcheck 2x4] 350/1500 positions, 96 probes, 96 agreed, 0 unknown, 0 counterexamples, 1.9s
+[2x4 s17] [staticcheck 2x4] 400/1500 positions, 108 probes, 108 agreed, 0 unknown, 0 counterexamples, 2.1s
+[2x4 s17] [staticcheck 2x4] 450/1500 positions, 125 probes, 125 agreed, 0 unknown, 0 counterexamples, 2.5s
+[2x4 s17] [staticcheck 2x4] 500/1500 positions, 146 probes, 146 agreed, 0 unknown, 0 counterexamples, 2.9s
+[2x4 s17] [staticcheck 2x4] 550/1500 positions, 159 probes, 159 agreed, 0 unknown, 0 counterexamples, 3.1s
+[2x4 s17] --
+[2x4 s17] NOTE #1302: static said Black but full solver says Some(White)
+[2x4 s17] [staticcheck 2x4] 1350/1500 positions, 379 probes, 379 agreed, 0 unknown, 0 counterexamples, 7.1s
+[2x4 s17] [staticcheck 2x4] 1400/1500 positions, 392 probes, 392 agreed, 0 unknown, 0 counterexamples, 7.3s
+[2x4 s17] [staticcheck 2x4] 1450/1500 positions, 411 probes, 411 agreed, 0 unknown, 0 counterexamples, 7.4s
+[2x4 s17] [staticcheck 2x4] 1500/1500 positions, 433 probes, 433 agreed, 0 unknown, 0 counterexamples, 7.5s
+[2x4 s17] [staticcheck 2x4] done: 433 probes, 433 agreed, 0 unknown, 0 counterexamples
+[2x4 s14] NOTE #654: static said Black but full solver says Some(White)
+[2x4 s14] [staticcheck 2x4] 700/1500 positions, 195 probes, 195 agreed, 0 unknown, 0 counterexamples, 4.0s
+[2x4 s14] [staticcheck 2x4] 750/1500 positions, 207 probes, 207 agreed, 0 unknown, 0 counterexamples, 4.1s
+[2x4 s14] [staticcheck 2x4] 800/1500 positions, 221 probes, 221 agreed, 0 unknown, 0 counterexamples, 4.4s
+[2x4 s14] [staticcheck 2x4] 850/1500 positions, 232 probes, 232 agreed, 0 unknown, 0 counterexamples, 4.6s
+[2x4 s14] [staticcheck 2x4] 900/1500 positions, 250 probes, 250 agreed, 0 unknown, 0 counterexamples, 5.0s
+[2x4 s14] [staticcheck 2x4] 950/1500 positions, 271 probes, 271 agreed, 0 unknown, 0 counterexamples, 5.5s
+[2x4 s14] [staticcheck 2x4] 1000/1500 positions, 284 probes, 284 agreed, 0 unknown, 0 counterexamples, 5.8s
+[2x4 s14] [staticcheck 2x4] 1050/1500 positions, 294 probes, 294 agreed, 0 unknown, 0 counterexamples, 5.9s
+[2x4 s14] --
+[2x4 s14] NOTE #1171: static said Black but full solver says Some(White)
+[2x4 s14] [staticcheck 2x4] 1200/1500 positions, 336 probes, 336 agreed, 0 unknown, 0 counterexamples, 6.5s
+[2x4 s14] [staticcheck 2x4] 1250/1500 positions, 348 probes, 348 agreed, 0 unknown, 0 counterexamples, 6.6s
+[2x4 s14] [staticcheck 2x4] 1300/1500 positions, 367 probes, 367 agreed, 0 unknown, 0 counterexamples, 6.9s
+[2x4 s14] [staticcheck 2x4] 1350/1500 positions, 379 probes, 379 agreed, 0 unknown, 0 counterexamples, 7.1s
+[2x4 s14] [staticcheck 2x4] 1400/1500 positions, 396 probes, 396 agreed, 0 unknown, 0 counterexamples, 7.3s
+[2x4 s14] NOTE #1432: static said Black but full solver says Some(White)
+[2x4 s14] [staticcheck 2x4] 1450/1500 positions, 412 probes, 412 agreed, 0 unknown, 0 counterexamples, 7.4s
+[2x4 s14] [staticcheck 2x4] 1500/1500 positions, 433 probes, 433 agreed, 0 unknown, 0 counterexamples, 7.5s
+[2x4 s14] [staticcheck 2x4] done: 433 probes, 433 agreed, 0 unknown, 0 counterexamples
+[3x4 s14] NOTE #33: static said Black but full solver says Some(White)
+[3x4 s14] [staticcheck 3x4] 50/1500 positions, 19 probes, 19 agreed, 0 unknown, 0 counterexamples, 0.4s
+[3x4 s14] [staticcheck 3x4] 100/1500 positions, 28 probes, 28 agreed, 0 unknown, 0 counterexamples, 0.5s
+[3x4 s14] [staticcheck 3x4] 150/1500 positions, 44 probes, 44 agreed, 0 unknown, 0 counterexamples, 0.8s
+[3x4 s14] [staticcheck 3x4] 200/1500 positions, 55 probes, 55 agreed, 0 unknown, 0 counterexamples, 1.0s
+[3x4 s14] [staticcheck 3x4] 250/1500 positions, 74 probes, 74 agreed, 0 unknown, 0 counterexamples, 1.4s
+[3x4 s14] [staticcheck 3x4] 300/1500 positions, 85 probes, 85 agreed, 0 unknown, 0 counterexamples, 1.6s
+[3x4 s14] [staticcheck 3x4] 350/1500 positions, 98 probes, 98 agreed, 0 unknown, 0 counterexamples, 1.9s
+[3x4 s14] [staticcheck 3x4] 400/1500 positions, 111 probes, 111 agreed, 0 unknown, 0 counterexamples, 2.1s
+[3x4 s14] --
+[3x4 s14] NOTE #735: static said Black but full solver says Some(White)
+[3x4 s14] [staticcheck 3x4] 750/1500 positions, 223 probes, 223 agreed, 0 unknown, 0 counterexamples, 4.5s
+[3x4 s14] [staticcheck 3x4] 800/1500 positions, 233 probes, 233 agreed, 0 unknown, 0 counterexamples, 4.7s
+[3x4 s14] [staticcheck 3x4] 850/1500 positions, 248 probes, 248 agreed, 0 unknown, 0 counterexamples, 5.1s
+[3x4 s14] [staticcheck 3x4] 900/1500 positions, 269 probes, 269 agreed, 0 unknown, 0 counterexamples, 5.6s
+[3x4 s14] [staticcheck 3x4] 950/1500 positions, 293 probes, 293 agreed, 0 unknown, 0 counterexamples, 5.9s
+[3x4 s14] [staticcheck 3x4] 1000/1500 positions, 300 probes, 300 agreed, 0 unknown, 0 counterexamples, 6.0s
+[3x4 s14] [staticcheck 3x4] 1050/1500 positions, 312 probes, 312 agreed, 0 unknown, 0 counterexamples, 6.2s
+[3x4 s14] [staticcheck 3x4] 1100/1500 positions, 330 probes, 330 agreed, 0 unknown, 0 counterexamples, 6.4s
+[3x4 s14] --
+[3x4 s14] NOTE #1297: static said White but full solver says Some(Black)
+[3x4 s14] [staticcheck 3x4] 1300/1500 positions, 382 probes, 382 agreed, 0 unknown, 0 counterexamples, 7.1s
+[3x4 s14] NOTE #1338: static said Black but full solver says Some(White)
+[3x4 s14] [staticcheck 3x4] 1350/1500 positions, 394 probes, 394 agreed, 0 unknown, 0 counterexamples, 7.2s
+[3x4 s14] [staticcheck 3x4] 1400/1500 positions, 412 probes, 412 agreed, 0 unknown, 0 counterexamples, 7.3s
+[3x4 s14] [staticcheck 3x4] 1450/1500 positions, 425 probes, 425 agreed, 0 unknown, 0 counterexamples, 7.4s
+[3x4 s14] [staticcheck 3x4] 1500/1500 positions, 441 probes, 441 agreed, 0 unknown, 0 counterexamples, 7.5s
+[3x4 s14] [staticcheck 3x4] done: 441 probes, 441 agreed, 0 unknown, 0 counterexamples
+[4x5 s11] NOTE #245: static said White but full solver says Some(Black)
+[4x5 s11] [staticcheck 4x5] 250/1500 positions, 81 probes, 81 agreed, 0 unknown, 0 counterexamples, 1.8s
+[4x5 s11] [staticcheck 4x5] 300/1500 positions, 97 probes, 97 agreed, 0 unknown, 0 counterexamples, 2.1s
+[4x5 s11] NOTE #300: static said Black but full solver says Some(White)
+[4x5 s11] [staticcheck 4x5] 350/1500 positions, 124 probes, 124 agreed, 0 unknown, 0 counterexamples, 2.8s
+[4x5 s11] [staticcheck 4x5] 400/1500 positions, 134 probes, 134 agreed, 0 unknown, 0 counterexamples, 3.0s
+[4x5 s11] [staticcheck 4x5] 450/1500 positions, 142 probes, 142 agreed, 0 unknown, 0 counterexamples, 3.3s
+[4x5 s11] [staticcheck 4x5] 500/1500 positions, 163 probes, 163 agreed, 0 unknown, 0 counterexamples, 3.6s
+[4x5 s11] NOTE #511: static said White but full solver says Some(Black)
+[4x5 s11] [staticcheck 4x5] 550/1500 positions, 170 probes, 170 agreed, 0 unknown, 0 counterexamples, 3.7s
+[4x5 s11] [staticcheck 4x5] 600/1500 positions, 180 probes, 180 agreed, 0 unknown, 0 counterexamples, 3.9s
+[4x5 s11] NOTE #641: static said White but full solver says Some(Black)
+[4x5 s11] [staticcheck 4x5] 650/1500 positions, 197 probes, 197 agreed, 0 unknown, 0 counterexamples, 4.3s
+[4x5 s11] [staticcheck 4x5] 700/1500 positions, 209 probes, 209 agreed, 0 unknown, 0 counterexamples, 4.5s
+[4x5 s11] [staticcheck 4x5] 750/1500 positions, 231 probes, 231 agreed, 0 unknown, 0 counterexamples, 4.9s
+[4x5 s11] [staticcheck 4x5] 800/1500 positions, 242 probes, 242 agreed, 0 unknown, 0 counterexamples, 5.2s
+[4x5 s11] [staticcheck 4x5] 850/1500 positions, 258 probes, 258 agreed, 0 unknown, 0 counterexamples, 5.5s
+[4x5 s11] [staticcheck 4x5] 900/1500 positions, 273 probes, 273 agreed, 0 unknown, 0 counterexamples, 5.8s
+[4x5 s11] [staticcheck 4x5] 950/1500 positions, 292 probes, 292 agreed, 0 unknown, 0 counterexamples, 6.3s
+[4x5 s11] NOTE #981: static said Black but full solver says Some(White)
+[4x5 s11] [staticcheck 4x5] 1000/1500 positions, 308 probes, 308 agreed, 0 unknown, 0 counterexamples, 6.4s
+[4x5 s11] [staticcheck 4x5] 1050/1500 positions, 319 probes, 319 agreed, 0 unknown, 0 counterexamples, 6.5s
+[4x5 s11] [staticcheck 4x5] 1100/1500 positions, 333 probes, 333 agreed, 0 unknown, 0 counterexamples, 6.7s
+[4x5 s11] [staticcheck 4x5] 1150/1500 positions, 343 probes, 343 agreed, 0 unknown, 0 counterexamples, 6.8s
+[4x5 s11] [staticcheck 4x5] 1200/1500 positions, 360 probes, 360 agreed, 0 unknown, 0 counterexamples, 6.9s
+[4x5 s11] [staticcheck 4x5] 1250/1500 positions, 373 probes, 373 agreed, 0 unknown, 0 counterexamples, 7.1s
+[4x5 s11] [staticcheck 4x5] 1300/1500 positions, 390 probes, 390 agreed, 0 unknown, 0 counterexamples, 7.2s
+[4x5 s11] [staticcheck 4x5] 1350/1500 positions, 396 probes, 396 agreed, 0 unknown, 0 counterexamples, 7.2s
+[4x5 s11] NOTE #1354: static said White but full solver says Some(Black)
+[4x5 s11] [staticcheck 4x5] 1400/1500 positions, 415 probes, 415 agreed, 0 unknown, 0 counterexamples, 7.4s
+[4x5 s11] [staticcheck 4x5] 1450/1500 positions, 428 probes, 428 agreed, 0 unknown, 0 counterexamples, 7.5s
+[4x5 s11] NOTE #1487: static said Black but full solver says Some(White)
+[4x5 s11] [staticcheck 4x5] 1500/1500 positions, 443 probes, 443 agreed, 0 unknown, 0 counterexamples, 7.5s
+[4x5 s11] [staticcheck 4x5] done: 443 probes, 443 agreed, 0 unknown, 0 counterexamples
+[3x5 s14] NOTE #265: static said Black but full solver says Some(White)
+[3x5 s14] [staticcheck 3x5] 300/1500 positions, 85 probes, 85 agreed, 0 unknown, 0 counterexamples, 1.8s
+[3x5 s14] [staticcheck 3x5] 350/1500 positions, 104 probes, 104 agreed, 0 unknown, 0 counterexamples, 2.2s
+[3x5 s14] [staticcheck 3x5] 400/1500 positions, 120 probes, 120 agreed, 0 unknown, 0 counterexamples, 2.5s
+[3x5 s14] [staticcheck 3x5] 450/1500 positions, 135 probes, 135 agreed, 0 unknown, 0 counterexamples, 2.9s
+[3x5 s14] [staticcheck 3x5] 500/1500 positions, 150 probes, 150 agreed, 0 unknown, 0 counterexamples, 3.1s
+[3x5 s14] [staticcheck 3x5] 550/1500 positions, 171 probes, 171 agreed, 0 unknown, 0 counterexamples, 3.5s
+[3x5 s14] [staticcheck 3x5] 600/1500 positions, 186 probes, 186 agreed, 0 unknown, 0 counterexamples, 3.8s
+[3x5 s14] [staticcheck 3x5] 650/1500 positions, 199 probes, 199 agreed, 0 unknown, 0 counterexamples, 4.1s
+[3x5 s14] --
+[3x5 s14] NOTE #1499: static said Black but full solver says Some(White)
+[3x5 s14] [staticcheck 3x5] 1500/1500 positions, 422 probes, 422 agreed, 0 unknown, 0 counterexamples, 7.5s
+[3x5 s14] [staticcheck 3x5] done: 422 probes, 422 agreed, 0 unknown, 0 counterexamples
+[3x5 s11] NOTE #137: static said White but full solver says Some(Black)
+[3x5 s11] [staticcheck 3x5] 150/1500 positions, 37 probes, 37 agreed, 0 unknown, 0 counterexamples, 0.7s
+[3x5 s11] [staticcheck 3x5] 200/1500 positions, 57 probes, 57 agreed, 0 unknown, 0 counterexamples, 1.0s
+[3x5 s11] [staticcheck 3x5] 250/1500 positions, 82 probes, 82 agreed, 0 unknown, 0 counterexamples, 1.6s
+[3x5 s11] [staticcheck 3x5] 300/1500 positions, 103 probes, 103 agreed, 0 unknown, 0 counterexamples, 2.0s
+[3x5 s11] [staticcheck 3x5] 350/1500 positions, 120 probes, 120 agreed, 0 unknown, 0 counterexamples, 2.3s
+[3x5 s11] [staticcheck 3x5] 400/1500 positions, 134 probes, 134 agreed, 0 unknown, 0 counterexamples, 2.6s
+[3x5 s11] [staticcheck 3x5] 450/1500 positions, 150 probes, 150 agreed, 0 unknown, 0 counterexamples, 2.9s
+[3x5 s11] [staticcheck 3x5] 500/1500 positions, 165 probes, 165 agreed, 0 unknown, 0 counterexamples, 3.2s
+[3x5 s11] --
+[3x5 s11] NOTE #1078: static said Black but full solver says Some(White)
+[3x5 s11] [staticcheck 3x5] 1100/1500 positions, 330 probes, 330 agreed, 0 unknown, 0 counterexamples, 6.4s
+[3x5 s11] [staticcheck 3x5] 1150/1500 positions, 344 probes, 344 agreed, 0 unknown, 0 counterexamples, 6.6s
+[3x5 s11] [staticcheck 3x5] 1200/1500 positions, 359 probes, 359 agreed, 0 unknown, 0 counterexamples, 6.8s
+[3x5 s11] [staticcheck 3x5] 1250/1500 positions, 376 probes, 376 agreed, 0 unknown, 0 counterexamples, 7.0s
+[3x5 s11] [staticcheck 3x5] 1300/1500 positions, 388 probes, 388 agreed, 0 unknown, 0 counterexamples, 7.1s
+[3x5 s11] [staticcheck 3x5] 1350/1500 positions, 405 probes, 405 agreed, 0 unknown, 0 counterexamples, 7.3s
+[3x5 s11] [staticcheck 3x5] 1400/1500 positions, 418 probes, 418 agreed, 0 unknown, 0 counterexamples, 7.4s
+[3x5 s11] [staticcheck 3x5] 1450/1500 positions, 429 probes, 429 agreed, 0 unknown, 0 counterexamples, 7.5s
+[3x5 s11] --
+[3x5 s11] [staticcheck 3x5] done: 441 probes, 441 agreed, 0 unknown, 0 counterexamples
+[3x3 s14] NOTE #818: static said White but full solver says Some(Black)
+[3x3 s14] NOTE #821: static said White but full solver says Some(Black)
+[3x3 s14] [staticcheck 3x3] 850/1500 positions, 245 probes, 245 agreed, 0 unknown, 0 counterexamples, 4.8s
+[3x3 s14] [staticcheck 3x3] 900/1500 positions, 260 probes, 260 agreed, 0 unknown, 0 counterexamples, 5.2s
+[3x3 s14] [staticcheck 3x3] 950/1500 positions, 278 probes, 278 agreed, 0 unknown, 0 counterexamples, 5.6s
+[3x3 s14] [staticcheck 3x3] 1000/1500 positions, 295 probes, 295 agreed, 0 unknown, 0 counterexamples, 6.0s
+[3x3 s14] NOTE #1008: static said Black but full solver says Some(White)
+[3x3 s14] [staticcheck 3x3] 1050/1500 positions, 311 probes, 311 agreed, 0 unknown, 0 counterexamples, 6.2s
+[3x3 s14] [staticcheck 3x3] 1100/1500 positions, 330 probes, 330 agreed, 0 unknown, 0 counterexamples, 6.5s
+[3x3 s14] [staticcheck 3x3] 1150/1500 positions, 346 probes, 346 agreed, 0 unknown, 0 counterexamples, 6.7s
+[3x3 s14] [staticcheck 3x3] 1200/1500 positions, 367 probes, 367 agreed, 0 unknown, 0 counterexamples, 6.9s
+[3x3 s14] [staticcheck 3x3] 1250/1500 positions, 388 probes, 388 agreed, 0 unknown, 0 counterexamples, 7.2s
+[3x3 s14] [staticcheck 3x3] 1300/1500 positions, 401 probes, 401 agreed, 0 unknown, 0 counterexamples, 7.2s
+[3x3 s14] [staticcheck 3x3] 1350/1500 positions, 419 probes, 419 agreed, 0 unknown, 0 counterexamples, 7.4s
+[3x3 s14] [staticcheck 3x3] 1400/1500 positions, 436 probes, 436 agreed, 0 unknown, 0 counterexamples, 7.5s
+[3x3 s14] --
+[3x3 s14] NOTE #1493: static said Black but full solver says Some(White)
+[3x3 s14] [staticcheck 3x3] 1500/1500 positions, 464 probes, 464 agreed, 0 unknown, 0 counterexamples, 7.5s
+[3x3 s14] [staticcheck 3x3] done: 464 probes, 464 agreed, 0 unknown, 0 counterexamples
+[4x4 s12] NOTE #378: static said Black but full solver says Some(White)
+[4x4 s12] NOTE #393: static said White but full solver says Some(Black)
+[4x4 s12] [staticcheck 4x4] 400/1500 positions, 121 probes, 121 agreed, 0 unknown, 0 counterexamples, 2.6s
+[4x4 s12] [staticcheck 4x4] 450/1500 positions, 137 probes, 137 agreed, 0 unknown, 0 counterexamples, 2.9s
+[4x4 s12] [staticcheck 4x4] 500/1500 positions, 156 probes, 156 agreed, 0 unknown, 0 counterexamples, 3.3s
+[4x4 s12] [staticcheck 4x4] 550/1500 positions, 174 probes, 174 agreed, 0 unknown, 0 counterexamples, 3.7s
+[4x4 s12] [staticcheck 4x4] 600/1500 positions, 187 probes, 187 agreed, 0 unknown, 0 counterexamples, 4.0s
+[4x4 s12] NOTE #644: static said Black but full solver says Some(White)
+[4x4 s12] [staticcheck 4x4] 650/1500 positions, 201 probes, 201 agreed, 0 unknown, 0 counterexamples, 4.4s
+[4x4 s12] NOTE #669: static said White but full solver says Some(Black)
+[4x4 s12] [staticcheck 4x4] 700/1500 positions, 213 probes, 213 agreed, 0 unknown, 0 counterexamples, 4.6s
+[4x4 s12] [staticcheck 4x4] 750/1500 positions, 229 probes, 229 agreed, 0 unknown, 0 counterexamples, 5.0s
+[4x4 s12] [staticcheck 4x4] 800/1500 positions, 240 probes, 240 agreed, 0 unknown, 0 counterexamples, 5.3s
+[4x4 s12] NOTE #848: static said White but full solver says Some(Black)
+[4x4 s12] [staticcheck 4x4] 850/1500 positions, 252 probes, 252 agreed, 0 unknown, 0 counterexamples, 5.6s
+[4x4 s12] [staticcheck 4x4] 900/1500 positions, 275 probes, 275 agreed, 0 unknown, 0 counterexamples, 6.0s
+[4x4 s12] [staticcheck 4x4] 950/1500 positions, 289 probes, 289 agreed, 0 unknown, 0 counterexamples, 6.3s
+[4x4 s12] [staticcheck 4x4] 1000/1500 positions, 303 probes, 303 agreed, 0 unknown, 0 counterexamples, 6.4s
+[4x4 s12] [staticcheck 4x4] 1050/1500 positions, 328 probes, 328 agreed, 0 unknown, 0 counterexamples, 6.7s
+[4x4 s12] NOTE #1093: static said Black but full solver says Some(White)
+[4x4 s12] [staticcheck 4x4] 1100/1500 positions, 342 probes, 342 agreed, 0 unknown, 0 counterexamples, 6.8s
+[4x4 s12] [staticcheck 4x4] 1150/1500 positions, 358 probes, 358 agreed, 0 unknown, 0 counterexamples, 7.1s
+[4x4 s12] [staticcheck 4x4] 1200/1500 positions, 363 probes, 363 agreed, 0 unknown, 0 counterexamples, 7.1s
+[4x4 s12] [staticcheck 4x4] 1250/1500 positions, 375 probes, 375 agreed, 0 unknown, 0 counterexamples, 7.2s
+[4x4 s12] [staticcheck 4x4] 1300/1500 positions, 384 probes, 384 agreed, 0 unknown, 0 counterexamples, 7.3s
+[4x4 s12] [staticcheck 4x4] 1350/1500 positions, 403 probes, 403 agreed, 0 unknown, 0 counterexamples, 7.5s
+[4x4 s12] [staticcheck 4x4] 1400/1500 positions, 416 probes, 416 agreed, 0 unknown, 0 counterexamples, 7.5s
+[4x4 s12] [staticcheck 4x4] 1450/1500 positions, 428 probes, 428 agreed, 0 unknown, 0 counterexamples, 7.5s
+[4x4 s12] NOTE #1473: static said Black but full solver says Some(White)
+[4x4 s12] [staticcheck 4x4] 1500/1500 positions, 439 probes, 439 agreed, 0 unknown, 0 counterexamples, 7.6s
+[4x4 s12] [staticcheck 4x4] done: 439 probes, 439 agreed, 0 unknown, 0 counterexamples
+[4x4 s14] NOTE #226: static said Black but full solver says Some(White)
+[4x4 s14] [staticcheck 4x4] 250/1500 positions, 66 probes, 66 agreed, 0 unknown, 0 counterexamples, 1.3s
+[4x4 s14] [staticcheck 4x4] 300/1500 positions, 86 probes, 86 agreed, 0 unknown, 0 counterexamples, 1.8s
+[4x4 s14] [staticcheck 4x4] 350/1500 positions, 99 probes, 99 agreed, 0 unknown, 0 counterexamples, 2.0s
+[4x4 s14] [staticcheck 4x4] 400/1500 positions, 113 probes, 113 agreed, 0 unknown, 0 counterexamples, 2.3s
+[4x4 s14] [staticcheck 4x4] 450/1500 positions, 129 probes, 129 agreed, 0 unknown, 0 counterexamples, 2.7s
+[4x4 s14] NOTE #473: static said White but full solver says Some(Black)
+[4x4 s14] [staticcheck 4x4] 500/1500 positions, 146 probes, 146 agreed, 0 unknown, 0 counterexamples, 3.1s
+[4x4 s14] [staticcheck 4x4] 550/1500 positions, 168 probes, 168 agreed, 0 unknown, 0 counterexamples, 3.5s
+[4x4 s14] [staticcheck 4x4] 600/1500 positions, 187 probes, 187 agreed, 0 unknown, 0 counterexamples, 4.0s
+[4x4 s14] [staticcheck 4x4] 650/1500 positions, 205 probes, 205 agreed, 0 unknown, 0 counterexamples, 4.4s
+[4x4 s14] NOTE #678: static said White but full solver says Some(Black)
+[4x4 s14] [staticcheck 4x4] 700/1500 positions, 226 probes, 226 agreed, 0 unknown, 0 counterexamples, 4.8s
+[4x4 s14] NOTE #724: static said Black but full solver says Some(White)
+[4x4 s14] [staticcheck 4x4] 750/1500 positions, 251 probes, 251 agreed, 0 unknown, 0 counterexamples, 5.4s
+[4x4 s14] [staticcheck 4x4] 800/1500 positions, 264 probes, 264 agreed, 0 unknown, 0 counterexamples, 5.6s
+[4x4 s14] NOTE #846: static said Black but full solver says Some(White)
+[4x4 s14] [staticcheck 4x4] 850/1500 positions, 281 probes, 281 agreed, 0 unknown, 0 counterexamples, 5.9s
+[4x4 s14] [staticcheck 4x4] 900/1500 positions, 297 probes, 297 agreed, 0 unknown, 0 counterexamples, 6.1s
+[4x4 s14] [staticcheck 4x4] 950/1500 positions, 310 probes, 310 agreed, 0 unknown, 0 counterexamples, 6.2s
+[4x4 s14] [staticcheck 4x4] 1000/1500 positions, 329 probes, 329 agreed, 0 unknown, 0 counterexamples, 6.5s
+[4x4 s14] [staticcheck 4x4] 1050/1500 positions, 348 probes, 348 agreed, 0 unknown, 0 counterexamples, 6.7s
+[4x4 s14] [staticcheck 4x4] 1100/1500 positions, 367 probes, 367 agreed, 0 unknown, 0 counterexamples, 6.9s
+[4x4 s14] [staticcheck 4x4] 1150/1500 positions, 379 probes, 379 agreed, 0 unknown, 0 counterexamples, 7.1s
+[4x4 s14] NOTE #1155: static said Black but full solver says Some(White)
+[4x4 s14] [staticcheck 4x4] 1200/1500 positions, 396 probes, 396 agreed, 0 unknown, 0 counterexamples, 7.3s
+[4x4 s14] [staticcheck 4x4] 1250/1500 positions, 411 probes, 411 agreed, 0 unknown, 0 counterexamples, 7.4s
+[4x4 s14] [staticcheck 4x4] 1300/1500 positions, 428 probes, 428 agreed, 0 unknown, 0 counterexamples, 7.5s
+[4x4 s14] [staticcheck 4x4] 1350/1500 positions, 440 probes, 440 agreed, 0 unknown, 0 counterexamples, 7.5s
+[4x4 s14] [staticcheck 4x4] 1400/1500 positions, 451 probes, 451 agreed, 0 unknown, 0 counterexamples, 7.5s
+[4x4 s14] [staticcheck 4x4] 1450/1500 positions, 468 probes, 468 agreed, 0 unknown, 0 counterexamples, 7.6s
+[4x4 s14] [staticcheck 4x4] 1500/1500 positions, 481 probes, 481 agreed, 0 unknown, 0 counterexamples, 7.6s
+[4x4 s14] [staticcheck 4x4] done: 481 probes, 481 agreed, 0 unknown, 0 counterexamples
+[2x4 s15] NOTE #836: static said Black but full solver says Some(White)
+[2x4 s15] [staticcheck 2x4] 850/1500 positions, 315 probes, 315 agreed, 0 unknown, 0 counterexamples, 6.2s
+[2x4 s15] [staticcheck 2x4] 900/1500 positions, 324 probes, 324 agreed, 0 unknown, 0 counterexamples, 6.3s
+[2x4 s15] [staticcheck 2x4] 950/1500 positions, 346 probes, 346 agreed, 0 unknown, 0 counterexamples, 6.6s
+[2x4 s15] [staticcheck 2x4] 1000/1500 positions, 360 probes, 360 agreed, 0 unknown, 0 counterexamples, 6.8s
+[2x4 s15] [staticcheck 2x4] 1050/1500 positions, 376 probes, 376 agreed, 0 unknown, 0 counterexamples, 6.9s
+[2x4 s15] [staticcheck 2x4] 1100/1500 positions, 396 probes, 396 agreed, 0 unknown, 0 counterexamples, 7.2s
+[2x4 s15] [staticcheck 2x4] 1150/1500 positions, 405 probes, 405 agreed, 0 unknown, 0 counterexamples, 7.3s
+[2x4 s15] [staticcheck 2x4] 1200/1500 positions, 417 probes, 417 agreed, 0 unknown, 0 counterexamples, 7.4s
+[2x4 s15] --
+[2x4 s15] [staticcheck 2x4] done: 491 probes, 491 agreed, 0 unknown, 0 counterexamples
+[3x3 s18] NOTE #449: static said Black but full solver says Some(White)
+[3x3 s18] [staticcheck 3x3] 450/1500 positions, 161 probes, 161 agreed, 0 unknown, 0 counterexamples, 3.0s
+[3x3 s18] [staticcheck 3x3] 500/1500 positions, 176 probes, 176 agreed, 0 unknown, 0 counterexamples, 3.3s
+[3x3 s18] [staticcheck 3x3] 550/1500 positions, 195 probes, 195 agreed, 0 unknown, 0 counterexamples, 3.7s
+[3x3 s18] NOTE #582: static said White but full solver says Some(Black)
+[3x3 s18] [staticcheck 3x3] 600/1500 positions, 207 probes, 207 agreed, 0 unknown, 0 counterexamples, 3.9s
+[3x3 s18] NOTE #623: static said White but full solver says Some(Black)
+[3x3 s18] [staticcheck 3x3] 650/1500 positions, 226 probes, 226 agreed, 0 unknown, 0 counterexamples, 4.1s
+[3x3 s18] [staticcheck 3x3] 700/1500 positions, 255 probes, 255 agreed, 0 unknown, 0 counterexamples, 4.8s
+[3x3 s18] [staticcheck 3x3] 750/1500 positions, 270 probes, 270 agreed, 0 unknown, 0 counterexamples, 5.1s
+[3x3 s18] [staticcheck 3x3] 800/1500 positions, 285 probes, 285 agreed, 0 unknown, 0 counterexamples, 5.4s
+[3x3 s18] [staticcheck 3x3] 850/1500 positions, 296 probes, 296 agreed, 0 unknown, 0 counterexamples, 5.6s
+[3x3 s18] NOTE #865: static said White but full solver says Some(Black)
+[3x3 s18] [staticcheck 3x3] 900/1500 positions, 319 probes, 319 agreed, 0 unknown, 0 counterexamples, 6.1s
+[3x3 s18] [staticcheck 3x3] 950/1500 positions, 338 probes, 338 agreed, 0 unknown, 0 counterexamples, 6.3s
+[3x3 s18] [staticcheck 3x3] 1000/1500 positions, 356 probes, 356 agreed, 0 unknown, 0 counterexamples, 6.5s
+[3x3 s18] [staticcheck 3x3] 1050/1500 positions, 373 probes, 373 agreed, 0 unknown, 0 counterexamples, 6.7s
+[3x3 s18] NOTE #1073: static said White but full solver says Some(Black)
+[3x3 s18] [staticcheck 3x3] 1100/1500 positions, 391 probes, 391 agreed, 0 unknown, 0 counterexamples, 6.9s
+[3x3 s18] [staticcheck 3x3] 1150/1500 positions, 411 probes, 411 agreed, 0 unknown, 0 counterexamples, 7.1s
+[3x3 s18] [staticcheck 3x3] 1200/1500 positions, 426 probes, 426 agreed, 0 unknown, 0 counterexamples, 7.3s
+[3x3 s18] [staticcheck 3x3] 1250/1500 positions, 436 probes, 436 agreed, 0 unknown, 0 counterexamples, 7.3s
+[3x3 s18] [staticcheck 3x3] 1300/1500 positions, 455 probes, 455 agreed, 0 unknown, 0 counterexamples, 7.4s
+[3x3 s18] [staticcheck 3x3] 1350/1500 positions, 477 probes, 477 agreed, 0 unknown, 0 counterexamples, 7.5s
+[3x3 s18] [staticcheck 3x3] 1400/1500 positions, 488 probes, 488 agreed, 0 unknown, 0 counterexamples, 7.5s
+[3x3 s18] [staticcheck 3x3] 1450/1500 positions, 506 probes, 506 agreed, 0 unknown, 0 counterexamples, 7.6s
+[3x3 s18] --
+[3x3 s18] [staticcheck 3x3] done: 521 probes, 521 agreed, 0 unknown, 0 counterexamples
+[3x3 s17] NOTE #115: static said White but full solver says Some(Black)
+[3x3 s17] [staticcheck 3x3] 150/1500 positions, 45 probes, 45 agreed, 0 unknown, 0 counterexamples, 0.9s
+[3x3 s17] [staticcheck 3x3] 200/1500 positions, 64 probes, 64 agreed, 0 unknown, 0 counterexamples, 1.3s
+[3x3 s17] [staticcheck 3x3] 250/1500 positions, 77 probes, 77 agreed, 0 unknown, 0 counterexamples, 1.5s
+[3x3 s17] [staticcheck 3x3] 300/1500 positions, 91 probes, 91 agreed, 0 unknown, 0 counterexamples, 1.8s
+[3x3 s17] NOTE #336: static said White but full solver says Some(Black)
+[3x3 s17] [staticcheck 3x3] 350/1500 positions, 110 probes, 110 agreed, 0 unknown, 0 counterexamples, 2.2s
+[3x3 s17] NOTE #392: static said White but full solver says Some(Black)
+[3x3 s17] [staticcheck 3x3] 400/1500 positions, 125 probes, 125 agreed, 0 unknown, 0 counterexamples, 2.4s
+[3x3 s17] [staticcheck 3x3] 450/1500 positions, 145 probes, 145 agreed, 0 unknown, 0 counterexamples, 2.8s
+[3x3 s17] [staticcheck 3x3] 500/1500 positions, 161 probes, 161 agreed, 0 unknown, 0 counterexamples, 3.1s
+[3x3 s17] NOTE #531: static said Black but full solver says Some(White)
+[3x3 s17] [staticcheck 3x3] 550/1500 positions, 192 probes, 192 agreed, 0 unknown, 0 counterexamples, 3.7s
+[3x3 s17] [staticcheck 3x3] 600/1500 positions, 208 probes, 208 agreed, 0 unknown, 0 counterexamples, 4.1s
+[3x3 s17] [staticcheck 3x3] 650/1500 positions, 226 probes, 226 agreed, 0 unknown, 0 counterexamples, 4.5s
+[3x3 s17] [staticcheck 3x3] 700/1500 positions, 248 probes, 248 agreed, 0 unknown, 0 counterexamples, 4.8s
+[3x3 s17] [staticcheck 3x3] 750/1500 positions, 264 probes, 264 agreed, 0 unknown, 0 counterexamples, 5.1s
+[3x3 s17] [staticcheck 3x3] 800/1500 positions, 286 probes, 286 agreed, 0 unknown, 0 counterexamples, 5.5s
+[3x3 s17] [staticcheck 3x3] 850/1500 positions, 303 probes, 303 agreed, 0 unknown, 0 counterexamples, 5.9s
+[3x3 s17] [staticcheck 3x3] 900/1500 positions, 321 probes, 321 agreed, 0 unknown, 0 counterexamples, 6.2s
+[3x3 s17] NOTE #926: static said White but full solver says Some(Black)
+[3x3 s17] [staticcheck 3x3] 950/1500 positions, 340 probes, 340 agreed, 0 unknown, 0 counterexamples, 6.4s
+[3x3 s17] NOTE #998: static said White but full solver says Some(Black)
+[3x3 s17] NOTE #999: static said Black but full solver says Some(White)
+[3x3 s17] [staticcheck 3x3] 1000/1500 positions, 362 probes, 362 agreed, 0 unknown, 0 counterexamples, 6.7s
+[3x3 s17] [staticcheck 3x3] 1050/1500 positions, 376 probes, 376 agreed, 0 unknown, 0 counterexamples, 6.9s
+[3x3 s17] NOTE #1067: static said White but full solver says Some(Black)
+[3x3 s17] [staticcheck 3x3] 1100/1500 positions, 399 probes, 399 agreed, 0 unknown, 0 counterexamples, 7.1s
+[3x3 s17] [staticcheck 3x3] 1150/1500 positions, 422 probes, 422 agreed, 0 unknown, 0 counterexamples, 7.3s
+[3x3 s17] [staticcheck 3x3] 1200/1500 positions, 438 probes, 438 agreed, 0 unknown, 0 counterexamples, 7.4s
+[3x3 s17] [staticcheck 3x3] 1250/1500 positions, 463 probes, 463 agreed, 0 unknown, 0 counterexamples, 7.5s
+[3x3 s17] [staticcheck 3x3] 1300/1500 positions, 473 probes, 473 agreed, 0 unknown, 0 counterexamples, 7.5s
+[3x3 s17] NOTE #1334: static said Black but full solver says Some(White)
+[3x3 s17] [staticcheck 3x3] 1350/1500 positions, 486 probes, 486 agreed, 0 unknown, 0 counterexamples, 7.6s
+[3x3 s17] [staticcheck 3x3] 1400/1500 positions, 501 probes, 501 agreed, 0 unknown, 0 counterexamples, 7.6s
+[3x3 s17] [staticcheck 3x3] 1450/1500 positions, 515 probes, 515 agreed, 0 unknown, 0 counterexamples, 7.6s
+[3x3 s17] [staticcheck 3x3] 1500/1500 positions, 531 probes, 531 agreed, 0 unknown, 0 counterexamples, 7.6s
+[3x3 s17] [staticcheck 3x3] done: 531 probes, 531 agreed, 0 unknown, 0 counterexamples
+[4x5 s18] NOTE #247: static said Black but full solver says Some(White)
+[4x5 s18] [staticcheck 4x5] 250/1500 positions, 80 probes, 80 agreed, 0 unknown, 0 counterexamples, 1.7s
+[4x5 s18] [staticcheck 4x5] 300/1500 positions, 100 probes, 100 agreed, 0 unknown, 0 counterexamples, 2.1s
+[4x5 s18] [staticcheck 4x5] 350/1500 positions, 120 probes, 120 agreed, 0 unknown, 0 counterexamples, 2.6s
+[4x5 s18] [staticcheck 4x5] 400/1500 positions, 138 probes, 138 agreed, 0 unknown, 0 counterexamples, 3.0s
+[4x5 s18] [staticcheck 4x5] 450/1500 positions, 149 probes, 149 agreed, 0 unknown, 0 counterexamples, 3.2s
+[4x5 s18] NOTE #471: static said Black but full solver says Some(White)
+[4x5 s18] [staticcheck 4x5] 500/1500 positions, 164 probes, 164 agreed, 0 unknown, 0 counterexamples, 3.5s
+[4x5 s18] [staticcheck 4x5] 550/1500 positions, 184 probes, 184 agreed, 0 unknown, 0 counterexamples, 4.0s
+[4x5 s18] [staticcheck 4x5] 600/1500 positions, 194 probes, 194 agreed, 0 unknown, 0 counterexamples, 4.3s
+[4x5 s18] [staticcheck 4x5] 650/1500 positions, 210 probes, 210 agreed, 0 unknown, 0 counterexamples, 4.5s
+[4x5 s18] [staticcheck 4x5] 700/1500 positions, 228 probes, 228 agreed, 0 unknown, 0 counterexamples, 4.8s
+[4x5 s18] [staticcheck 4x5] 750/1500 positions, 252 probes, 252 agreed, 0 unknown, 0 counterexamples, 5.1s
+[4x5 s18] [staticcheck 4x5] 800/1500 positions, 277 probes, 277 agreed, 0 unknown, 0 counterexamples, 5.5s
+[4x5 s18] [staticcheck 4x5] 850/1500 positions, 283 probes, 283 agreed, 0 unknown, 0 counterexamples, 5.7s
+[4x5 s18] --
+[4x5 s18] [staticcheck 4x5] done: 507 probes, 507 agreed, 0 unknown, 0 counterexamples
+[4x5 s16] NOTE #198: static said White but full solver says Some(Black)
+[4x5 s16] [staticcheck 4x5] 200/1500 positions, 68 probes, 68 agreed, 0 unknown, 0 counterexamples, 1.5s
+[4x5 s16] [staticcheck 4x5] 250/1500 positions, 82 probes, 82 agreed, 0 unknown, 0 counterexamples, 1.8s
+[4x5 s16] [staticcheck 4x5] 300/1500 positions, 99 probes, 99 agreed, 0 unknown, 0 counterexamples, 2.2s
+[4x5 s16] [staticcheck 4x5] 350/1500 positions, 111 probes, 111 agreed, 0 unknown, 0 counterexamples, 2.4s
+[4x5 s16] [staticcheck 4x5] 400/1500 positions, 127 probes, 127 agreed, 0 unknown, 0 counterexamples, 3.2s
+[4x5 s16] [staticcheck 4x5] 450/1500 positions, 139 probes, 139 agreed, 0 unknown, 0 counterexamples, 3.5s
+[4x5 s16] [staticcheck 4x5] 500/1500 positions, 159 probes, 159 agreed, 0 unknown, 0 counterexamples, 3.9s
+[4x5 s16] [staticcheck 4x5] 550/1500 positions, 171 probes, 171 agreed, 0 unknown, 0 counterexamples, 4.2s
+[4x5 s16] --
+[4x5 s16] NOTE #951: static said Black but full solver says Some(White)
+[4x5 s16] [staticcheck 4x5] 1000/1500 positions, 317 probes, 317 agreed, 0 unknown, 0 counterexamples, 7.3s
+[4x5 s16] [staticcheck 4x5] 1050/1500 positions, 335 probes, 335 agreed, 0 unknown, 0 counterexamples, 7.4s
+[4x5 s16] [staticcheck 4x5] 1100/1500 positions, 357 probes, 357 agreed, 0 unknown, 0 counterexamples, 7.5s
+[4x5 s16] [staticcheck 4x5] 1150/1500 positions, 381 probes, 381 agreed, 0 unknown, 0 counterexamples, 7.6s
+[4x5 s16] [staticcheck 4x5] 1200/1500 positions, 394 probes, 394 agreed, 0 unknown, 0 counterexamples, 7.6s
+[4x5 s16] [staticcheck 4x5] 1250/1500 positions, 408 probes, 408 agreed, 0 unknown, 0 counterexamples, 7.6s
+[4x5 s16] [staticcheck 4x5] 1300/1500 positions, 423 probes, 423 agreed, 0 unknown, 0 counterexamples, 7.7s
+[4x5 s16] [staticcheck 4x5] 1350/1500 positions, 442 probes, 442 agreed, 0 unknown, 0 counterexamples, 7.7s
+[4x5 s16] --
+[4x5 s16] [staticcheck 4x5] done: 485 probes, 485 agreed, 0 unknown, 0 counterexamples
+[4x5 s13] NOTE #148: static said White but full solver says Some(Black)
+[4x5 s13] [staticcheck 4x5] 150/1500 positions, 60 probes, 60 agreed, 0 unknown, 0 counterexamples, 1.4s
+[4x5 s13] [staticcheck 4x5] 200/1500 positions, 74 probes, 74 agreed, 0 unknown, 0 counterexamples, 1.7s
+[4x5 s13] NOTE #206: static said White but full solver says Some(Black)
+[4x5 s13] [staticcheck 4x5] 250/1500 positions, 89 probes, 89 agreed, 0 unknown, 0 counterexamples, 2.1s
+[4x5 s13] [staticcheck 4x5] 300/1500 positions, 106 probes, 106 agreed, 0 unknown, 0 counterexamples, 2.5s
+[4x5 s13] [staticcheck 4x5] 350/1500 positions, 122 probes, 122 agreed, 0 unknown, 0 counterexamples, 2.8s
+[4x5 s13] [staticcheck 4x5] 400/1500 positions, 139 probes, 139 agreed, 0 unknown, 0 counterexamples, 3.2s
+[4x5 s13] NOTE #437: static said Black but full solver says Some(White)
+[4x5 s13] [staticcheck 4x5] 450/1500 positions, 156 probes, 156 agreed, 0 unknown, 0 counterexamples, 3.7s
+[4x5 s13] [staticcheck 4x5] 500/1500 positions, 172 probes, 172 agreed, 0 unknown, 0 counterexamples, 4.0s
+[4x5 s13] [staticcheck 4x5] 550/1500 positions, 186 probes, 186 agreed, 0 unknown, 0 counterexamples, 4.3s
+[4x5 s13] NOTE #599: static said Black but full solver says Some(White)
+[4x5 s13] [staticcheck 4x5] 600/1500 positions, 204 probes, 204 agreed, 0 unknown, 0 counterexamples, 4.6s
+[4x5 s13] [staticcheck 4x5] 650/1500 positions, 214 probes, 214 agreed, 0 unknown, 0 counterexamples, 4.9s
+[4x5 s13] [staticcheck 4x5] 700/1500 positions, 235 probes, 235 agreed, 0 unknown, 0 counterexamples, 5.6s
+[4x5 s13] [staticcheck 4x5] 750/1500 positions, 253 probes, 253 agreed, 0 unknown, 0 counterexamples, 5.9s
+[4x5 s13] NOTE #757: static said White but full solver says Some(Black)
+[4x5 s13] [staticcheck 4x5] 800/1500 positions, 270 probes, 270 agreed, 0 unknown, 0 counterexamples, 6.1s
+[4x5 s13] [staticcheck 4x5] 850/1500 positions, 289 probes, 289 agreed, 0 unknown, 0 counterexamples, 6.5s
+[4x5 s13] [staticcheck 4x5] 900/1500 positions, 298 probes, 298 agreed, 0 unknown, 0 counterexamples, 6.7s
+[4x5 s13] [staticcheck 4x5] 950/1500 positions, 313 probes, 313 agreed, 0 unknown, 0 counterexamples, 6.9s
+[4x5 s13] [staticcheck 4x5] 1000/1500 positions, 324 probes, 324 agreed, 0 unknown, 0 counterexamples, 7.7s
+[4x5 s13] NOTE #1024: static said White but full solver says Some(Black)
+[4x5 s13] [staticcheck 4x5] 1050/1500 positions, 343 probes, 343 agreed, 0 unknown, 0 counterexamples, 7.7s
+[4x5 s13] NOTE #1052: static said Black but full solver says Some(White)
+[4x5 s13] [staticcheck 4x5] 1100/1500 positions, 365 probes, 365 agreed, 0 unknown, 0 counterexamples, 7.8s
+[4x5 s13] [staticcheck 4x5] 1150/1500 positions, 385 probes, 385 agreed, 0 unknown, 0 counterexamples, 7.9s
+[4x5 s13] [staticcheck 4x5] 1200/1500 positions, 403 probes, 403 agreed, 0 unknown, 0 counterexamples, 8.2s
+[4x5 s13] [staticcheck 4x5] 1250/1500 positions, 414 probes, 414 agreed, 0 unknown, 0 counterexamples, 8.2s
+[4x5 s13] [staticcheck 4x5] 1300/1500 positions, 427 probes, 427 agreed, 0 unknown, 0 counterexamples, 8.3s
+[4x5 s13] [staticcheck 4x5] 1350/1500 positions, 443 probes, 443 agreed, 0 unknown, 0 counterexamples, 8.3s
+[4x5 s13] [staticcheck 4x5] 1400/1500 positions, 463 probes, 463 agreed, 0 unknown, 0 counterexamples, 8.3s
+[4x5 s13] [staticcheck 4x5] 1450/1500 positions, 473 probes, 473 agreed, 0 unknown, 0 counterexamples, 8.3s
+[4x5 s13] --
+[4x5 s13] [staticcheck 4x5] done: 484 probes, 484 agreed, 0 unknown, 0 counterexamples
+[5x5 s14] NOTE #6: static said Black but full solver says Some(White)
+[5x5 s14] NOTE #17: static said Black but full solver says Some(White)
+[5x5 s14] [staticcheck 5x5] 50/1500 positions, 26 probes, 26 agreed, 0 unknown, 0 counterexamples, 0.5s
+[5x5 s14] [staticcheck 5x5] 100/1500 positions, 40 probes, 40 agreed, 0 unknown, 0 counterexamples, 0.9s
+[5x5 s14] [staticcheck 5x5] 150/1500 positions, 58 probes, 58 agreed, 0 unknown, 0 counterexamples, 1.6s
+[5x5 s14] [staticcheck 5x5] 200/1500 positions, 79 probes, 79 agreed, 0 unknown, 0 counterexamples, 2.8s
+[5x5 s14] [staticcheck 5x5] 250/1500 positions, 86 probes, 86 agreed, 0 unknown, 0 counterexamples, 2.9s
+[5x5 s14] [staticcheck 5x5] 300/1500 positions, 112 probes, 112 agreed, 0 unknown, 0 counterexamples, 5.2s
+[5x5 s14] [staticcheck 5x5] 350/1500 positions, 120 probes, 120 agreed, 0 unknown, 0 counterexamples, 5.5s
+[5x5 s14] [staticcheck 5x5] 400/1500 positions, 144 probes, 144 agreed, 0 unknown, 0 counterexamples, 6.1s
+[5x5 s14] --
+[5x5 s14] NOTE #484: static said Black but full solver says Some(White)
+[5x5 s14] [staticcheck 5x5] 500/1500 positions, 192 probes, 192 agreed, 0 unknown, 0 counterexamples, 7.3s
+[5x5 s14] [staticcheck 5x5] 550/1500 positions, 210 probes, 210 agreed, 0 unknown, 0 counterexamples, 7.5s
+[5x5 s14] [staticcheck 5x5] 600/1500 positions, 225 probes, 225 agreed, 0 unknown, 0 counterexamples, 7.7s
+[5x5 s14] [staticcheck 5x5] 650/1500 positions, 247 probes, 247 agreed, 0 unknown, 0 counterexamples, 7.7s
+[5x5 s14] [staticcheck 5x5] 700/1500 positions, 267 probes, 267 agreed, 0 unknown, 0 counterexamples, 7.8s
+[5x5 s14] [staticcheck 5x5] 750/1500 positions, 286 probes, 286 agreed, 0 unknown, 0 counterexamples, 7.9s
+[5x5 s14] [staticcheck 5x5] 800/1500 positions, 305 probes, 305 agreed, 0 unknown, 0 counterexamples, 7.9s
+[5x5 s14] [staticcheck 5x5] 850/1500 positions, 326 probes, 326 agreed, 0 unknown, 0 counterexamples, 8.1s
+[5x5 s14] --
+[5x5 s14] NOTE #1280: static said White but full solver says Some(Black)
+[5x5 s14] [staticcheck 5x5] 1300/1500 positions, 483 probes, 483 agreed, 0 unknown, 0 counterexamples, 10.0s
+[5x5 s14] [staticcheck 5x5] 1350/1500 positions, 504 probes, 504 agreed, 0 unknown, 0 counterexamples, 10.6s
+[5x5 s14] [staticcheck 5x5] 1400/1500 positions, 513 probes, 513 agreed, 0 unknown, 0 counterexamples, 10.6s
+[5x5 s14] [staticcheck 5x5] 1450/1500 positions, 530 probes, 530 agreed, 0 unknown, 0 counterexamples, 10.6s
+[5x5 s14] [staticcheck 5x5] 1500/1500 positions, 541 probes, 541 agreed, 0 unknown, 0 counterexamples, 10.7s
+[5x5 s14] [staticcheck 5x5] done: 541 probes, 541 agreed, 0 unknown, 0 counterexamples
+[5x5 s17] NOTE #450: static said Black but full solver says Some(White)
+[5x5 s17] [staticcheck 5x5] 500/1500 positions, 190 probes, 190 agreed, 0 unknown, 0 counterexamples, 7.2s
+[5x5 s17] [staticcheck 5x5] 550/1500 positions, 200 probes, 200 agreed, 0 unknown, 0 counterexamples, 7.7s
+[5x5 s17] [staticcheck 5x5] 600/1500 positions, 218 probes, 218 agreed, 0 unknown, 0 counterexamples, 7.8s
+[5x5 s17] [staticcheck 5x5] 650/1500 positions, 226 probes, 226 agreed, 0 unknown, 0 counterexamples, 7.8s
+[5x5 s17] [staticcheck 5x5] 700/1500 positions, 240 probes, 240 agreed, 0 unknown, 0 counterexamples, 7.9s
+[5x5 s17] [staticcheck 5x5] 750/1500 positions, 254 probes, 254 agreed, 0 unknown, 0 counterexamples, 7.9s
+[5x5 s17] NOTE #759: static said Black but full solver says Some(White)
+[5x5 s17] [staticcheck 5x5] 800/1500 positions, 271 probes, 271 agreed, 0 unknown, 0 counterexamples, 7.9s
+[5x5 s17] [staticcheck 5x5] 850/1500 positions, 282 probes, 282 agreed, 0 unknown, 0 counterexamples, 8.0s
+[5x5 s17] [staticcheck 5x5] 900/1500 positions, 294 probes, 294 agreed, 0 unknown, 0 counterexamples, 8.1s
+[5x5 s17] [staticcheck 5x5] 950/1500 positions, 316 probes, 316 agreed, 0 unknown, 0 counterexamples, 8.5s
+[5x5 s17] NOTE #996: static said Black but full solver says Some(White)
+[5x5 s17] [staticcheck 5x5] 1000/1500 positions, 337 probes, 337 agreed, 0 unknown, 0 counterexamples, 8.6s
+[5x5 s17] NOTE #1011: static said White but full solver says Some(Black)
+[5x5 s17] [staticcheck 5x5] 1050/1500 positions, 347 probes, 347 agreed, 0 unknown, 0 counterexamples, 8.6s
+[5x5 s17] [staticcheck 5x5] 1100/1500 positions, 361 probes, 361 agreed, 0 unknown, 0 counterexamples, 8.6s
+[5x5 s17] [staticcheck 5x5] 1150/1500 positions, 387 probes, 387 agreed, 0 unknown, 0 counterexamples, 9.6s
+[5x5 s17] [staticcheck 5x5] 1200/1500 positions, 404 probes, 404 agreed, 0 unknown, 0 counterexamples, 10.4s
+[5x5 s17] [staticcheck 5x5] 1250/1500 positions, 420 probes, 420 agreed, 0 unknown, 0 counterexamples, 10.5s
+[5x5 s17] [staticcheck 5x5] 1300/1500 positions, 444 probes, 444 agreed, 0 unknown, 0 counterexamples, 10.6s
+[5x5 s17] [staticcheck 5x5] 1350/1500 positions, 458 probes, 458 agreed, 0 unknown, 0 counterexamples, 10.7s
+[5x5 s17] [staticcheck 5x5] 1400/1500 positions, 470 probes, 470 agreed, 0 unknown, 0 counterexamples, 10.9s
+[5x5 s17] --
+[5x5 s17] [staticcheck 5x5] done: 514 probes, 514 agreed, 0 unknown, 0 counterexamples
+[5x5 s15] NOTE #117: static said Black but full solver says Some(White)
+[5x5 s15] [staticcheck 5x5] 150/1500 positions, 38 probes, 38 agreed, 0 unknown, 0 counterexamples, 3.2s
+[5x5 s15] [staticcheck 5x5] 200/1500 positions, 52 probes, 52 agreed, 0 unknown, 0 counterexamples, 3.5s
+[5x5 s15] [staticcheck 5x5] 250/1500 positions, 67 probes, 67 agreed, 0 unknown, 0 counterexamples, 5.0s
+[5x5 s15] [staticcheck 5x5] 300/1500 positions, 86 probes, 86 agreed, 0 unknown, 0 counterexamples, 5.9s
+[5x5 s15] [staticcheck 5x5] 350/1500 positions, 103 probes, 103 agreed, 0 unknown, 0 counterexamples, 6.2s
+[5x5 s15] [staticcheck 5x5] 400/1500 positions, 122 probes, 122 agreed, 0 unknown, 0 counterexamples, 6.5s
+[5x5 s15] [staticcheck 5x5] 450/1500 positions, 143 probes, 143 agreed, 0 unknown, 0 counterexamples, 9.4s
+[5x5 s15] NOTE #473: static said Black but full solver says Some(White)
+[5x5 s15] [staticcheck 5x5] 500/1500 positions, 166 probes, 166 agreed, 0 unknown, 0 counterexamples, 9.6s
+[5x5 s15] NOTE #519: static said Black but full solver says Some(White)
+[5x5 s15] [staticcheck 5x5] 550/1500 positions, 190 probes, 190 agreed, 0 unknown, 0 counterexamples, 10.0s
+[5x5 s15] [staticcheck 5x5] 600/1500 positions, 207 probes, 207 agreed, 0 unknown, 0 counterexamples, 10.1s
+[5x5 s15] [staticcheck 5x5] 650/1500 positions, 220 probes, 220 agreed, 0 unknown, 0 counterexamples, 10.1s
+[5x5 s15] [staticcheck 5x5] 700/1500 positions, 242 probes, 242 agreed, 0 unknown, 0 counterexamples, 10.2s
+[5x5 s15] [staticcheck 5x5] 750/1500 positions, 255 probes, 255 agreed, 0 unknown, 0 counterexamples, 10.2s
+[5x5 s15] [staticcheck 5x5] 800/1500 positions, 266 probes, 266 agreed, 0 unknown, 0 counterexamples, 10.3s
+[5x5 s15] [staticcheck 5x5] 850/1500 positions, 284 probes, 284 agreed, 0 unknown, 0 counterexamples, 10.3s
+[5x5 s15] [staticcheck 5x5] 900/1500 positions, 302 probes, 302 agreed, 0 unknown, 0 counterexamples, 10.4s
+[5x5 s15] --
+[5x5 s15] [staticcheck 5x5] done: 523 probes, 523 agreed, 0 unknown, 0 counterexamples
+[5x5 s13] NOTE #125: static said Black but full solver says Some(White)
+[5x5 s13] [staticcheck 5x5] 150/1500 positions, 43 probes, 43 agreed, 0 unknown, 0 counterexamples, 1.1s
+[5x5 s13] [staticcheck 5x5] 200/1500 positions, 65 probes, 65 agreed, 0 unknown, 0 counterexamples, 4.3s
+[5x5 s13] [staticcheck 5x5] 250/1500 positions, 82 probes, 82 agreed, 0 unknown, 0 counterexamples, 5.7s
+[5x5 s13] [staticcheck 5x5] 300/1500 positions, 93 probes, 93 agreed, 0 unknown, 0 counterexamples, 6.3s
+[5x5 s13] [staticcheck 5x5] 350/1500 positions, 111 probes, 111 agreed, 0 unknown, 0 counterexamples, 6.7s
+[5x5 s13] [staticcheck 5x5] 400/1500 positions, 136 probes, 136 agreed, 0 unknown, 0 counterexamples, 15.6s
+[5x5 s13] [staticcheck 5x5] 450/1500 positions, 153 probes, 153 agreed, 0 unknown, 0 counterexamples, 16.3s
+[5x5 s13] [staticcheck 5x5] 500/1500 positions, 173 probes, 173 agreed, 0 unknown, 0 counterexamples, 16.7s
+[5x5 s13] --
+[5x5 s13] NOTE #563: static said Black but full solver says Some(White)
+[5x5 s13] [staticcheck 5x5] 600/1500 positions, 218 probes, 218 agreed, 0 unknown, 0 counterexamples, 16.9s
+[5x5 s13] [staticcheck 5x5] 650/1500 positions, 237 probes, 237 agreed, 0 unknown, 0 counterexamples, 17.0s
+[5x5 s13] [staticcheck 5x5] 700/1500 positions, 253 probes, 253 agreed, 0 unknown, 0 counterexamples, 17.1s
+[5x5 s13] [staticcheck 5x5] 750/1500 positions, 266 probes, 266 agreed, 0 unknown, 0 counterexamples, 17.2s
+[5x5 s13] [staticcheck 5x5] 800/1500 positions, 284 probes, 284 agreed, 0 unknown, 0 counterexamples, 17.9s
+[5x5 s13] NOTE #809: static said White but full solver says Some(Black)
+[5x5 s13] [staticcheck 5x5] 850/1500 positions, 304 probes, 304 agreed, 0 unknown, 0 counterexamples, 18.1s
+[5x5 s13] [staticcheck 5x5] 900/1500 positions, 334 probes, 334 agreed, 0 unknown, 0 counterexamples, 18.9s
+[5x5 s13] [staticcheck 5x5] 950/1500 positions, 342 probes, 342 agreed, 0 unknown, 0 counterexamples, 19.3s
+[5x5 s13] [staticcheck 5x5] 1000/1500 positions, 361 probes, 361 agreed, 0 unknown, 0 counterexamples, 19.5s
+[5x5 s13] [staticcheck 5x5] 1050/1500 positions, 383 probes, 383 agreed, 0 unknown, 0 counterexamples, 19.7s
+[5x5 s13] NOTE #1086: static said Black but full solver says Some(White)
+[5x5 s13] [staticcheck 5x5] 1100/1500 positions, 401 probes, 401 agreed, 0 unknown, 0 counterexamples, 20.1s
+[5x5 s13] NOTE #1120: static said White but full solver says Some(Black)
+[5x5 s13] [staticcheck 5x5] 1150/1500 positions, 418 probes, 418 agreed, 0 unknown, 0 counterexamples, 20.2s
+[5x5 s13] [staticcheck 5x5] 1200/1500 positions, 433 probes, 433 agreed, 0 unknown, 0 counterexamples, 20.2s
+[5x5 s13] [staticcheck 5x5] 1250/1500 positions, 451 probes, 451 agreed, 0 unknown, 0 counterexamples, 20.3s
+[5x5 s13] [staticcheck 5x5] 1300/1500 positions, 476 probes, 476 agreed, 0 unknown, 0 counterexamples, 20.6s
+[5x5 s13] [staticcheck 5x5] 1350/1500 positions, 494 probes, 494 agreed, 0 unknown, 0 counterexamples, 20.8s
+[5x5 s13] NOTE #1372: static said Black but full solver says Some(White)
+[5x5 s13] NOTE #1392: static said White but full solver says Some(Black)
+[5x5 s13] [staticcheck 5x5] 1400/1500 positions, 511 probes, 511 agreed, 0 unknown, 0 counterexamples, 21.0s
+[5x5 s13] [staticcheck 5x5] 1450/1500 positions, 530 probes, 530 agreed, 0 unknown, 0 counterexamples, 21.3s
+[5x5 s13] NOTE #1472: static said White but full solver says Some(Black)
+[5x5 s13] [staticcheck 5x5] 1500/1500 positions, 544 probes, 544 agreed, 0 unknown, 0 counterexamples, 21.5s
+[5x5 s13] [staticcheck 5x5] done: 544 probes, 544 agreed, 0 unknown, 0 counterexamples
+[5x5 s12] NOTE #88: static said White but full solver says Some(Black)
+[5x5 s12] [staticcheck 5x5] 100/1500 positions, 46 probes, 46 agreed, 0 unknown, 0 counterexamples, 1.5s
+[5x5 s12] NOTE #143: static said Black but full solver says Some(White)
+[5x5 s12] [staticcheck 5x5] 150/1500 positions, 65 probes, 65 agreed, 0 unknown, 0 counterexamples, 2.0s
+[5x5 s12] [staticcheck 5x5] 200/1500 positions, 76 probes, 76 agreed, 0 unknown, 0 counterexamples, 2.7s
+[5x5 s12] NOTE #219: static said Black but full solver says Some(White)
+[5x5 s12] [staticcheck 5x5] 250/1500 positions, 89 probes, 89 agreed, 0 unknown, 0 counterexamples, 3.0s
+[5x5 s12] [staticcheck 5x5] 300/1500 positions, 108 probes, 108 agreed, 0 unknown, 0 counterexamples, 5.3s
+[5x5 s12] [staticcheck 5x5] 350/1500 positions, 123 probes, 123 agreed, 0 unknown, 0 counterexamples, 6.1s
+[5x5 s12] [staticcheck 5x5] 400/1500 positions, 141 probes, 141 agreed, 0 unknown, 0 counterexamples, 6.4s
+[5x5 s12] [staticcheck 5x5] 450/1500 positions, 164 probes, 164 agreed, 0 unknown, 0 counterexamples, 7.1s
+[5x5 s12] [staticcheck 5x5] 500/1500 positions, 182 probes, 182 agreed, 0 unknown, 0 counterexamples, 7.2s
+[5x5 s12] [staticcheck 5x5] 550/1500 positions, 196 probes, 196 agreed, 0 unknown, 0 counterexamples, 7.8s
+[5x5 s12] [staticcheck 5x5] 600/1500 positions, 209 probes, 209 agreed, 0 unknown, 0 counterexamples, 7.8s
+[5x5 s12] NOTE #600: static said Black but full solver says Some(White)
+[5x5 s12] [staticcheck 5x5] 650/1500 positions, 223 probes, 223 agreed, 0 unknown, 0 counterexamples, 12.0s
+[5x5 s12] [staticcheck 5x5] 700/1500 positions, 235 probes, 235 agreed, 0 unknown, 0 counterexamples, 12.1s
+[5x5 s12] [staticcheck 5x5] 750/1500 positions, 256 probes, 256 agreed, 0 unknown, 0 counterexamples, 12.9s
+[5x5 s12] [staticcheck 5x5] 800/1500 positions, 282 probes, 282 agreed, 0 unknown, 0 counterexamples, 13.2s
+[5x5 s12] [staticcheck 5x5] 850/1500 positions, 293 probes, 293 agreed, 0 unknown, 0 counterexamples, 13.2s
+[5x5 s12] [staticcheck 5x5] 900/1500 positions, 316 probes, 316 agreed, 0 unknown, 0 counterexamples, 13.3s
+[5x5 s12] [staticcheck 5x5] 950/1500 positions, 326 probes, 326 agreed, 0 unknown, 0 counterexamples, 13.4s
+[5x5 s12] [staticcheck 5x5] 1000/1500 positions, 347 probes, 347 agreed, 0 unknown, 0 counterexamples, 13.4s
+[5x5 s12] NOTE #1030: static said Black but full solver says Some(White)
+[5x5 s12] [staticcheck 5x5] 1050/1500 positions, 371 probes, 371 agreed, 0 unknown, 0 counterexamples, 17.6s
+[5x5 s12] NOTE #1056: static said White but full solver says Some(Black)
+[5x5 s12] [staticcheck 5x5] 1100/1500 positions, 392 probes, 392 agreed, 0 unknown, 0 counterexamples, 17.7s
+[5x5 s12] [staticcheck 5x5] 1150/1500 positions, 409 probes, 409 agreed, 0 unknown, 0 counterexamples, 17.7s
+[5x5 s12] NOTE #1164: static said White but full solver says Some(Black)
+[5x5 s12] [staticcheck 5x5] 1200/1500 positions, 428 probes, 428 agreed, 0 unknown, 0 counterexamples, 17.9s
+[5x5 s12] [staticcheck 5x5] 1250/1500 positions, 444 probes, 444 agreed, 0 unknown, 0 counterexamples, 18.0s
+[5x5 s12] [staticcheck 5x5] 1300/1500 positions, 464 probes, 464 agreed, 0 unknown, 0 counterexamples, 18.1s
+[5x5 s12] [staticcheck 5x5] 1350/1500 positions, 477 probes, 477 agreed, 0 unknown, 0 counterexamples, 18.2s
+[5x5 s12] NOTE #1378: static said Black but full solver says Some(White)
+[5x5 s12] [staticcheck 5x5] 1400/1500 positions, 499 probes, 499 agreed, 0 unknown, 0 counterexamples, 18.5s
+[5x5 s12] [staticcheck 5x5] 1450/1500 positions, 520 probes, 520 agreed, 0 unknown, 0 counterexamples, 24.3s
+[5x5 s12] [staticcheck 5x5] 1500/1500 positions, 538 probes, 538 agreed, 0 unknown, 0 counterexamples, 24.3s
+[5x5 s12] [staticcheck 5x5] done: 538 probes, 538 agreed, 0 unknown, 0 counterexamples
+[5x5 s11] NOTE #49: static said Black but full solver says Some(White)
+[5x5 s11] [staticcheck 5x5] 50/1500 positions, 18 probes, 18 agreed, 0 unknown, 0 counterexamples, 0.4s
+[5x5 s11] [staticcheck 5x5] 100/1500 positions, 33 probes, 33 agreed, 0 unknown, 0 counterexamples, 1.2s
+[5x5 s11] [staticcheck 5x5] 150/1500 positions, 56 probes, 56 agreed, 0 unknown, 0 counterexamples, 2.2s
+[5x5 s11] [staticcheck 5x5] 200/1500 positions, 72 probes, 72 agreed, 0 unknown, 0 counterexamples, 3.1s
+[5x5 s11] [staticcheck 5x5] 250/1500 positions, 94 probes, 94 agreed, 0 unknown, 0 counterexamples, 4.3s
+[5x5 s11] [staticcheck 5x5] 300/1500 positions, 108 probes, 108 agreed, 0 unknown, 0 counterexamples, 4.6s
+[5x5 s11] [staticcheck 5x5] 350/1500 positions, 124 probes, 124 agreed, 0 unknown, 0 counterexamples, 8.9s
+[5x5 s11] NOTE #368: static said White but full solver says Some(Black)
+[5x5 s11] [staticcheck 5x5] 400/1500 positions, 146 probes, 146 agreed, 0 unknown, 0 counterexamples, 10.7s
+[5x5 s11] [staticcheck 5x5] 450/1500 positions, 161 probes, 161 agreed, 0 unknown, 0 counterexamples, 10.7s
+[5x5 s11] [staticcheck 5x5] 500/1500 positions, 182 probes, 182 agreed, 0 unknown, 0 counterexamples, 11.3s
+[5x5 s11] [staticcheck 5x5] 550/1500 positions, 196 probes, 196 agreed, 0 unknown, 0 counterexamples, 11.6s
+[5x5 s11] [staticcheck 5x5] 600/1500 positions, 212 probes, 212 agreed, 0 unknown, 0 counterexamples, 11.6s
+[5x5 s11] [staticcheck 5x5] 650/1500 positions, 234 probes, 234 agreed, 0 unknown, 0 counterexamples, 11.8s
+[5x5 s11] [staticcheck 5x5] 700/1500 positions, 255 probes, 255 agreed, 0 unknown, 0 counterexamples, 14.4s
+[5x5 s11] NOTE #709: static said Black but full solver says Some(White)
+[5x5 s11] NOTE #717: static said Black but full solver says Some(White)
+[5x5 s11] [staticcheck 5x5] 750/1500 positions, 277 probes, 277 agreed, 0 unknown, 0 counterexamples, 26.9s
+[5x5 s11] NOTE #765: static said Black but full solver says Some(White)
+[5x5 s11] NOTE #775: static said Black but full solver says Some(White)
+[5x5 s11] [staticcheck 5x5] 800/1500 positions, 297 probes, 297 agreed, 0 unknown, 0 counterexamples, 26.9s
+[5x5 s11] NOTE #808: static said White but full solver says Some(Black)
+[5x5 s11] [staticcheck 5x5] 850/1500 positions, 317 probes, 317 agreed, 0 unknown, 0 counterexamples, 26.9s
+[5x5 s11] [staticcheck 5x5] 900/1500 positions, 334 probes, 334 agreed, 0 unknown, 0 counterexamples, 27.0s
+[5x5 s11] [staticcheck 5x5] 950/1500 positions, 357 probes, 357 agreed, 0 unknown, 0 counterexamples, 27.1s
+[5x5 s11] [staticcheck 5x5] 1000/1500 positions, 376 probes, 376 agreed, 0 unknown, 0 counterexamples, 27.1s
+[5x5 s11] [staticcheck 5x5] 1050/1500 positions, 389 probes, 389 agreed, 0 unknown, 0 counterexamples, 31.9s
+[5x5 s11] [staticcheck 5x5] 1100/1500 positions, 409 probes, 409 agreed, 0 unknown, 0 counterexamples, 32.6s
+[5x5 s11] [staticcheck 5x5] 1150/1500 positions, 429 probes, 429 agreed, 0 unknown, 0 counterexamples, 32.6s
+[5x5 s11] [staticcheck 5x5] 1200/1500 positions, 452 probes, 452 agreed, 0 unknown, 0 counterexamples, 33.4s
+[5x5 s11] NOTE #1209: static said Black but full solver says Some(White)
+[5x5 s11] [staticcheck 5x5] 1250/1500 positions, 476 probes, 476 agreed, 0 unknown, 0 counterexamples, 33.7s
+[5x5 s11] [staticcheck 5x5] 1300/1500 positions, 502 probes, 502 agreed, 0 unknown, 0 counterexamples, 33.8s
+[5x5 s11] [staticcheck 5x5] 1350/1500 positions, 514 probes, 514 agreed, 0 unknown, 0 counterexamples, 33.9s
+[5x5 s11] [staticcheck 5x5] 1400/1500 positions, 535 probes, 535 agreed, 0 unknown, 0 counterexamples, 34.1s
+[5x5 s11] NOTE #1429: static said Black but full solver says Some(White)
+[5x5 s11] [staticcheck 5x5] 1450/1500 positions, 565 probes, 565 agreed, 0 unknown, 0 counterexamples, 34.2s
+[5x5 s11] NOTE #1483: static said Black but full solver says Some(White)
+[5x5 s11] [staticcheck 5x5] 1500/1500 positions, 579 probes, 579 agreed, 0 unknown, 0 counterexamples, 34.2s
+[5x5 s11] [staticcheck 5x5] done: 579 probes, 579 agreed, 0 unknown, 0 counterexamples
+[5x5 s18] NOTE #159: static said White but full solver says Some(Black)
+[5x5 s18] [staticcheck 5x5] 200/1500 positions, 73 probes, 73 agreed, 0 unknown, 0 counterexamples, 38.7s
+[5x5 s18] [staticcheck 5x5] 250/1500 positions, 92 probes, 92 agreed, 0 unknown, 0 counterexamples, 39.2s
+[5x5 s18] NOTE #285: static said White but full solver says Some(Black)
+[5x5 s18] [staticcheck 5x5] 300/1500 positions, 112 probes, 112 agreed, 0 unknown, 0 counterexamples, 39.3s
+[5x5 s18] [staticcheck 5x5] 350/1500 positions, 136 probes, 136 agreed, 0 unknown, 0 counterexamples, 40.9s
+[5x5 s18] [staticcheck 5x5] 400/1500 positions, 149 probes, 149 agreed, 0 unknown, 0 counterexamples, 40.9s
+[5x5 s18] [staticcheck 5x5] 450/1500 positions, 167 probes, 167 agreed, 0 unknown, 0 counterexamples, 41.2s
+[5x5 s18] NOTE #476: static said Black but full solver says Some(White)
+[5x5 s18] [staticcheck 5x5] 500/1500 positions, 185 probes, 185 agreed, 0 unknown, 0 counterexamples, 41.3s
+[5x5 s18] [staticcheck 5x5] 550/1500 positions, 202 probes, 202 agreed, 0 unknown, 0 counterexamples, 41.3s
+[5x5 s18] [staticcheck 5x5] 600/1500 positions, 221 probes, 221 agreed, 0 unknown, 0 counterexamples, 41.7s
+[5x5 s18] [staticcheck 5x5] 650/1500 positions, 236 probes, 236 agreed, 0 unknown, 0 counterexamples, 41.7s
+[5x5 s18] [staticcheck 5x5] 700/1500 positions, 255 probes, 255 agreed, 0 unknown, 0 counterexamples, 41.8s
+[5x5 s18] [staticcheck 5x5] 750/1500 positions, 277 probes, 277 agreed, 0 unknown, 0 counterexamples, 41.8s
+[5x5 s18] [staticcheck 5x5] 800/1500 positions, 309 probes, 309 agreed, 0 unknown, 0 counterexamples, 42.7s
+[5x5 s18] [staticcheck 5x5] 850/1500 positions, 329 probes, 329 agreed, 0 unknown, 0 counterexamples, 42.7s
+[5x5 s18] --
+[5x5 s18] NOTE #1184: static said White but full solver says Some(Black)
+[5x5 s18] [staticcheck 5x5] 1200/1500 positions, 452 probes, 452 agreed, 0 unknown, 0 counterexamples, 43.9s
+[5x5 s18] [staticcheck 5x5] 1250/1500 positions, 478 probes, 478 agreed, 0 unknown, 0 counterexamples, 44.0s
+[5x5 s18] [staticcheck 5x5] 1300/1500 positions, 497 probes, 497 agreed, 0 unknown, 0 counterexamples, 46.1s
+[5x5 s18] [staticcheck 5x5] 1350/1500 positions, 510 probes, 510 agreed, 0 unknown, 0 counterexamples, 46.2s
+[5x5 s18] [staticcheck 5x5] 1400/1500 positions, 536 probes, 536 agreed, 0 unknown, 0 counterexamples, 46.4s
+[5x5 s18] [staticcheck 5x5] 1450/1500 positions, 553 probes, 553 agreed, 0 unknown, 0 counterexamples, 48.1s
+[5x5 s18] NOTE #1454: static said White but full solver says Some(Black)
+[5x5 s18] [staticcheck 5x5] 1500/1500 positions, 571 probes, 571 agreed, 0 unknown, 0 counterexamples, 48.1s
+[5x5 s18] [staticcheck 5x5] done: 571 probes, 571 agreed, 0 unknown, 0 counterexamples
+[5x5 s16] NOTE #6: static said White but full solver says Some(Black)
+[5x5 s16] [staticcheck 5x5] 50/1500 positions, 20 probes, 20 agreed, 0 unknown, 0 counterexamples, 1.3s
+[5x5 s16] [staticcheck 5x5] 100/1500 positions, 38 probes, 38 agreed, 0 unknown, 0 counterexamples, 3.1s
+[5x5 s16] [staticcheck 5x5] 150/1500 positions, 50 probes, 50 agreed, 0 unknown, 0 counterexamples, 3.4s
+[5x5 s16] [staticcheck 5x5] 200/1500 positions, 75 probes, 75 agreed, 0 unknown, 0 counterexamples, 15.8s
+[5x5 s16] NOTE #205: static said White but full solver says Some(Black)
+[5x5 s16] [staticcheck 5x5] 250/1500 positions, 90 probes, 90 agreed, 0 unknown, 0 counterexamples, 15.9s
+[5x5 s16] [staticcheck 5x5] 300/1500 positions, 112 probes, 112 agreed, 0 unknown, 0 counterexamples, 16.3s
+[5x5 s16] [staticcheck 5x5] 350/1500 positions, 130 probes, 130 agreed, 0 unknown, 0 counterexamples, 16.3s
+[5x5 s16] [staticcheck 5x5] 400/1500 positions, 148 probes, 148 agreed, 0 unknown, 0 counterexamples, 16.4s
+[5x5 s16] [staticcheck 5x5] 450/1500 positions, 163 probes, 162 agreed, 1 unknown, 0 counterexamples, 205.8s
+[5x5 s16] [staticcheck 5x5] 500/1500 positions, 173 probes, 172 agreed, 1 unknown, 0 counterexamples, 206.2s
+[5x5 s16] [staticcheck 5x5] 550/1500 positions, 189 probes, 188 agreed, 1 unknown, 0 counterexamples, 206.3s
+[5x5 s16] NOTE #565: static said White but full solver says Some(Black)
+[5x5 s16] [staticcheck 5x5] 600/1500 positions, 207 probes, 206 agreed, 1 unknown, 0 counterexamples, 206.5s
+[5x5 s16] [staticcheck 5x5] 650/1500 positions, 218 probes, 217 agreed, 1 unknown, 0 counterexamples, 219.1s
+[5x5 s16] [staticcheck 5x5] 700/1500 positions, 242 probes, 241 agreed, 1 unknown, 0 counterexamples, 220.0s
+[5x5 s16] [staticcheck 5x5] 750/1500 positions, 255 probes, 254 agreed, 1 unknown, 0 counterexamples, 220.3s
+[5x5 s16] [staticcheck 5x5] 800/1500 positions, 274 probes, 273 agreed, 1 unknown, 0 counterexamples, 221.2s
+[5x5 s16] [staticcheck 5x5] 850/1500 positions, 296 probes, 295 agreed, 1 unknown, 0 counterexamples, 221.3s
+[5x5 s16] [staticcheck 5x5] 900/1500 positions, 310 probes, 309 agreed, 1 unknown, 0 counterexamples, 221.3s
+[5x5 s16] [staticcheck 5x5] 950/1500 positions, 330 probes, 329 agreed, 1 unknown, 0 counterexamples, 221.3s
+[5x5 s16] --
+[5x5 s16] NOTE #1341: static said White but full solver says Some(Black)
+[5x5 s16] [staticcheck 5x5] 1350/1500 positions, 483 probes, 482 agreed, 1 unknown, 0 counterexamples, 227.0s
+[5x5 s16] [staticcheck 5x5] 1400/1500 positions, 500 probes, 499 agreed, 1 unknown, 0 counterexamples, 227.1s
+[5x5 s16] [staticcheck 5x5] 1450/1500 positions, 520 probes, 519 agreed, 1 unknown, 0 counterexamples, 227.2s
+[5x5 s16] [staticcheck 5x5] 1500/1500 positions, 538 probes, 537 agreed, 1 unknown, 0 counterexamples, 227.4s
+[5x5 s16] [staticcheck 5x5] done: 538 probes, 537 agreed, 1 unknown, 0 counterexamples
+done Mo 19. Okt 16:17:48 CEST 2026

@@ -1,0 +1,14 @@
+sanko 0.4.1 (source 63014da88da067d1): bench --threads 1 --pn-tt-log 22 --proof-log 22 --sc-log 22 --regions --region-interior 8 --keep-tempo --node-limit 100000000 --rows 2 --cols 12 --komi 3.5 --prune-for black --bench-n 12 --bench-plies 8 --rng-seed 101
+bench #0: winner=None nodes=197064 secs=0.71 moves=00,08,09,17,05,13,11,04
+bench #1: winner=None nodes=318271 secs=0.99 moves=11,06,02,19,16,01,03,05
+bench #2: winner=None nodes=1215444 secs=3.01 moves=05,04,17,06,010,10,01,18
+bench #3: winner=Some(Black) nodes=23367 secs=0.13 moves=18,03,05,07,17,02,110,08
+bench #4: winner=None nodes=918640 secs=1.97 moves=14,010,00,05,10,03,07,02
+bench #5: winner=Some(Black) nodes=230768 secs=0.67 moves=09,10,14,00,18,02,11,010
+bench #6: winner=None nodes=182594 secs=0.51 moves=011,04,111,13,10,09,07,01
+bench #7: winner=Some(Black) nodes=1699559 secs=4.26 moves=12,02,010,07,00,10,06,13
+bench #8: winner=None nodes=5562823 secs=11.80 moves=04,19,111,06,15,13,17,11
+bench #9: winner=Some(Black) nodes=4049870 secs=9.24 moves=00,01,14,16,15,07,05,04
+bench #10: winner=Some(Black) nodes=253853 secs=0.70 moves=15,111,010,110,02,011,11,05
+bench #11: winner=None nodes=576425 secs=1.40 moves=00,06,15,03,19,14,09,110
+bench total: solved=12/12 nodes=15228678 secs=35.4

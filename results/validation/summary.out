@@ -1,0 +1,18 @@
+host htc-cmp302.zib.de Mo 19. Okt 16:10:48 CEST 2026
+== [1] 16:10:48 python3 scripts/validate_flags.py ./bin/sanko "--regions --region-interior 8 --keep-tempo" 96 300
+   exit 0 at 16:14:01
+TOTAL problems: 0
+== [2] 16:14:01 bash scripts/slurm_staticcheck.sh ./bin/sanko 1500 --regions --region-interior 8 --keep-tempo
+   exit 0 at 16:17:48
+== [3] 16:17:48 python3 scripts/bigboard_selftest.py ./bin/sanko "--regions --region-interior 8 --keep-tempo" 96 100 41,42 0
+   exit 0 at 16:20:09
+TOTAL compared: 3560 mismatches: 0
+== [4] 16:20:09 python3 scripts/bigboard_selftest.py ./bin/sanko "--regions --region-interior 8 --keep-tempo" 96 100 43,44,45,46 3
+   exit 0 at 16:26:15
+TOTAL compared: 7096 mismatches: 0
+== [5] 16:26:15 python3 scripts/bigboard_selftest.py ./bin/sanko "--regions --region-interior 8 --keep-tempo" 96 100 47,48,49,50,51 6
+   exit 0 at 16:35:29
+TOTAL compared: 8783 mismatches: 0
+== [6] 16:35:29 python3 scripts/bigboard_selftest.py ./bin/sanko "--regions --region-interior 8 --keep-tempo" 96 100 52,53,54,55,56 8
+   exit 0 at 16:44:23
+TOTAL compared: 8594 mismatches: 0

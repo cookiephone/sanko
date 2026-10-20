@@ -79,6 +79,30 @@ pub(crate) fn prefetch<T>(x: &T) {
     let _ = x;
 }
 
+/// A vector of `n` values made by `make`, written by `threads` threads at once
+/// (the solver's own thread count). The tables run to hundreds of GiB, and
+/// writing them from one thread took most of a minute (it also places the first
+/// touch of every page).
+#[allow(unsafe_code)]
+pub(crate) fn filled_vec<T: Send>(n: usize, threads: usize, make: impl Fn() -> T + Sync) -> Vec<T> {
+    let mut v = Vec::with_capacity(n);
+    let chunk = n.div_ceil(threads.max(1)).max(1 << 16);
+    std::thread::scope(|s| {
+        for part in v.spare_capacity_mut()[..n].chunks_mut(chunk) {
+            let make = &make;
+            s.spawn(move || {
+                for x in part {
+                    x.write(make());
+                }
+            });
+        }
+    });
+    // SAFETY: the scope above joined every thread, and the threads wrote all of
+    // the first `n` elements (the chunks cover `[..n]` exactly).
+    unsafe { v.set_len(n) };
+    v
+}
+
 /// Solved proof/disproof number (as stored in [`PnEntry::phi`]/`delta`).
 pub const INF: u64 = u64::MAX;
 
@@ -377,18 +401,19 @@ const fn mixkey(key: u64) -> u64 {
 impl PnTable {
     /// `2^log_buckets` unproven buckets (8 × 8 B) and `2^proof_log` proof
     /// buckets (4 × 48 B, or 4 × 64 B when `wide`), in the narrow or the wide
-    /// layout. See [`Self::with_layout`].
+    /// layout, filled by one thread (small tables). See [`Self::with_layout`].
     #[must_use]
     pub fn new(log_buckets: u32, proof_log: u32, wide: bool) -> Self {
-        Self::with_layout(log_buckets, proof_log, if wide { Layout::Wide } else { Layout::Narrow })
+        Self::with_layout(log_buckets, proof_log, if wide { Layout::Wide } else { Layout::Narrow }, 1)
     }
 
     /// `2^log_buckets` unproven buckets (8 × 8 B) and `2^proof_log` proof
-    /// buckets in `layout` (4 × 48 B for narrow and mid, 4 × 64 B for wide).
+    /// buckets in `layout` (4 × 48 B for narrow and mid, 4 × 64 B for wide),
+    /// filled by `threads` threads.
     #[must_use]
-    pub fn with_layout(log_buckets: u32, proof_log: u32, layout: Layout) -> Self {
+    pub fn with_layout(log_buckets: u32, proof_log: u32, layout: Layout, threads: usize) -> Self {
         assert!(proof_log <= 34, "bad table size");
-        Self::with_sizes(log_buckets, 1usize << proof_log, layout)
+        Self::with_sizes(log_buckets, 1usize << proof_log, layout, threads)
     }
 
     /// Like [`Self::with_layout`], with any number of proof buckets (from 1 to
@@ -396,22 +421,17 @@ impl PnTable {
     /// index only spreads the keys: entries are identified by their full key
     /// and second hash whatever the index.
     #[must_use]
-    pub fn with_sizes(log_buckets: u32, proof_buckets: usize, layout: Layout) -> Self {
+    pub fn with_sizes(log_buckets: u32, proof_buckets: usize, layout: Layout, threads: usize) -> Self {
         let wide = layout == Layout::Wide;
         assert!(log_buckets <= 34 && (1..=1 << 34).contains(&proof_buckets), "bad table size");
         let nu = 1usize << log_buckets;
         let np = proof_buckets;
-        let mut unproven = Vec::with_capacity(nu);
-        unproven.resize_with(nu, UBucket::default);
-        let mut proofs = Vec::new();
-        let mut wproofs = Vec::new();
-        if wide {
-            wproofs.reserve_exact(np);
-            wproofs.resize_with(np, PBucket::default);
+        let unproven = filled_vec(nu, threads, UBucket::default);
+        let (proofs, wproofs) = if wide {
+            (Vec::new(), filled_vec(np, threads, PBucket::default))
         } else {
-            proofs.reserve_exact(np);
-            proofs.resize_with(np, PBucket::default);
-        }
+            (filled_vec(np, threads, PBucket::default), Vec::new())
+        };
         Self {
             unproven,
             proofs,
@@ -852,7 +872,7 @@ mod tests {
     #[test]
     fn proof_table_of_any_size() {
         for np in [1usize, 3, 5, 6, 7, 1000] {
-            let t = PnTable::with_sizes(4, np, Layout::Mid);
+            let t = PnTable::with_sizes(4, np, Layout::Mid, 1);
             let mut used = vec![false; np];
             for k in 0..(40 * np as u64) {
                 let key = k.wrapping_mul(0xD1B5_4A32_D192_ED03) | 1;
@@ -871,7 +891,7 @@ mod tests {
     /// The mid layout keeps 32-point territory and common-stone sets exactly.
     #[test]
     fn mid_layout_roundtrip() {
-        let t = PnTable::with_layout(4, 3, Layout::Mid);
+        let t = PnTable::with_layout(4, 3, Layout::Mid, 1);
         let mut rng = sanko_core::Rng::new(9);
         for k in 0..200u64 {
             let mut p = PnEntry::unproven(1000 + k, 0, INF, rng.next_u64() >> (rng.next_u64() % 64));

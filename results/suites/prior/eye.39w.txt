@@ -1,0 +1,14 @@
+sanko 0.4.1 (source 63014da88da067d1): bench --threads 1 --pn-tt-log 22 --proof-log 22 --sc-log 22 --regions --region-interior 8 --keep-tempo --node-limit 100000000 --rows 3 --cols 9 --komi 5.5 --prune-for white --bench-n 12 --bench-plies 10 --rng-seed 71 --prior eye --eye-init 8 --eye-area --eye-weight 4 --eye-komi
+bench #0: winner=Some(White) nodes=10167021 secs=20.51 moves=00,13,02,01,23,04,03,20,06,22
+bench #1: winner=None nodes=10497079 secs=21.91 moves=26,04,22,07,18,08,13,25,21,11
+bench #2: winner=Some(White) nodes=4711078 secs=9.95 moves=22,11,13,17,10,05,18,26,00,23
+bench #3: winner=Some(White) nodes=188401 secs=0.43 moves=14,02,27,18,25,10,01,12,03,13
+bench #4: winner=None nodes=1638616 secs=3.34 moves=25,08,16,28,12,03,10,14,22,05
+bench #5: winner=Some(White) nodes=89094 secs=0.23 moves=11,15,18,25,08,27,01,14,23,04
+bench #6: winner=None nodes=10162629 secs=18.10 moves=10,28,25,03,13,26,05,06,00,02
+bench #7: winner=None nodes=100003840 secs=204.19 moves=21,27,04,20,00,06,18,03,28,10
+bench #8: winner=None nodes=4686404 secs=11.72 moves=16,22,13,26,21,24,07,15,18,05
+bench #9: winner=Some(White) nodes=1945670 secs=5.29 moves=23,15,00,26,27,24,08,10,11,02
+bench #10: winner=None nodes=6109100 secs=13.44 moves=25,03,14,22,02,16,01,11,26,21
+bench #11: winner=Some(White) nodes=852003 secs=2.33 moves=12,10,00,15,05,13,18,21,17,07
+bench total: solved=11/12 nodes=51047095 secs=107.3

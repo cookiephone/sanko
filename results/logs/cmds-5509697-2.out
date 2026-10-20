@@ -1,0 +1,13 @@
+sanko 0.4.1 (source 63014da88da067d1): --rows 1 --cols 16 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
+solving 1x16 komi=1.5 (tt 2^31 buckets = 524288 MB, eps=0.3, prune_for=None, threads=192, prior=learned(scale 64)) ...
+pv (108 plies): 01 014 010 06 04 07 03 012 09 pass 011 05 08 07 08 09 06 05 010 02 08 011 013 09 04 03 08 011 06 09 04 07 015 05 012 03 010 014 08 011 06 012 013 07 02 00 06 01 04 012 02 01 00 011 013 01 03 05 03 07 012 09 015 011 04 014 06 012 08 02 010 05 013 012 04 013 09 pass 011 07 010 08 09 08 07 pass 011 08 09 011 08 pass 010 05 06 09 07 03 00 02 08 05 06 08 05 01 03 010
+pv end: Position<1x16> to_move=Black passes=0
+. O O X X X X . O O O O O O O .
+winner: Some(White)   nodes: 475074640938   children: 2819508126849   elapsed: 6046.895s   nodes/s: 78565060
+leaves: terminal=261520104661 static=2483   tt: probes=4388568591501 hits=2796662003714   max_ply=183   sym_merged=1536
+ghi: proofs_stored=38237956519 reuse same-path=767659723 (rejected 44516597900) checked=299556755316  reject target=0 bloom=1005876219256  twin hits=40933659463 stores=1048768095 frame-rejects=125  psk_exclusions=70637859027
+static: rejected (superko-unsafe on path)=14377  transfers rejected by territory=188483141292  territory-pruned moves=0
+128-bit proof check: mismatches=0  proofs with one target: 518719962
+path-specific proofs: two-targets=81680243  symmetry-merge=1  from-table=474430187  alternates: twin-child=37187089282  base-taken=2520  stored=37187091802 reused=83702034911
+closed-region solver leaves: 0  failures [unused, too big, <2 pure eyes, local loss]: [0, 0, 0, 0]
+first-visit expansions: 10459077 of 475074640938 (45422.23x revisit factor)

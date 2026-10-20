@@ -1,0 +1,61 @@
+selftest --regions --rows 2 --cols 4                                   [selftest 2x4] done: 300 compared, 0 mismatches
+selftest --regions --oracle-no-static --rows 2 --cols                  [selftest 2x4] done: 300 compared, 0 mismatches
+selftest --regions --prune-for black --oracle-no-static --rows         [selftest 2x4] done: 172 compared, 0 mismatches
+selftest --regions --rows 2 --cols 4                                   [selftest 2x4] done: 300 compared, 0 mismatches
+selftest --regions --oracle-no-static --rows 2 --cols                  [selftest 2x4] done: 300 compared, 0 mismatches
+selftest --regions --prune-for black --oracle-no-static --rows         [selftest 2x4] done: 171 compared, 0 mismatches
+selftest --regions --rows 2 --cols 5                                   [selftest 2x5] done: 300 compared, 0 mismatches
+selftest --regions --oracle-no-static --rows 2 --cols                  [selftest 2x5] done: 300 compared, 0 mismatches
+selftest --regions --prune-for black --oracle-no-static --rows         [selftest 2x5] done: 172 compared, 0 mismatches
+selftest --regions --rows 2 --cols 5                                   [selftest 2x5] done: 300 compared, 0 mismatches
+selftest --regions --oracle-no-static --rows 2 --cols                  [selftest 2x5] done: 300 compared, 0 mismatches
+selftest --regions --prune-for black --oracle-no-static --rows         [selftest 2x5] done: 164 compared, 0 mismatches
+selftest --regions --rows 2 --cols 6                                   [selftest 2x6] done: 300 compared, 0 mismatches
+selftest --regions --oracle-no-static --rows 2 --cols                  [selftest 2x6] done: 300 compared, 0 mismatches
+selftest --regions --prune-for black --oracle-no-static --rows         [selftest 2x6] done: 180 compared, 0 mismatches
+selftest --regions --rows 2 --cols 6                                   [selftest 2x6] done: 300 compared, 0 mismatches
+selftest --regions --oracle-no-static --rows 2 --cols                  [selftest 2x6] done: 300 compared, 0 mismatches
+selftest --regions --prune-for black --oracle-no-static --rows         [selftest 2x6] done: 190 compared, 0 mismatches
+selftest --regions --rows 3 --cols 3                                   [selftest 3x3] done: 300 compared, 0 mismatches
+selftest --regions --oracle-no-static --rows 3 --cols                  [selftest 3x3] done: 300 compared, 0 mismatches
+selftest --regions --prune-for black --oracle-no-static --rows         [selftest 3x3] done: 174 compared, 0 mismatches
+selftest --regions --rows 3 --cols 3                                   [selftest 3x3] done: 300 compared, 0 mismatches
+selftest --regions --oracle-no-static --rows 3 --cols                  [selftest 3x3] done: 300 compared, 0 mismatches
+selftest --regions --prune-for black --oracle-no-static --rows         [selftest 3x3] done: 171 compared, 0 mismatches
+selftest --regions --rows 3 --cols 4                                   [selftest 3x4] done: 300 compared, 0 mismatches
+selftest --regions --oracle-no-static --rows 3 --cols                  [selftest 3x4] done: 300 compared, 0 mismatches
+selftest --regions --prune-for black --oracle-no-static --rows         [selftest 3x4] done: 170 compared, 0 mismatches
+selftest --regions --rows 3 --cols 4                                   [selftest 3x4] done: 300 compared, 0 mismatches
+selftest --regions --oracle-no-static --rows 3 --cols                  [selftest 3x4] done: 300 compared, 0 mismatches
+selftest --regions --prune-for black --oracle-no-static --rows         [selftest 3x4] done: 173 compared, 0 mismatches
+selftest --regions --rows 3 --cols 5                                   [selftest 3x5] done: 300 compared, 0 mismatches
+selftest --regions --oracle-no-static --rows 3 --cols                  [selftest 3x5] done: 300 compared, 0 mismatches
+selftest --regions --prune-for black --oracle-no-static --rows         [selftest 3x5] done: 171 compared, 0 mismatches
+selftest --regions --rows 3 --cols 5                                   [selftest 3x5] done: 300 compared, 0 mismatches
+selftest --regions --oracle-no-static --rows 3 --cols                  [selftest 3x5] done: 300 compared, 0 mismatches
+selftest --regions --prune-for black --oracle-no-static --rows         [selftest 3x5] done: 180 compared, 0 mismatches
+selftest --regions --rows 4 --cols 4                                   [selftest 4x4] done: 300 compared, 0 mismatches
+selftest --regions --oracle-no-static --rows 4 --cols                  [selftest 4x4] done: 297 compared, 0 mismatches
+selftest --regions --prune-for black --oracle-no-static --rows         [selftest 4x4] done: 163 compared, 0 mismatches
+selftest --regions --rows 4 --cols 4                                   [selftest 4x4] done: 300 compared, 0 mismatches
+selftest --regions --oracle-no-static --rows 4 --cols                  [selftest 4x4] done: 299 compared, 0 mismatches
+selftest --regions --prune-for black --oracle-no-static --rows         [selftest 4x4] done: 161 compared, 0 mismatches
+staticcheck --rows 2 --cols 4 --positions                              [staticcheck 2x4] done: 430 probes, 430 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 2 --cols 4 --positions                              [staticcheck 2x4] done: 435 probes, 435 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 2 --cols 5 --positions                              [staticcheck 2x5] done: 405 probes, 405 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 2 --cols 5 --positions                              [staticcheck 2x5] done: 359 probes, 359 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 2 --cols 6 --positions                              [staticcheck 2x6] done: 344 probes, 344 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 2 --cols 6 --positions                              [staticcheck 2x6] done: 356 probes, 356 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 3 --cols 3 --positions                              [staticcheck 3x3] done: 470 probes, 470 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 3 --cols 3 --positions                              [staticcheck 3x3] done: 534 probes, 534 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 3 --cols 4 --positions                              [staticcheck 3x4] done: 391 probes, 391 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 3 --cols 4 --positions                              [staticcheck 3x4] done: 418 probes, 418 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 3 --cols 5 --positions                              [staticcheck 3x5] done: 428 probes, 428 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 3 --cols 5 --positions                              [staticcheck 3x5] done: 365 probes, 365 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 4 --cols 4 --positions                              [staticcheck 4x4] done: 433 probes, 433 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 4 --cols 4 --positions                              [staticcheck 4x4] done: 415 probes, 415 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 4 --cols 5 --positions                              [staticcheck 4x5] done: 453 probes, 453 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 4 --cols 5 --positions                              [staticcheck 4x5] done: 440 probes, 440 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 5 --cols 5 --positions                              [staticcheck 5x5] done: 473 probes, 473 agreed, 0 unknown, 0 counterexamples
+staticcheck --rows 5 --cols 5 --positions                              [staticcheck 5x5] done: 550 probes, 549 agreed, 1 unknown, 0 counterexamples
+TOTAL problems: 0
