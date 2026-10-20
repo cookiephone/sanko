@@ -1,0 +1,14 @@
+sanko 0.4.2 (source af01dd77d1c0e3b0): --rows 2 --cols 3 --komi 0.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
+solving 2x3 komi=0.5 (tt 2^22 buckets = 640 MB, eps=0.3, prune_for=Some(White), threads=16, prior=learned(scale 64)) ...
+pv (14 plies): 01 11 00 12 10 02 00 01 10 01 11 12 11 10
+pv end: Position<2x3> to_move=Black passes=0
+. O .
+O . O
+winner: Some(White)   nodes: 1303   children: 3695   elapsed: 0.024s   nodes/s: 53829
+leaves: terminal=843 static=55   tt: probes=3998 hits=1661   max_ply=20   sym_merged=160
+ghi: proofs_stored=677 reuse same-path=158 (rejected 0) checked=198  reject target=0 bloom=17  twin hits=40 stores=308 frame-rejects=0  psk_exclusions=84
+static: rejected (superko-unsafe on path)=251  transfers rejected by territory=687  territory-pruned moves=0
+128-bit proof check: mismatches=0  proofs with one target: 136
+path-specific proofs: two-targets=20  symmetry-merge=26  from-table=152  alternates: twin-child=137  base-taken=170  stored=307 reused=104
+closed-region solver leaves: 0  failures [unused, too big, <2 pure eyes, local loss]: [0, 0, 0, 0]
+first-visit expansions: 559 of 1303 (2.33x revisit factor)
