@@ -105,89 +105,90 @@ Build: sanko 0.4.1 (63014da88da067d1), sanko 0.4.2 (af01dd77d1c0e3b0).
 | 101 | 1x17 k-0.5 unpruned | 0.4.1 | Black | B1 | 7,802,763,888 | 150.1 | 192 | [cmds-5509899-1.out](logs/cmds-5509899-1.out) |
 | 102 | 1x17 k0.5 unpruned | 0.4.1 | White |  | 4,756,664,697,790 | 62,661.7 | 192 | [cmds-5509899-2.out](logs/cmds-5509899-2.out) |
 | 103 | 1x18 k0.5 unpruned | 0.4.1 | Black | B1 | 107,589,297,682 | 1,483.9 | 192 | [cmds-5509912-1.out](logs/cmds-5509912-1.out) |
-| 104 | 3x9 k5.5 white-pruned no-VL | 0.4.1 | White |  | 220,123,898,228 | 10,959.2 | 192 | [cmds-5510210-1.out](logs/cmds-5510210-1.out) |
-| 105 | 2x10 k3.5 black-pruned | 0.4.2 | Black | E2 | 48,051,036 | 11.0 | 192 | [cmds-5533252-10.out](logs/cmds-5533252-10.out) |
-| 106 | 2x10 k4.5 white-pruned | 0.4.2 | White |  | 18,527,496 | 10.5 | 192 | [cmds-5533252-11.out](logs/cmds-5533252-11.out) |
-| 107 | 2x11 k5.5 black-pruned | 0.4.2 | Black | F2 | 396,481,124 | 19.7 | 192 | [cmds-5533252-12.out](logs/cmds-5533252-12.out) |
-| 108 | 2x11 k6.5 white-pruned | 0.4.2 | White |  | 54,140,809 | 11.5 | 192 | [cmds-5533252-13.out](logs/cmds-5533252-13.out) |
-| 109 | 2x12 k3.5 black-pruned | 0.4.2 | Black | F2 | 1,864,345,430 | 64.3 | 192 | [cmds-5533252-14.out](logs/cmds-5533252-14.out) |
-| 110 | 2x12 k4.5 white-pruned | 0.4.2 | White |  | 1,809,294,550 | 62.6 | 192 | [cmds-5533252-15.out](logs/cmds-5533252-15.out) |
-| 111 | 3x9 k4.5 black-pruned | 0.4.2 | Black | E2 | 9,672,424,128 | 357.2 | 192 | [cmds-5533252-16.out](logs/cmds-5533252-16.out) |
-| 112 | 3x9 k5.5 white-pruned | 0.4.2 | White |  | 5,186,976,079 | 200.1 | 192 | [cmds-5533252-17.out](logs/cmds-5533252-17.out) |
-| 113 | 2x13 k5.5 black-pruned | 0.4.2 | Black | G2 | 13,077,657,461 | 444.7 | 192 | [cmds-5533252-18.out](logs/cmds-5533252-18.out) |
-| 114 | 2x13 k6.5 white-pruned | 0.4.2 | White |  | 6,016,443,469 | 218.5 | 192 | [cmds-5533252-19.out](logs/cmds-5533252-19.out) |
-| 115 | 3x3 k8.5 black-pruned | 0.4.2 | Black | B2 | 1,058 | 10.2 | 192 | [cmds-5533252-1.out](logs/cmds-5533252-1.out) |
-| 116 | 4x4 k1.5 black-pruned | 0.4.2 | Black | B3 | 276,887 | 10.3 | 192 | [cmds-5533252-2.out](logs/cmds-5533252-2.out) |
-| 117 | 4x4 k2.5 white-pruned | 0.4.2 | White |  | 490,054 | 10.3 | 192 | [cmds-5533252-3.out](logs/cmds-5533252-3.out) |
-| 118 | 4x5 k19.5 black-pruned | 0.4.2 | Black | C3 | 41,792,337 | 11.1 | 192 | [cmds-5533252-4.out](logs/cmds-5533252-4.out) |
-| 119 | 3x7 k20.5 black-pruned | 0.4.2 | Black | D2 | 113,015,742 | 12.9 | 192 | [cmds-5533252-5.out](logs/cmds-5533252-5.out) |
-| 120 | 5x5 k24.5 after C3 black-pruned | 0.4.2 | Black |  | 1,963,967,814 | 76.8 | 192 | [cmds-5533252-6.out](logs/cmds-5533252-6.out) |
-| 121 | 3x8 k23.5 black-pruned | 0.4.2 | Black | D2 | 1,801,345,555 | 58.2 | 192 | [cmds-5533252-7.out](logs/cmds-5533252-7.out) |
-| 122 | 4x6 k7.5 black-pruned | 0.4.2 | Black | C3 | 1,641,229,361 | 61.0 | 192 | [cmds-5533252-8.out](logs/cmds-5533252-8.out) |
-| 123 | 4x6 k8.5 white-pruned | 0.4.2 | White |  | 522,088,976 | 25.8 | 192 | [cmds-5533252-9.out](logs/cmds-5533252-9.out) |
-| 124 | 4x4 k1.5 black-pruned | 0.4.2 | Black | B3 | 86,211 | 0.2 | 1 | [cmds-5533253-10.out](logs/cmds-5533253-10.out) |
-| 125 | 5x5 k24.5 after C3 black-pruned | 0.4.2 | Black |  | 1,544,486,242 | 441.0 | 14 | [cmds-5533253-11.out](logs/cmds-5533253-11.out) |
-| 126 | 5x5 k24.5 after C3 black-pruned | 0.4.2 | Black |  | 1,382,321,230 | 942.5 | 6 | [cmds-5533253-12.out](logs/cmds-5533253-12.out) |
-| 127 | 5x5 k24.5 after C3 black-pruned | 0.4.2 | Black |  | 2,506,889,407 | 94.9 | 192 | [cmds-5533253-1.out](logs/cmds-5533253-1.out) |
-| 128 | 5x5 k24.5 after C3 black-pruned | 0.4.2 | Black |  | 2,368,194,368 | 90.5 | 192 | [cmds-5533253-2.out](logs/cmds-5533253-2.out) |
-| 129 | 5x5 k24.5 after C3 black-pruned | 0.4.2 | Black |  | 2,530,524,137 | 97.0 | 192 | [cmds-5533253-3.out](logs/cmds-5533253-3.out) |
-| 130 | 5x5 k24.5 after C3,B5 black-pruned | 0.4.2 | Black | D4 | 2,297,313,207 | 89.2 | 192 | [cmds-5533253-4.out](logs/cmds-5533253-4.out) |
-| 131 | 5x5 k24.5 after C3,C5 black-pruned | 0.4.2 | Black | B4 | 1,961,955,517 | 78.4 | 192 | [cmds-5533253-5.out](logs/cmds-5533253-5.out) |
-| 132 | 5x5 k24.5 after C3,B4 black-pruned | 0.4.2 | Black | D2 | 1,773,952,271 | 67.2 | 192 | [cmds-5533253-6.out](logs/cmds-5533253-6.out) |
-| 133 | 5x5 k24.5 after C3,C4 black-pruned | 0.4.2 | Black | B4 | 1,292,196,076 | 53.4 | 192 | [cmds-5533253-7.out](logs/cmds-5533253-7.out) |
-| 134 | 5x5 k24.5 after C3,A5 black-pruned | 0.4.2 | Black | B4 | 1,809,682,100 | 74.4 | 192 | [cmds-5533253-8.out](logs/cmds-5533253-8.out) |
-| 135 | 5x5 k24.5 after C3,pass black-pruned | 0.4.2 | Black | pass | 192 | 10.1 | 192 | [cmds-5533253-9.out](logs/cmds-5533253-9.out) |
-| 136 | 1x8 k2.5 unpruned | 0.4.2 | Black | B1 | 8,177 | 10.2 | 192 | [cmds-5533254-10.out](logs/cmds-5533254-10.out) |
-| 137 | 1x9 k0.5 unpruned | 0.4.2 | White |  | 20,477 | 10.1 | 192 | [cmds-5533254-11.out](logs/cmds-5533254-11.out) |
-| 138 | 1x9 k-0.5 unpruned | 0.4.2 | Black | B1 | 5,134 | 10.1 | 192 | [cmds-5533254-12.out](logs/cmds-5533254-12.out) |
-| 139 | 1x10 k1.5 unpruned | 0.4.2 | White |  | 120,077 | 10.3 | 192 | [cmds-5533254-13.out](logs/cmds-5533254-13.out) |
-| 140 | 1x10 k0.5 unpruned | 0.4.2 | Black | B1 | 24,885 | 10.2 | 192 | [cmds-5533254-14.out](logs/cmds-5533254-14.out) |
-| 141 | 1x11 k2.5 unpruned | 0.4.2 | White |  | 337,294 | 10.0 | 192 | [cmds-5533254-15.out](logs/cmds-5533254-15.out) |
-| 142 | 1x11 k1.5 unpruned | 0.4.2 | Black | F1 | 35,264 | 10.2 | 192 | [cmds-5533254-16.out](logs/cmds-5533254-16.out) |
-| 143 | 1x12 k2.5 unpruned | 0.4.2 | White |  | 26,001,689 | 10.3 | 192 | [cmds-5533254-17.out](logs/cmds-5533254-17.out) |
-| 144 | 1x12 k1.5 unpruned | 0.4.2 | Black | B1 | 1,527,603,203 | 30.3 | 192 | [cmds-5533254-18.out](logs/cmds-5533254-18.out) |
-| 145 | 1x13 k0.5 unpruned | 0.4.2 | White |  | 87,940,006 | 11.3 | 192 | [cmds-5533254-19.out](logs/cmds-5533254-19.out) |
-| 146 | 1x4 k4.5 unpruned | 0.4.2 | White |  | 0 | 9.9 | 192 | [cmds-5533254-1.out](logs/cmds-5533254-1.out) |
-| 147 | 1x13 k-0.5 unpruned | 0.4.2 | Black | B1 | 409,368 | 10.1 | 192 | [cmds-5533254-20.out](logs/cmds-5533254-20.out) |
-| 148 | 1x14 k1.5 unpruned | 0.4.2 | White |  | 565,605,581 | 17.2 | 192 | [cmds-5533254-21.out](logs/cmds-5533254-21.out) |
-| 149 | 1x14 k0.5 unpruned | 0.4.2 | Black | B1 | 4,060,888 | 10.1 | 192 | [cmds-5533254-22.out](logs/cmds-5533254-22.out) |
-| 150 | 1x15 k2.5 unpruned | 0.4.2 | White |  | 4,361,149,332 | 66.1 | 192 | [cmds-5533254-23.out](logs/cmds-5533254-23.out) |
-| 151 | 1x15 k1.5 unpruned | 0.4.2 | Black | H1 | 281,614,157 | 13.5 | 192 | [cmds-5533254-24.out](logs/cmds-5533254-24.out) |
-| 152 | 1x4 k3.5 unpruned | 0.4.2 | Black | B1 | 207 | 10.1 | 192 | [cmds-5533254-2.out](logs/cmds-5533254-2.out) |
-| 153 | 1x5 k0.5 unpruned | 0.4.2 | White |  | 493 | 10.3 | 192 | [cmds-5533254-3.out](logs/cmds-5533254-3.out) |
-| 154 | 1x5 k-0.5 unpruned | 0.4.2 | Black | B1 | 421 | 10.0 | 192 | [cmds-5533254-4.out](logs/cmds-5533254-4.out) |
-| 155 | 1x6 k1.5 unpruned | 0.4.2 | White |  | 1,109 | 10.2 | 192 | [cmds-5533254-5.out](logs/cmds-5533254-5.out) |
-| 156 | 1x6 k0.5 unpruned | 0.4.2 | Black | B1 | 1,148 | 10.2 | 192 | [cmds-5533254-6.out](logs/cmds-5533254-6.out) |
-| 157 | 1x7 k2.5 unpruned | 0.4.2 | White |  | 3,334 | 10.3 | 192 | [cmds-5533254-7.out](logs/cmds-5533254-7.out) |
-| 158 | 1x7 k1.5 unpruned | 0.4.2 | Black | D1 | 461 | 10.1 | 192 | [cmds-5533254-8.out](logs/cmds-5533254-8.out) |
-| 159 | 1x8 k3.5 unpruned | 0.4.2 | White |  | 19,937 | 10.3 | 192 | [cmds-5533254-9.out](logs/cmds-5533254-9.out) |
-| 160 | 1x16 k0.5 unpruned | 0.4.2 | Black | B1 | 792,291,224 | 22.0 | 192 | [cmds-5533255-1.out](logs/cmds-5533255-1.out) |
-| 161 | 1x17 k-0.5 unpruned | 0.4.2 | Black | B1 | 7,010,305,502 | 101.5 | 192 | [cmds-5533255-2.out](logs/cmds-5533255-2.out) |
-| 162 | 3x10 k8.5 after pass white-pruned | 0.4.2 | White | pass | 192 | 11.2 | 192 | [cmds-5533256-1.out](logs/cmds-5533256-1.out) |
-| 163 | 3x10 k8.5 after D2 white-pruned | 0.4.2 | White | G2 | 9,974,090,213 | 428.8 | 192 | [cmds-5533256-2.out](logs/cmds-5533256-2.out) |
-| 164 | 3x10 k8.5 after A2 white-pruned | 0.4.2 | White | G2 | 4,284,676,383 | 198.8 | 192 | [cmds-5533256-3.out](logs/cmds-5533256-3.out) |
-| 165 | 3x10 k8.5 after B2 white-pruned | 0.4.2 | White | H2 | 3,147,637,532 | 149.6 | 192 | [cmds-5533256-4.out](logs/cmds-5533256-4.out) |
-| 166 | 3x10 k8.5 after C2 white-pruned | 0.4.2 | White | G2 | 5,308,601,580 | 240.0 | 192 | [cmds-5533256-5.out](logs/cmds-5533256-5.out) |
-| 167 | 3x10 k8.5 after E2 white-pruned | 0.4.2 | White | G2 | 17,575,915,949 | 727.4 | 192 | [cmds-5533257-1.out](logs/cmds-5533257-1.out) |
-| 168 | 3x10 k8.5 after A3 white-pruned | 0.4.2 | White | D2 | 9,409,844,620 | 423.2 | 192 | [cmds-5533257-2.out](logs/cmds-5533257-2.out) |
-| 169 | 3x10 k8.5 after B3 white-pruned | 0.4.2 | White | H2 | 10,426,162,792 | 456.7 | 192 | [cmds-5533258-1.out](logs/cmds-5533258-1.out) |
-| 170 | 3x10 k8.5 after C3 white-pruned | 0.4.2 | White | G2 | 15,338,744,071 | 653.1 | 192 | [cmds-5533258-2.out](logs/cmds-5533258-2.out) |
-| 171 | 3x10 k8.5 after D3 white-pruned | 0.4.2 | White | H2 | 10,571,312,909 | 459.2 | 192 | [cmds-5533259-1.out](logs/cmds-5533259-1.out) |
-| 172 | 3x10 k8.5 after E3 white-pruned | 0.4.2 | White | G2 | 10,856,814,640 | 476.4 | 192 | [cmds-5533259-2.out](logs/cmds-5533259-2.out) |
-| 173 | 2x9 k17.5 black-pruned | 0.4.2 | Black | E2 | 13,131,810 | 2.7 | 16 | [cmds-5534430-10.out](logs/cmds-5534430-10.out) |
-| 174 | 3x4 k3.5 black-pruned | 0.4.2 | Black | B2 | 8,253 | 0.0 | 16 | [cmds-5534430-11.out](logs/cmds-5534430-11.out) |
-| 175 | 3x4 k4.5 white-pruned | 0.4.2 | White |  | 22,036 | 0.0 | 16 | [cmds-5534430-12.out](logs/cmds-5534430-12.out) |
-| 176 | 3x5 k14.5 black-pruned | 0.4.2 | Black | C2 | 107,056 | 0.0 | 16 | [cmds-5534430-13.out](logs/cmds-5534430-13.out) |
-| 177 | 3x6 k17.5 black-pruned | 0.4.2 | Black | C2 | 2,777,458 | 0.5 | 16 | [cmds-5534430-14.out](logs/cmds-5534430-14.out) |
-| 178 | 2x2 k0.5 black-pruned | 0.4.2 | Black | A2 | 204 | 0.0 | 16 | [cmds-5534430-1.out](logs/cmds-5534430-1.out) |
-| 179 | 2x2 k1.5 white-pruned | 0.4.2 | White |  | 126 | 0.0 | 16 | [cmds-5534430-2.out](logs/cmds-5534430-2.out) |
-| 180 | 2x3 k-0.5 black-pruned | 0.4.2 | Black | pass | 1,169 | 0.0 | 16 | [cmds-5534430-3.out](logs/cmds-5534430-3.out) |
-| 181 | 2x3 k0.5 white-pruned | 0.4.2 | White |  | 1,303 | 0.0 | 16 | [cmds-5534430-4.out](logs/cmds-5534430-4.out) |
-| 182 | 2x4 k7.5 black-pruned | 0.4.2 | Black | B2 | 773 | 0.0 | 16 | [cmds-5534430-5.out](logs/cmds-5534430-5.out) |
-| 183 | 2x5 k9.5 black-pruned | 0.4.2 | Black | C2 | 2,396 | 0.0 | 16 | [cmds-5534430-6.out](logs/cmds-5534430-6.out) |
-| 184 | 2x6 k11.5 black-pruned | 0.4.2 | Black | C2 | 21,274 | 0.0 | 16 | [cmds-5534430-7.out](logs/cmds-5534430-7.out) |
-| 185 | 2x7 k13.5 black-pruned | 0.4.2 | Black | D2 | 172,909 | 0.1 | 16 | [cmds-5534430-8.out](logs/cmds-5534430-8.out) |
-| 186 | 2x8 k15.5 black-pruned | 0.4.2 | Black | D2 | 2,017,119 | 0.4 | 16 | [cmds-5534430-9.out](logs/cmds-5534430-9.out) |
+| 104 | 1x18 k1.5 unpruned | 0.4.1 | White |  | 7,748,137,019,614 | 101,909.5 | 192 | [cmds-5509912-2.out](logs/cmds-5509912-2.out) |
+| 105 | 3x9 k5.5 white-pruned no-VL | 0.4.1 | White |  | 220,123,898,228 | 10,959.2 | 192 | [cmds-5510210-1.out](logs/cmds-5510210-1.out) |
+| 106 | 2x10 k3.5 black-pruned | 0.4.2 | Black | E2 | 48,051,036 | 11.0 | 192 | [cmds-5533252-10.out](logs/cmds-5533252-10.out) |
+| 107 | 2x10 k4.5 white-pruned | 0.4.2 | White |  | 18,527,496 | 10.5 | 192 | [cmds-5533252-11.out](logs/cmds-5533252-11.out) |
+| 108 | 2x11 k5.5 black-pruned | 0.4.2 | Black | F2 | 396,481,124 | 19.7 | 192 | [cmds-5533252-12.out](logs/cmds-5533252-12.out) |
+| 109 | 2x11 k6.5 white-pruned | 0.4.2 | White |  | 54,140,809 | 11.5 | 192 | [cmds-5533252-13.out](logs/cmds-5533252-13.out) |
+| 110 | 2x12 k3.5 black-pruned | 0.4.2 | Black | F2 | 1,864,345,430 | 64.3 | 192 | [cmds-5533252-14.out](logs/cmds-5533252-14.out) |
+| 111 | 2x12 k4.5 white-pruned | 0.4.2 | White |  | 1,809,294,550 | 62.6 | 192 | [cmds-5533252-15.out](logs/cmds-5533252-15.out) |
+| 112 | 3x9 k4.5 black-pruned | 0.4.2 | Black | E2 | 9,672,424,128 | 357.2 | 192 | [cmds-5533252-16.out](logs/cmds-5533252-16.out) |
+| 113 | 3x9 k5.5 white-pruned | 0.4.2 | White |  | 5,186,976,079 | 200.1 | 192 | [cmds-5533252-17.out](logs/cmds-5533252-17.out) |
+| 114 | 2x13 k5.5 black-pruned | 0.4.2 | Black | G2 | 13,077,657,461 | 444.7 | 192 | [cmds-5533252-18.out](logs/cmds-5533252-18.out) |
+| 115 | 2x13 k6.5 white-pruned | 0.4.2 | White |  | 6,016,443,469 | 218.5 | 192 | [cmds-5533252-19.out](logs/cmds-5533252-19.out) |
+| 116 | 3x3 k8.5 black-pruned | 0.4.2 | Black | B2 | 1,058 | 10.2 | 192 | [cmds-5533252-1.out](logs/cmds-5533252-1.out) |
+| 117 | 4x4 k1.5 black-pruned | 0.4.2 | Black | B3 | 276,887 | 10.3 | 192 | [cmds-5533252-2.out](logs/cmds-5533252-2.out) |
+| 118 | 4x4 k2.5 white-pruned | 0.4.2 | White |  | 490,054 | 10.3 | 192 | [cmds-5533252-3.out](logs/cmds-5533252-3.out) |
+| 119 | 4x5 k19.5 black-pruned | 0.4.2 | Black | C3 | 41,792,337 | 11.1 | 192 | [cmds-5533252-4.out](logs/cmds-5533252-4.out) |
+| 120 | 3x7 k20.5 black-pruned | 0.4.2 | Black | D2 | 113,015,742 | 12.9 | 192 | [cmds-5533252-5.out](logs/cmds-5533252-5.out) |
+| 121 | 5x5 k24.5 after C3 black-pruned | 0.4.2 | Black |  | 1,963,967,814 | 76.8 | 192 | [cmds-5533252-6.out](logs/cmds-5533252-6.out) |
+| 122 | 3x8 k23.5 black-pruned | 0.4.2 | Black | D2 | 1,801,345,555 | 58.2 | 192 | [cmds-5533252-7.out](logs/cmds-5533252-7.out) |
+| 123 | 4x6 k7.5 black-pruned | 0.4.2 | Black | C3 | 1,641,229,361 | 61.0 | 192 | [cmds-5533252-8.out](logs/cmds-5533252-8.out) |
+| 124 | 4x6 k8.5 white-pruned | 0.4.2 | White |  | 522,088,976 | 25.8 | 192 | [cmds-5533252-9.out](logs/cmds-5533252-9.out) |
+| 125 | 4x4 k1.5 black-pruned | 0.4.2 | Black | B3 | 86,211 | 0.2 | 1 | [cmds-5533253-10.out](logs/cmds-5533253-10.out) |
+| 126 | 5x5 k24.5 after C3 black-pruned | 0.4.2 | Black |  | 1,544,486,242 | 441.0 | 14 | [cmds-5533253-11.out](logs/cmds-5533253-11.out) |
+| 127 | 5x5 k24.5 after C3 black-pruned | 0.4.2 | Black |  | 1,382,321,230 | 942.5 | 6 | [cmds-5533253-12.out](logs/cmds-5533253-12.out) |
+| 128 | 5x5 k24.5 after C3 black-pruned | 0.4.2 | Black |  | 2,506,889,407 | 94.9 | 192 | [cmds-5533253-1.out](logs/cmds-5533253-1.out) |
+| 129 | 5x5 k24.5 after C3 black-pruned | 0.4.2 | Black |  | 2,368,194,368 | 90.5 | 192 | [cmds-5533253-2.out](logs/cmds-5533253-2.out) |
+| 130 | 5x5 k24.5 after C3 black-pruned | 0.4.2 | Black |  | 2,530,524,137 | 97.0 | 192 | [cmds-5533253-3.out](logs/cmds-5533253-3.out) |
+| 131 | 5x5 k24.5 after C3,B5 black-pruned | 0.4.2 | Black | D4 | 2,297,313,207 | 89.2 | 192 | [cmds-5533253-4.out](logs/cmds-5533253-4.out) |
+| 132 | 5x5 k24.5 after C3,C5 black-pruned | 0.4.2 | Black | B4 | 1,961,955,517 | 78.4 | 192 | [cmds-5533253-5.out](logs/cmds-5533253-5.out) |
+| 133 | 5x5 k24.5 after C3,B4 black-pruned | 0.4.2 | Black | D2 | 1,773,952,271 | 67.2 | 192 | [cmds-5533253-6.out](logs/cmds-5533253-6.out) |
+| 134 | 5x5 k24.5 after C3,C4 black-pruned | 0.4.2 | Black | B4 | 1,292,196,076 | 53.4 | 192 | [cmds-5533253-7.out](logs/cmds-5533253-7.out) |
+| 135 | 5x5 k24.5 after C3,A5 black-pruned | 0.4.2 | Black | B4 | 1,809,682,100 | 74.4 | 192 | [cmds-5533253-8.out](logs/cmds-5533253-8.out) |
+| 136 | 5x5 k24.5 after C3,pass black-pruned | 0.4.2 | Black | pass | 192 | 10.1 | 192 | [cmds-5533253-9.out](logs/cmds-5533253-9.out) |
+| 137 | 1x8 k2.5 unpruned | 0.4.2 | Black | B1 | 8,177 | 10.2 | 192 | [cmds-5533254-10.out](logs/cmds-5533254-10.out) |
+| 138 | 1x9 k0.5 unpruned | 0.4.2 | White |  | 20,477 | 10.1 | 192 | [cmds-5533254-11.out](logs/cmds-5533254-11.out) |
+| 139 | 1x9 k-0.5 unpruned | 0.4.2 | Black | B1 | 5,134 | 10.1 | 192 | [cmds-5533254-12.out](logs/cmds-5533254-12.out) |
+| 140 | 1x10 k1.5 unpruned | 0.4.2 | White |  | 120,077 | 10.3 | 192 | [cmds-5533254-13.out](logs/cmds-5533254-13.out) |
+| 141 | 1x10 k0.5 unpruned | 0.4.2 | Black | B1 | 24,885 | 10.2 | 192 | [cmds-5533254-14.out](logs/cmds-5533254-14.out) |
+| 142 | 1x11 k2.5 unpruned | 0.4.2 | White |  | 337,294 | 10.0 | 192 | [cmds-5533254-15.out](logs/cmds-5533254-15.out) |
+| 143 | 1x11 k1.5 unpruned | 0.4.2 | Black | F1 | 35,264 | 10.2 | 192 | [cmds-5533254-16.out](logs/cmds-5533254-16.out) |
+| 144 | 1x12 k2.5 unpruned | 0.4.2 | White |  | 26,001,689 | 10.3 | 192 | [cmds-5533254-17.out](logs/cmds-5533254-17.out) |
+| 145 | 1x12 k1.5 unpruned | 0.4.2 | Black | B1 | 1,527,603,203 | 30.3 | 192 | [cmds-5533254-18.out](logs/cmds-5533254-18.out) |
+| 146 | 1x13 k0.5 unpruned | 0.4.2 | White |  | 87,940,006 | 11.3 | 192 | [cmds-5533254-19.out](logs/cmds-5533254-19.out) |
+| 147 | 1x4 k4.5 unpruned | 0.4.2 | White |  | 0 | 9.9 | 192 | [cmds-5533254-1.out](logs/cmds-5533254-1.out) |
+| 148 | 1x13 k-0.5 unpruned | 0.4.2 | Black | B1 | 409,368 | 10.1 | 192 | [cmds-5533254-20.out](logs/cmds-5533254-20.out) |
+| 149 | 1x14 k1.5 unpruned | 0.4.2 | White |  | 565,605,581 | 17.2 | 192 | [cmds-5533254-21.out](logs/cmds-5533254-21.out) |
+| 150 | 1x14 k0.5 unpruned | 0.4.2 | Black | B1 | 4,060,888 | 10.1 | 192 | [cmds-5533254-22.out](logs/cmds-5533254-22.out) |
+| 151 | 1x15 k2.5 unpruned | 0.4.2 | White |  | 4,361,149,332 | 66.1 | 192 | [cmds-5533254-23.out](logs/cmds-5533254-23.out) |
+| 152 | 1x15 k1.5 unpruned | 0.4.2 | Black | H1 | 281,614,157 | 13.5 | 192 | [cmds-5533254-24.out](logs/cmds-5533254-24.out) |
+| 153 | 1x4 k3.5 unpruned | 0.4.2 | Black | B1 | 207 | 10.1 | 192 | [cmds-5533254-2.out](logs/cmds-5533254-2.out) |
+| 154 | 1x5 k0.5 unpruned | 0.4.2 | White |  | 493 | 10.3 | 192 | [cmds-5533254-3.out](logs/cmds-5533254-3.out) |
+| 155 | 1x5 k-0.5 unpruned | 0.4.2 | Black | B1 | 421 | 10.0 | 192 | [cmds-5533254-4.out](logs/cmds-5533254-4.out) |
+| 156 | 1x6 k1.5 unpruned | 0.4.2 | White |  | 1,109 | 10.2 | 192 | [cmds-5533254-5.out](logs/cmds-5533254-5.out) |
+| 157 | 1x6 k0.5 unpruned | 0.4.2 | Black | B1 | 1,148 | 10.2 | 192 | [cmds-5533254-6.out](logs/cmds-5533254-6.out) |
+| 158 | 1x7 k2.5 unpruned | 0.4.2 | White |  | 3,334 | 10.3 | 192 | [cmds-5533254-7.out](logs/cmds-5533254-7.out) |
+| 159 | 1x7 k1.5 unpruned | 0.4.2 | Black | D1 | 461 | 10.1 | 192 | [cmds-5533254-8.out](logs/cmds-5533254-8.out) |
+| 160 | 1x8 k3.5 unpruned | 0.4.2 | White |  | 19,937 | 10.3 | 192 | [cmds-5533254-9.out](logs/cmds-5533254-9.out) |
+| 161 | 1x16 k0.5 unpruned | 0.4.2 | Black | B1 | 792,291,224 | 22.0 | 192 | [cmds-5533255-1.out](logs/cmds-5533255-1.out) |
+| 162 | 1x17 k-0.5 unpruned | 0.4.2 | Black | B1 | 7,010,305,502 | 101.5 | 192 | [cmds-5533255-2.out](logs/cmds-5533255-2.out) |
+| 163 | 3x10 k8.5 after pass white-pruned | 0.4.2 | White | pass | 192 | 11.2 | 192 | [cmds-5533256-1.out](logs/cmds-5533256-1.out) |
+| 164 | 3x10 k8.5 after D2 white-pruned | 0.4.2 | White | G2 | 9,974,090,213 | 428.8 | 192 | [cmds-5533256-2.out](logs/cmds-5533256-2.out) |
+| 165 | 3x10 k8.5 after A2 white-pruned | 0.4.2 | White | G2 | 4,284,676,383 | 198.8 | 192 | [cmds-5533256-3.out](logs/cmds-5533256-3.out) |
+| 166 | 3x10 k8.5 after B2 white-pruned | 0.4.2 | White | H2 | 3,147,637,532 | 149.6 | 192 | [cmds-5533256-4.out](logs/cmds-5533256-4.out) |
+| 167 | 3x10 k8.5 after C2 white-pruned | 0.4.2 | White | G2 | 5,308,601,580 | 240.0 | 192 | [cmds-5533256-5.out](logs/cmds-5533256-5.out) |
+| 168 | 3x10 k8.5 after E2 white-pruned | 0.4.2 | White | G2 | 17,575,915,949 | 727.4 | 192 | [cmds-5533257-1.out](logs/cmds-5533257-1.out) |
+| 169 | 3x10 k8.5 after A3 white-pruned | 0.4.2 | White | D2 | 9,409,844,620 | 423.2 | 192 | [cmds-5533257-2.out](logs/cmds-5533257-2.out) |
+| 170 | 3x10 k8.5 after B3 white-pruned | 0.4.2 | White | H2 | 10,426,162,792 | 456.7 | 192 | [cmds-5533258-1.out](logs/cmds-5533258-1.out) |
+| 171 | 3x10 k8.5 after C3 white-pruned | 0.4.2 | White | G2 | 15,338,744,071 | 653.1 | 192 | [cmds-5533258-2.out](logs/cmds-5533258-2.out) |
+| 172 | 3x10 k8.5 after D3 white-pruned | 0.4.2 | White | H2 | 10,571,312,909 | 459.2 | 192 | [cmds-5533259-1.out](logs/cmds-5533259-1.out) |
+| 173 | 3x10 k8.5 after E3 white-pruned | 0.4.2 | White | G2 | 10,856,814,640 | 476.4 | 192 | [cmds-5533259-2.out](logs/cmds-5533259-2.out) |
+| 174 | 2x9 k17.5 black-pruned | 0.4.2 | Black | E2 | 13,131,810 | 2.7 | 16 | [cmds-5534430-10.out](logs/cmds-5534430-10.out) |
+| 175 | 3x4 k3.5 black-pruned | 0.4.2 | Black | B2 | 8,253 | 0.0 | 16 | [cmds-5534430-11.out](logs/cmds-5534430-11.out) |
+| 176 | 3x4 k4.5 white-pruned | 0.4.2 | White |  | 22,036 | 0.0 | 16 | [cmds-5534430-12.out](logs/cmds-5534430-12.out) |
+| 177 | 3x5 k14.5 black-pruned | 0.4.2 | Black | C2 | 107,056 | 0.0 | 16 | [cmds-5534430-13.out](logs/cmds-5534430-13.out) |
+| 178 | 3x6 k17.5 black-pruned | 0.4.2 | Black | C2 | 2,777,458 | 0.5 | 16 | [cmds-5534430-14.out](logs/cmds-5534430-14.out) |
+| 179 | 2x2 k0.5 black-pruned | 0.4.2 | Black | A2 | 204 | 0.0 | 16 | [cmds-5534430-1.out](logs/cmds-5534430-1.out) |
+| 180 | 2x2 k1.5 white-pruned | 0.4.2 | White |  | 126 | 0.0 | 16 | [cmds-5534430-2.out](logs/cmds-5534430-2.out) |
+| 181 | 2x3 k-0.5 black-pruned | 0.4.2 | Black | pass | 1,169 | 0.0 | 16 | [cmds-5534430-3.out](logs/cmds-5534430-3.out) |
+| 182 | 2x3 k0.5 white-pruned | 0.4.2 | White |  | 1,303 | 0.0 | 16 | [cmds-5534430-4.out](logs/cmds-5534430-4.out) |
+| 183 | 2x4 k7.5 black-pruned | 0.4.2 | Black | B2 | 773 | 0.0 | 16 | [cmds-5534430-5.out](logs/cmds-5534430-5.out) |
+| 184 | 2x5 k9.5 black-pruned | 0.4.2 | Black | C2 | 2,396 | 0.0 | 16 | [cmds-5534430-6.out](logs/cmds-5534430-6.out) |
+| 185 | 2x6 k11.5 black-pruned | 0.4.2 | Black | C2 | 21,274 | 0.0 | 16 | [cmds-5534430-7.out](logs/cmds-5534430-7.out) |
+| 186 | 2x7 k13.5 black-pruned | 0.4.2 | Black | D2 | 172,909 | 0.1 | 16 | [cmds-5534430-8.out](logs/cmds-5534430-8.out) |
+| 187 | 2x8 k15.5 black-pruned | 0.4.2 | Black | D2 | 2,017,119 | 0.4 | 16 | [cmds-5534430-9.out](logs/cmds-5534430-9.out) |
 
 The command of each run (after `cargo build --release`):
 
@@ -295,87 +296,88 @@ The command of each run (after `cargo build --release`):
 101  sanko --rows 1 --cols 17 --komi -0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
 102  sanko --rows 1 --cols 17 --komi 0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
 103  sanko --rows 1 --cols 18 --komi 0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
-104  sanko --rows 3 --cols 9 --komi 5.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --no-virtual-loss
-105  sanko --rows 2 --cols 10 --komi 3.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-106  sanko --rows 2 --cols 10 --komi 4.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-107  sanko --rows 2 --cols 11 --komi 5.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-108  sanko --rows 2 --cols 11 --komi 6.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-109  sanko --rows 2 --cols 12 --komi 3.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-110  sanko --rows 2 --cols 12 --komi 4.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-111  sanko --rows 3 --cols 9 --komi 4.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
-112  sanko --rows 3 --cols 9 --komi 5.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
-113  sanko --rows 2 --cols 13 --komi 5.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
-114  sanko --rows 2 --cols 13 --komi 6.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
-115  sanko --rows 3 --cols 3 --komi 8.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-116  sanko --rows 4 --cols 4 --komi 1.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-117  sanko --rows 4 --cols 4 --komi 2.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-118  sanko --rows 4 --cols 5 --komi 19.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-119  sanko --rows 3 --cols 7 --komi 20.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-120  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22
-121  sanko --rows 3 --cols 8 --komi 23.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-122  sanko --rows 4 --cols 6 --komi 7.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-123  sanko --rows 4 --cols 6 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-124  sanko --rows 4 --cols 4 --komi 1.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 1
-125  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --moves 22 --threads 14
-126  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --moves 22 --threads 6
-127  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22
+104  sanko --rows 1 --cols 18 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
+105  sanko --rows 3 --cols 9 --komi 5.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --no-virtual-loss
+106  sanko --rows 2 --cols 10 --komi 3.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+107  sanko --rows 2 --cols 10 --komi 4.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+108  sanko --rows 2 --cols 11 --komi 5.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+109  sanko --rows 2 --cols 11 --komi 6.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+110  sanko --rows 2 --cols 12 --komi 3.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+111  sanko --rows 2 --cols 12 --komi 4.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+112  sanko --rows 3 --cols 9 --komi 4.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
+113  sanko --rows 3 --cols 9 --komi 5.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
+114  sanko --rows 2 --cols 13 --komi 5.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
+115  sanko --rows 2 --cols 13 --komi 6.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
+116  sanko --rows 3 --cols 3 --komi 8.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+117  sanko --rows 4 --cols 4 --komi 1.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+118  sanko --rows 4 --cols 4 --komi 2.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+119  sanko --rows 4 --cols 5 --komi 19.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+120  sanko --rows 3 --cols 7 --komi 20.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+121  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22
+122  sanko --rows 3 --cols 8 --komi 23.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+123  sanko --rows 4 --cols 6 --komi 7.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+124  sanko --rows 4 --cols 6 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+125  sanko --rows 4 --cols 4 --komi 1.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 1
+126  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --moves 22 --threads 14
+127  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --moves 22 --threads 6
 128  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22
 129  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22
-130  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22,01
-131  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22,02
-132  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22,11
-133  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22,12
-134  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22,00
-135  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22,pass
-136  sanko --rows 1 --cols 8 --komi 2.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-137  sanko --rows 1 --cols 9 --komi 0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-138  sanko --rows 1 --cols 9 --komi -0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-139  sanko --rows 1 --cols 10 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-140  sanko --rows 1 --cols 10 --komi 0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-141  sanko --rows 1 --cols 11 --komi 2.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-142  sanko --rows 1 --cols 11 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-143  sanko --rows 1 --cols 12 --komi 2.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-144  sanko --rows 1 --cols 12 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-145  sanko --rows 1 --cols 13 --komi 0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-146  sanko --rows 1 --cols 4 --komi 4.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-147  sanko --rows 1 --cols 13 --komi -0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-148  sanko --rows 1 --cols 14 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-149  sanko --rows 1 --cols 14 --komi 0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-150  sanko --rows 1 --cols 15 --komi 2.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-151  sanko --rows 1 --cols 15 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-152  sanko --rows 1 --cols 4 --komi 3.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-153  sanko --rows 1 --cols 5 --komi 0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-154  sanko --rows 1 --cols 5 --komi -0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-155  sanko --rows 1 --cols 6 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-156  sanko --rows 1 --cols 6 --komi 0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-157  sanko --rows 1 --cols 7 --komi 2.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-158  sanko --rows 1 --cols 7 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-159  sanko --rows 1 --cols 8 --komi 3.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
-160  sanko --rows 1 --cols 16 --komi 0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
-161  sanko --rows 1 --cols 17 --komi -0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
-162  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves pass
-163  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 13
-164  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 10
-165  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 11
-166  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 12
-167  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 14
-168  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 00
-169  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 01
-170  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 02
-171  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 03
-172  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 04
-173  sanko --rows 2 --cols 9 --komi 17.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
-174  sanko --rows 3 --cols 4 --komi 3.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
-175  sanko --rows 3 --cols 4 --komi 4.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
-176  sanko --rows 3 --cols 5 --komi 14.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
-177  sanko --rows 3 --cols 6 --komi 17.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
-178  sanko --rows 2 --cols 2 --komi 0.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
-179  sanko --rows 2 --cols 2 --komi 1.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
-180  sanko --rows 2 --cols 3 --komi -0.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
-181  sanko --rows 2 --cols 3 --komi 0.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
-182  sanko --rows 2 --cols 4 --komi 7.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
-183  sanko --rows 2 --cols 5 --komi 9.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
-184  sanko --rows 2 --cols 6 --komi 11.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
-185  sanko --rows 2 --cols 7 --komi 13.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
-186  sanko --rows 2 --cols 8 --komi 15.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
+130  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22
+131  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22,01
+132  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22,02
+133  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22,11
+134  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22,12
+135  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22,00
+136  sanko --rows 5 --cols 5 --komi 24.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192 --moves 22,pass
+137  sanko --rows 1 --cols 8 --komi 2.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+138  sanko --rows 1 --cols 9 --komi 0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+139  sanko --rows 1 --cols 9 --komi -0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+140  sanko --rows 1 --cols 10 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+141  sanko --rows 1 --cols 10 --komi 0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+142  sanko --rows 1 --cols 11 --komi 2.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+143  sanko --rows 1 --cols 11 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+144  sanko --rows 1 --cols 12 --komi 2.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+145  sanko --rows 1 --cols 12 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+146  sanko --rows 1 --cols 13 --komi 0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+147  sanko --rows 1 --cols 4 --komi 4.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+148  sanko --rows 1 --cols 13 --komi -0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+149  sanko --rows 1 --cols 14 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+150  sanko --rows 1 --cols 14 --komi 0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+151  sanko --rows 1 --cols 15 --komi 2.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+152  sanko --rows 1 --cols 15 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+153  sanko --rows 1 --cols 4 --komi 3.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+154  sanko --rows 1 --cols 5 --komi 0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+155  sanko --rows 1 --cols 5 --komi -0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+156  sanko --rows 1 --cols 6 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+157  sanko --rows 1 --cols 6 --komi 0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+158  sanko --rows 1 --cols 7 --komi 2.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+159  sanko --rows 1 --cols 7 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+160  sanko --rows 1 --cols 8 --komi 3.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 192
+161  sanko --rows 1 --cols 16 --komi 0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
+162  sanko --rows 1 --cols 17 --komi -0.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192
+163  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves pass
+164  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 13
+165  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 10
+166  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 11
+167  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 12
+168  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 14
+169  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 00
+170  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 01
+171  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 02
+172  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 03
+173  sanko --rows 3 --cols 10 --komi 8.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 31 --sc-log 29 --threads 192 --moves 04
+174  sanko --rows 2 --cols 9 --komi 17.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
+175  sanko --rows 3 --cols 4 --komi 3.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
+176  sanko --rows 3 --cols 4 --komi 4.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
+177  sanko --rows 3 --cols 5 --komi 14.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
+178  sanko --rows 3 --cols 6 --komi 17.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
+179  sanko --rows 2 --cols 2 --komi 0.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
+180  sanko --rows 2 --cols 2 --komi 1.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
+181  sanko --rows 2 --cols 3 --komi -0.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
+182  sanko --rows 2 --cols 3 --komi 0.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
+183  sanko --rows 2 --cols 4 --komi 7.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
+184  sanko --rows 2 --cols 5 --komi 9.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
+185  sanko --rows 2 --cols 6 --komi 11.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
+186  sanko --rows 2 --cols 7 --komi 13.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
+187  sanko --rows 2 --cols 8 --komi 15.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
 ```

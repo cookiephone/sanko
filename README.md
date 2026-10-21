@@ -26,8 +26,9 @@ The value of a board is Black's winning margin with optimal play under PSK. It i
 | 1×15 | 2\* | 2×15 | 6\* | | | | |
 | 1×16 | 1\* | | | | | | |
 | 1×17 | 0\* | | | | | | |
+| 1×18 | 1\* | | | | | | |
 
-Every value except that of 5×5 is new under PSK. Earlier solutions of these boards used basic ko (MIGOS, van der Werf and Winands 2009). Values marked with \* had no earlier value under any rules: MIGOS stopped at 1×12 and 2×11, and for 3×10 it found only the lower bound 6. The linear values from 1×9 to 1×15 repeat 0, 1, 2, 2 with period four, but 1×16 is worth 1, not 2, and 1×17 is 0 again. For 1×18 we have the lower bound 1. On the boards that both rule sets cover, the PSK value equals the basic-ko value, except on 4×7, which is worth 28 under basic ko but only 12 under PSK. Smaller boards agree with the literature.
+Every value except that of 5×5 is new under PSK. Earlier solutions of these boards used basic ko (MIGOS, van der Werf and Winands 2009). Values marked with \* had no earlier value under any rules: MIGOS stopped at 1×12 and 2×11, and for 3×10 it found only the lower bound 6. The linear values from 1×9 to 1×15 repeat 0, 1, 2, 2 with period four, but 1×16 is worth 1, not 2, and 1×17 and 1×18 return to the pattern with 0 and 1. On the boards that both rule sets cover, the PSK value equals the basic-ko value, except on 4×7, which is worth 28 under basic ko but only 12 under PSK. Smaller boards agree with the literature.
 
 [`results/`](results/) holds the output of every run behind these values. The first line of each log names the build (version and a fingerprint of the solver source) and the full command line.
 
