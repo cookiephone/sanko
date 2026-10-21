@@ -3,6 +3,10 @@
 //! 64-bit FNV-1a over the workspace manifest and each crate's manifest and
 //! `src/` files, in sorted path order, with carriage returns removed so that
 //! Windows and Unix checkouts of the same source give the same value.
+//!
+//! A crate built from crates.io is unpacked without the workspace around it,
+//! so the fingerprint cannot be computed. It is then `crates.io`, and the
+//! version alone names the source.
 
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -24,6 +28,12 @@ fn collect(dir: &Path, out: &mut Vec<PathBuf>) {
 fn main() {
     let manifest = PathBuf::from(std::env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR"));
     let root = manifest.join("..").join("..");
+    let in_workspace = root.join("Cargo.toml").is_file()
+        && CRATES.iter().all(|name| root.join("crates").join(name).join("src").is_dir());
+    if !in_workspace {
+        println!("cargo:rustc-env=SANKO_SOURCE=crates.io");
+        return;
+    }
     let mut files = vec![root.join("Cargo.toml")];
     for name in CRATES {
         let dir = root.join("crates").join(name);

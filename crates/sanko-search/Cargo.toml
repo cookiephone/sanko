@@ -4,8 +4,11 @@ version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
-publish.workspace = true
 authors.workspace = true
+repository.workspace = true
+readme = "README.md"
+keywords = ["go", "baduk", "solver", "proof-number-search", "game-tree"]
+categories = ["games", "algorithms", "science"]
 description = "Depth-first proof-number search with sound proof transfer under positional superko."
 
 [lints]

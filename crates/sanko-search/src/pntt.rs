@@ -51,7 +51,7 @@
 //! words. A slot mixing two writes (a torn read, or two writers interleaving)
 //! fails the seal except with probability about 2^-64, so it is a miss rather
 //! than a corrupt entry. No locks, and no `unsafe` apart from the cache
-//! prefetch hint in [`prefetch`]. `Relaxed` atomics compile to plain
+//! prefetch hint in `prefetch`. `Relaxed` atomics compile to plain
 //! loads/stores on x86.
 //!
 //! ## False matches and eviction

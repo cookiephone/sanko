@@ -6,6 +6,9 @@
 //! macros or the pre-defined type aliases (`Board5x5`, `Position5x5`, …)
 //! rather than naming `Board` / `Position` directly. They bind the four
 //! const generics consistently.
+//!
+//! The API serves the `sanko` solver and is not stable: it may change in any
+//! 0.x release.
 
 mod bitboard;
 mod board;

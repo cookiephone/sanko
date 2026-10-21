@@ -380,7 +380,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "sanko-cli"
+name = "sanko"
 version = "0.5.1"
 dependencies = [
  "anstream 0.6.21",

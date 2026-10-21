@@ -1,12 +1,15 @@
 [package]
-name = "sanko-cli"
+name = "sanko"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
-publish.workspace = true
 authors.workspace = true
-description = "Command-line driver for the Sanko Go solver."
+repository.workspace = true
+readme = "README.md"
+description = "Solves Go on small rectangular boards under positional superko (command-line solver)."
+keywords = ["go", "baduk", "solver", "proof-number-search", "game-tree"]
+categories = ["games", "command-line-utilities", "science"]
 
 [[bin]]
 name = "sanko"

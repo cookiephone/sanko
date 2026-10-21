@@ -57,6 +57,13 @@ done
 RUSTFLAGS="-C target-cpu=native -Cprofile-use=$PWD/pgo/merged.profdata" cargo build --release
 ```
 
+The solver is also published on crates.io as [`sanko`](https://crates.io/crates/sanko), with the library crates [`sanko-core`](https://crates.io/crates/sanko-core) and [`sanko-search`](https://crates.io/crates/sanko-search). `cargo install sanko` applies neither `.cargo/config.toml` nor the workspace release profile, which makes it up to about 10% slower than `cargo build --release` here. This gives the same build as that:
+
+```sh
+RUSTFLAGS="-C target-cpu=native" CARGO_PROFILE_RELEASE_LTO=fat CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_PANIC=abort cargo install sanko
+```
+
 ## Usage
 
 ```sh
