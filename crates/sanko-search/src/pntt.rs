@@ -7,16 +7,19 @@
 //! transfers to a different path (see `dfpn.rs` "GHI under positional
 //! superko"):
 //!
-//! - `bloom`: 64-bit Bloom filter of the *canonical* hashes of the boards the
-//!   proof's winner produces. A path whose ancestors miss the filter cannot make
-//!   any winner move of the proof superko-illegal.
+//! - `bloom`: first word of a 128-bit Bloom filter of the *canonical* hashes of
+//!   the boards the proof's winner produces (the second word is kept in `sig`,
+//!   see below). A path whose ancestors miss the filter cannot make any winner
+//!   move of the proof superko-illegal.
 //! - superko exclusion targets: proofs whose loser moves were excluded by
 //!   repeating an ancestor board are path-specific. The solver stores them
 //!   under a twin key with the `many` flag (they are ~2% of proofs), so the
 //!   table needs no target field.
-//! - `sig`: set-hash of the path's boards when the proof was made. A path with
-//!   the same set of boards (and the same raw position) is the *identical*
-//!   superko game, so the proof transfers with no further check.
+//! - `sig`: for a path-specific (`many`) entry, the set-hash of the path's boards
+//!   when the proof was made: the entry is reused only on a path with the same
+//!   board set and raw position, the *identical* superko game. A transferable
+//!   entry is always reused through the full transfer test and needs no path,
+//!   so its `sig` holds the second word of the Bloom filter.
 //! - `min_stones`: fewest stones on any winner-produced board of the proof.
 //! - `cb`/`cw`: the black/white stones present on *every* winner-produced
 //!   board (canonical frame).
@@ -132,7 +135,8 @@ pub struct PnEntry {
     /// on its exact path. Must survive the TT
     /// round trip: a parent composed from it inherits the dependency.
     pub many: bool,
-    /// Proven: set-signature of the path the proof was made on.
+    /// Proven: path-specific entries, the set-signature of the path the proof
+    /// was made on; transferable entries, the second Bloom word.
     pub sig: u64,
     /// Symmetry index that canonicalized the stored node's raw board. Equal
     /// symmetry + equal canonical key ⇔ the identical raw board.

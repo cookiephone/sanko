@@ -1,14 +1,16 @@
 //! PSK history for the current search path.
 //!
-//! Holds the set of board-only Zobrist hashes seen along the path from the
-//! root to the current position. `Position::play` pushes the new hash before
-//! returning, and `Position::unmake` pops it. The set is consulted as the PSK
-//! legality check: any move that would create a board hash already in the
-//! set is rejected with [`crate::PlayError::PositionalSuperko`].
+//! Holds the set of board keys (`Board::key`, 128 bits, exact on boards of up
+//! to 49 points) seen along the path from the root to the current position.
+//! `Position::play` pushes the new key before returning, and `Position::unmake`
+//! pops it. The set is consulted as the PSK legality check: any move that would
+//! create a board already in the set is rejected with
+//! [`crate::PlayError::PositionalSuperko`].
 //!
-//! Implementation: a `Vec<u64>` for ordered push/pop plus a 1024-bucket
-//! counting filter (bucket = high hash bits): `contains` scans the stack only
-//! when the hash's bucket is occupied, so push/pop are two array updates and a
+//! Implementation: a `Vec<u128>` for ordered push/pop plus a 1024-bucket
+//! counting filter (bucket = high bits of the key's low half, the 64-bit board
+//! hash): `contains` scans the stack only
+//! when the key's bucket is occupied, so push/pop are two array updates and a
 //! miss is one load. Paths are short (typically under 100 boards, at most 1,000
 //! in the search), so a filter hit's scan is cheap. Both move together. Never
 //! edit one without the other.
@@ -21,14 +23,14 @@
 const FILTER_BITS: u32 = 10;
 
 #[inline]
-const fn bucket(hash: u64) -> usize {
-    (hash >> (64 - FILTER_BITS)) as usize
+const fn bucket(key: u128) -> usize {
+    ((key as u64) >> (64 - FILTER_BITS)) as usize
 }
 
 #[derive(Clone, Debug)]
 pub struct HashHistory {
-    stack: Vec<u64>,
-    /// Number of stacked hashes per bucket.
+    stack: Vec<u128>,
+    /// Number of stacked keys per bucket.
     counts: [u16; 1 << FILTER_BITS],
 }
 
@@ -65,23 +67,23 @@ impl HashHistory {
         self.stack.is_empty()
     }
 
-    /// `true` if any prior board state on the path had this hash.
+    /// `true` if any prior board on the path had this key.
     #[inline]
     #[must_use]
-    pub fn contains(&self, hash: u64) -> bool {
-        self.counts[bucket(hash)] != 0 && self.stack.contains(&hash)
+    pub fn contains(&self, key: u128) -> bool {
+        self.counts[bucket(key)] != 0 && self.stack.contains(&key)
     }
 
-    /// Push the hash of a board that is now part of the path. No check is made
+    /// Push the key of a board that is now part of the path. No check is made
     /// here: the caller tests `contains` first (positional superko). A
     /// duplicate would still be stacked and counted, so `pop` stays consistent.
-    pub fn push(&mut self, hash: u64) {
-        self.stack.push(hash);
-        self.counts[bucket(hash)] += 1;
+    pub fn push(&mut self, key: u128) {
+        self.stack.push(key);
+        self.counts[bucket(key)] += 1;
     }
 
     /// Remove the most recent push and return it, or `None` if the path is empty.
-    pub fn pop(&mut self) -> Option<u64> {
+    pub fn pop(&mut self) -> Option<u128> {
         let h = self.stack.pop()?;
         // The bucket count tracks multiplicity and `contains` rescans the
         // stack, so this is correct even if the hash also occurs earlier.

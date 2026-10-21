@@ -22,12 +22,15 @@ pub struct Board<const ROWS: usize, const COLS: usize, const LANES: usize, const
     black: BitBoard<LANES>,
     white: BitBoard<LANES>,
     hash: u64,
+    /// The board's hash under the second, independent table (see [`Self::key`]).
+    hash2: u64,
 }
 
 impl<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: usize>
     Board<ROWS, COLS, LANES, NPOINTS>
 {
     pub(crate) const ZOBRIST: Zobrist<NPOINTS> = Zobrist::new();
+    pub(crate) const ZOBRIST2: Zobrist<NPOINTS> = Zobrist::second();
 
     /// Per-symmetry Zobrist keys, precomputed at compile time:
     /// `SYM_ZOBRIST[sym as usize][idx][color] == ZOBRIST.key(sym.apply_index(idx), color)`.
@@ -36,7 +39,11 @@ impl<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: us
     /// zero on rectangular boards. They are never used there (`Symmetry::all_for`
     /// returns only the Klein-four group), and computing them would index the
     /// Zobrist table out of range.
-    const SYM_ZOBRIST: [[[u64; 2]; NPOINTS]; 8] = {
+    const SYM_ZOBRIST: [[[u64; 2]; NPOINTS]; 8] = Self::sym_table(&Self::ZOBRIST);
+    /// The same for the second table.
+    const SYM_ZOBRIST2: [[[u64; 2]; NPOINTS]; 8] = Self::sym_table(&Self::ZOBRIST2);
+
+    const fn sym_table(z: &Zobrist<NPOINTS>) -> [[[u64; 2]; NPOINTS]; 8] {
         let syms = [
             Symmetry::Identity,
             Symmetry::FlipH,
@@ -55,15 +62,15 @@ impl<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: us
                 let mut idx = 0;
                 while idx < NPOINTS {
                     let dst = syms[s].apply_index(idx, ROWS, COLS);
-                    table[s][idx][0] = Self::ZOBRIST.key(dst, Color::Black);
-                    table[s][idx][1] = Self::ZOBRIST.key(dst, Color::White);
+                    table[s][idx][0] = z.key(dst, Color::Black);
+                    table[s][idx][1] = z.key(dst, Color::White);
                     idx += 1;
                 }
             }
             s += 1;
         }
         table
-    };
+    }
 
     #[must_use]
     pub const fn new() -> Self {
@@ -80,6 +87,7 @@ impl<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: us
             black: BitBoard::EMPTY,
             white: BitBoard::EMPTY,
             hash: 0,
+            hash2: 0,
         }
     }
 
@@ -106,6 +114,24 @@ impl<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: us
     #[must_use]
     pub const fn hash(&self) -> u64 {
         self.hash
+    }
+
+    /// Position-only hash under the second, independent table.
+    #[inline]
+    #[must_use]
+    pub const fn hash2(&self) -> u64 {
+        self.hash2
+    }
+
+    /// 128-bit board key: [`Self::hash`] in the low half, [`Self::hash2`] in the
+    /// high half. It is exact (distinct boards have distinct keys) on boards of
+    /// up to 49 points, where the 2N key pairs are linearly independent over
+    /// GF(2) (tested in `zobrist.rs`). Up to 30 points the high half is 0 and the
+    /// 64-bit hash alone is exact.
+    #[inline]
+    #[must_use]
+    pub fn key(&self) -> u128 {
+        (u128::from(self.hash2) << 64) | u128::from(self.hash)
     }
 
     #[inline]
@@ -179,6 +205,23 @@ impl<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: us
         h
     }
 
+    /// [`Self::hash_under_symmetry`] for the second table. Zero up to 30 points.
+    #[must_use]
+    pub fn hash2_under_symmetry(&self, sym: Symmetry) -> u64 {
+        if !Self::WIDE {
+            return 0;
+        }
+        let table = &Self::SYM_ZOBRIST2[sym as usize];
+        let mut h = 0u64;
+        for idx in &self.black {
+            h ^= table[idx][0];
+        }
+        for idx in &self.white {
+            h ^= table[idx][1];
+        }
+        h
+    }
+
     /// Zobrist key of a `color` stone at `idx` *as seen under* symmetry number
     /// `sym` (the index into `Symmetry::all_for`'s square ordering). Lets a
     /// search keep all (up to eight) symmetric board hashes incrementally: XOR this key
@@ -188,6 +231,18 @@ impl<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: us
     pub const fn sym_zobrist(sym: usize, idx: usize, color: Color) -> u64 {
         Self::SYM_ZOBRIST[sym][idx][color as usize]
     }
+
+    /// [`Self::sym_zobrist`] for the second table.
+    #[inline]
+    #[must_use]
+    pub const fn sym_zobrist2(sym: usize, idx: usize, color: Color) -> u64 {
+        Self::SYM_ZOBRIST2[sym][idx][color as usize]
+    }
+
+    /// Boards above 30 points keep the second hash: there the 64-bit hash is
+    /// not exact, and [`Self::key`] needs both halves. Up to 30 points the
+    /// second hash stays 0, so smaller boards run exactly as before.
+    pub const WIDE: bool = NPOINTS > 30;
 
     /// Place a stone unconditionally and update the hash. Caller must ensure
     /// the point is empty.
@@ -200,6 +255,9 @@ impl<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: us
             Color::White => self.white.set(idx),
         }
         self.hash ^= Self::ZOBRIST.key(idx, color);
+        if Self::WIDE {
+            self.hash2 ^= Self::ZOBRIST2.key(idx, color);
+        }
     }
 
     /// Remove a stone unconditionally and update the hash.
@@ -212,6 +270,9 @@ impl<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: us
             Color::White => self.white.clear(idx),
         }
         self.hash ^= Self::ZOBRIST.key(idx, color);
+        if Self::WIDE {
+            self.hash2 ^= Self::ZOBRIST2.key(idx, color);
+        }
     }
 }
 

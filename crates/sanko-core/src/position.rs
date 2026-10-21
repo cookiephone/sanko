@@ -51,7 +51,8 @@ pub struct UndoInfo<
     prev_board: Board<ROWS, COLS, LANES, NPOINTS>,
     prev_to_move: Color,
     prev_consecutive_passes: u8,
-    pushed_hash: Option<u64>,
+    /// The board key pushed to the history (stone moves only).
+    pushed_hash: Option<u128>,
     /// Stones removed by this move. Empty bitboard if no captures (or for
     /// passes).
     pub captures: BitBoard<LANES>,
@@ -137,6 +138,17 @@ impl<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: us
     /// repeat (the GHI exclusion target).
     #[must_use]
     pub fn board_hash_after(&self, p: Point<ROWS, COLS>) -> Option<u64> {
+        self.board_after(p).map(|b| b.hash())
+    }
+
+    /// Board key (exact, see `Board::key`) the stone move at `p` would produce,
+    /// ignoring superko. `None` if the point is occupied or the move is suicide.
+    #[must_use]
+    pub fn board_key_after(&self, p: Point<ROWS, COLS>) -> Option<u128> {
+        self.board_after(p).map(|b| b.key())
+    }
+
+    fn board_after(&self, p: Point<ROWS, COLS>) -> Option<Board<ROWS, COLS, LANES, NPOINTS>> {
         if self.board.at(p).is_some() {
             return None;
         }
@@ -146,7 +158,7 @@ impl<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: us
         if !chain_has_liberty(&new_board, p) {
             return None;
         }
-        Some(new_board.hash())
+        Some(new_board)
     }
 
     /// The captures and resulting board hash of the stone move at `p`, ignoring
@@ -239,7 +251,7 @@ impl<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: us
         if !chain_has_liberty(&new_board, p) {
             return Err(PlayError::Suicide);
         }
-        if history.contains(new_board.hash()) {
+        if history.contains(new_board.key()) {
             return Err(PlayError::PositionalSuperko);
         }
         Ok(())
@@ -265,21 +277,21 @@ impl<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: us
             return Err(PlayError::Suicide);
         }
 
-        let new_hash = self.board.hash();
-        if history.contains(new_hash) {
+        let new_key = self.board.key();
+        if history.contains(new_key) {
             self.board = prev_board;
             return Err(PlayError::PositionalSuperko);
         }
 
         self.consecutive_passes = 0;
         self.to_move = self.to_move.opponent();
-        history.push(new_hash);
+        history.push(new_key);
 
         Ok(UndoInfo {
             prev_board,
             prev_to_move,
             prev_consecutive_passes,
-            pushed_hash: Some(new_hash),
+            pushed_hash: Some(new_key),
             captures,
         })
     }

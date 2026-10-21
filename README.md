@@ -10,7 +10,7 @@ Sanko is a parallel depth-first proof-number search (df-pn) over one shared lock
 - **Static knowledge.** Life and territory recognition (a variant of Benson's algorithm that holds under PSK play-out) and a solver for small closed regions.
 - **Winner-side pruning.** A run may skip the conjectured winner's eye fills and moves inside its own territory. Such a run can only prove a win for that side.
 
-A learned prior (a logistic model over cheap board features) orders the search. It does not affect results.
+A learned prior (a logistic model over cheap board features) orders the search, and simulation proves the other moves of a node by replaying the proof of one of them, checking every move as the search does. Neither affects results.
 
 ## New Board Values
 
@@ -68,7 +68,7 @@ On a terminal, Sanko shows a live panel and board diagrams. With `--plain`, or w
 
 | Option | Meaning |
 | --- | --- |
-| `--rows R --cols C` | board size, at most 30 points |
+| `--rows R --cols C` | board size, at most 49 points |
 | `--komi K` | komi added to White's area (a draw counts as a White win) |
 | `--moves C3,D4,pass` | moves played from the empty board first (Go coordinates, A1 bottom left, no I) |
 | `--prune-for black\|white` | prove a win for this side only (any other outcome is reported as unknown) |
@@ -80,8 +80,9 @@ On a terminal, Sanko shows a live panel and board diagrams. With `--plain`, or w
 | `--node-limit N` | stop after N expansions (result unknown) |
 | `--prior learned\|eye` | initial proof numbers from the learned prior (default) or from White's eye space |
 | `--eps E` | growth factor of the 1+ε rule (default 0.3) |
+| `--simulate N` | simulation of sibling proofs, at most N nodes per attempt (default 100, 0 turns it off) |
 
-The reported runs use `--regions --region-interior 8 --keep-tempo` with the defaults otherwise. Boards of up to 25 points use `--pn-tt-log 30 --proof-log 31 --sc-log 30` (about 0.45 TiB), larger boards `--pn-tt-log 31 --proof-log 31 --sc-log 29`. On multi-socket machines, run under `numactl --interleave=all`. Parallel runs are not deterministic, so expansion counts vary between runs while the winner does not. Serial runs are deterministic.
+The reported runs use `--regions --region-interior 8 --keep-tempo` with the defaults otherwise. They were made with versions 0.4.1 and 0.4.2, before simulation, so later versions find the same values with fewer expansions. Boards of up to 25 points use `--pn-tt-log 30 --proof-log 31 --sc-log 30` (about 0.45 TiB), larger boards `--pn-tt-log 31 --proof-log 31 --sc-log 29`. On multi-socket machines, run under `numactl --interleave=all`. Parallel runs are not deterministic, so expansion counts vary between runs while the winner does not. Serial runs are deterministic.
 
 Other commands:
 

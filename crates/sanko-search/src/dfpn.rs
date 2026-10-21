@@ -37,8 +37,8 @@
 //! its boards (checks 1 conservatively, since a Bloom miss is a proof of absence),
 //! whether it has an exclusion target (any surviving target makes the proof
 //! path-specific: it is stored under the twin key only), the fewest stones on any proof board (an
-//! ancestor with fewer stones cannot be a proof board), and the set-signature of
-//! the path it was proved on. Attributes compose bottom-up exactly:
+//! ancestor with fewer stones cannot be a proof board), and, for a path-specific
+//! proof, the set-signature of the path it was proved on. Attributes compose bottom-up exactly:
 //! a won node's proof is its winning child's plus itself, and a lost node's is the
 //! union of all children's plus itself, plus its own superko exclusions.
 //!
@@ -234,6 +234,13 @@ pub struct DfpnConfig {
     /// each node (a board-changing tempo move, which under PSK is not
     /// equivalent to a pass). Still sound for the pruned side's proofs.
     pub keep_tempo: bool,
+    /// Kawano's simulation, with this node budget per attempt (0 = off). Once a
+    /// child is proven a win for the opponent, its siblings are tried the same
+    /// way: the opponent's stored winning moves of that proof are replayed
+    /// against every reply (see `simulate`). Each sibling is tried at most once
+    /// per visit of the node: when a sibling is proven, or when it is selected
+    /// for search while untried, from the latest proven sibling.
+    pub simulate: u64,
     /// Prefetch the TT and static-cache lines of all stone children before
     /// classifying them, so their cache misses overlap (speed only).
     pub prefetch: bool,
@@ -299,6 +306,7 @@ impl Default for DfpnConfig {
             virtual_loss: true,
             prefetch: true,
             keep_tempo: false,
+            simulate: 100,
             no_static: false,
             region_max: 14,
             region_interior: 0,
@@ -321,12 +329,7 @@ pub struct DfpnStats {
     pub static_leaves: u64,
     pub tt_probes: u64,
     pub tt_hits: u64,
-    /// Proven base or alternate entries from this very path that passed the
-    /// transfer test, and those it rejected (the exact rule of 0.4.0 accepted
-    /// them unchecked).
-    pub reuse_exact: u64,
-    pub reject_same_path: u64,
-    /// Proven base or alternate entries from another path that passed the test.
+    /// Proven base or alternate entries that passed the transfer test.
     pub reuse_checked: u64,
     /// Proven base entries rejected as path-specific (`many`) or by `--exact-only`.
     pub reject_target: u64,
@@ -374,6 +377,10 @@ pub struct DfpnStats {
     /// Proofs stored under an alternate base key, and alternates reused.
     pub alt_stores: u64,
     pub alt_hits: u64,
+    /// Simulation: attempts, successes, nodes spent.
+    pub sim_attempts: u64,
+    pub sim_successes: u64,
+    pub sim_nodes: u64,
 }
 
 impl DfpnStats {
@@ -384,8 +391,6 @@ impl DfpnStats {
         self.static_leaves += o.static_leaves;
         self.tt_probes += o.tt_probes;
         self.tt_hits += o.tt_hits;
-        self.reuse_exact += o.reuse_exact;
-        self.reject_same_path += o.reject_same_path;
         self.reuse_checked += o.reuse_checked;
         self.reject_target += o.reject_target;
         self.reject_bloom += o.reject_bloom;
@@ -411,6 +416,9 @@ impl DfpnStats {
         }
         self.alt_stores += o.alt_stores;
         self.alt_hits += o.alt_hits;
+        self.sim_attempts += o.sim_attempts;
+        self.sim_successes += o.sim_successes;
+        self.sim_nodes += o.sim_nodes;
     }
 }
 
@@ -526,9 +534,15 @@ const fn mix2(x: u64) -> u64 {
     z ^ (z >> 33)
 }
 
+/// The two words of the blocked 128-bit Bloom filter of a board with canonical
+/// hash `canon`: two bits in the first or the second word. They are taken from
+/// the mixed hash, since the canonical hash is the least of the symmetric
+/// images' hashes and its top bits lean towards zero.
 #[inline]
-const fn bloom_bits(canon: u64) -> u64 {
-    (1u64 << (canon >> 58)) | (1u64 << ((canon >> 52) & 63))
+const fn bloom_pair(canon: u64) -> (u64, u64) {
+    let m = mix(canon);
+    let b = (1u64 << (m >> 58)) | (1u64 << ((m >> 52) & 63));
+    if (m >> 40) & 1 == 0 { (b, 0) } else { (0, b) }
 }
 
 /// Superko exclusion targets of a proof (raw-frame board hashes of ancestors
@@ -558,6 +572,16 @@ const MANY_TABLE: u8 = 4;
 /// Its key can collide with another position's key, as a twin key can, and the
 /// second hash rejects such a hit.
 const ALT_KEYS: [u64; 2] = [0x8F3C_6A1E_5B27_D94B, 0x3B9D_1F05_E6A4_C877];
+
+/// Second-hash keys (`Searcher::key2`): side to move and the pass state.
+const K2_STM_BLACK: u64 = 0x6A09_E667_F3BC_C908;
+const K2_STM_WHITE: u64 = 0xBB67_AE85_84CA_A73B;
+const K2_PASS: u64 = 0x3C6E_F372_FE94_F82B;
+
+/// Second-hash key of a stone of colour index `c` (0 Black, 1 White) on point `i`.
+const fn k2_point(i: usize, c: usize) -> u64 {
+    mix(0xA076_1D64_78BD_642F ^ ((i * 2 + c) as u64).wrapping_mul(0xE703_7ED1_A0B4_28DB))
+}
 
 impl Target {
     const fn union(self, o: Self) -> Self {
@@ -593,6 +617,8 @@ impl Target {
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 struct Attrs {
     bloom: u64,
+    /// Second word of the blocked 128-bit Bloom filter (see `bloom_pair`).
+    bloom2: u64,
     target: Target,
     min_stones: u8,
     ab: u64,
@@ -607,13 +633,14 @@ impl Attrs {
     /// would be unsound: the all-zero Bloom filter claims "no winner boards" and
     /// never rejects a transfer. No proof carries them: with no winner boards
     /// the common-stone sets are full, and every winner board sets Bloom bits.
-    const UNPROVEN: Self = Self { bloom: 0, target: Target::None, min_stones: 0, ab: 0, aw: 0, terr: 0 };
+    const UNPROVEN: Self = Self { bloom: 0, bloom2: 0, target: Target::None, min_stones: 0, ab: 0, aw: 0, terr: 0 };
 
     /// No boards (identity of `join`).
     const fn empty<const NPOINTS: usize>() -> Self {
         let full = if NPOINTS >= 64 { u64::MAX } else { (1u64 << NPOINTS) - 1 };
         Self {
             bloom: 0,
+            bloom2: 0,
             target: Target::None,
             min_stones: u8::MAX,
             ab: full,
@@ -625,6 +652,7 @@ impl Attrs {
     const fn join(self, o: Self) -> Self {
         Self {
             bloom: self.bloom | o.bloom,
+            bloom2: self.bloom2 | o.bloom2,
             target: self.target.union(o.target),
             min_stones: if self.min_stones < o.min_stones { self.min_stones } else { o.min_stones },
             ab: self.ab & o.ab,
@@ -666,12 +694,18 @@ struct Searcher<'a, const ROWS: usize, const COLS: usize, const LANES: usize, co
     hist: HashHistory,
     /// One entry per board on the path (parallel to `hist`'s stack).
     path: Vec<PathEntry>,
-    /// Set-signature of the path's boards: XOR of `mix(raw hash)`.
+    /// Set-signature of the path's boards: XOR of the first term of
+    /// [`Self::sig_terms`] (`mix(raw hash)` up to 30 points).
     sig: u64,
-    /// Second, independent set-signature: XOR of `mix2(raw hash)`.
+    /// Second, independent set-signature: XOR of the second term
+    /// (`mix2(raw hash)` up to 30 points).
     sig2: u64,
     /// The current board's hash under each symmetry (index 0 = raw).
     sym_hashes: [u64; 8],
+    /// The same under the board's second table (boards above 30 points, zero
+    /// below). With `sym_hashes` it forms the exact 128-bit board key of each
+    /// symmetric image, which the stabilizer and the path signatures need there.
+    sym_hashes2: [u64; 8],
     /// Bit `s` set ⇔ symmetry `s` fixes every board on the path.
     path_sym_mask: u8,
     tt: &'a PnTable,
@@ -687,6 +721,11 @@ struct Searcher<'a, const ROWS: usize, const COLS: usize, const LANES: usize, co
     nsym: usize,
     /// Reusable child buffers, one per recursion depth.
     bufs: Vec<Vec<Child>>,
+    /// Simulation: the shadow position on the proven sibling's line, its own
+    /// history (from the simulation's start only), and child buffers per depth.
+    shadow_pos: Position<ROWS, COLS, LANES, NPOINTS>,
+    shadow_hist: HashHistory,
+    sim_bufs: Vec<Vec<Child>>,
     started: Instant,
     next_report: u64,
     aborted: bool,
@@ -785,15 +824,27 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
         for (s, h) in sym_hashes.iter_mut().enumerate().take(nsym) {
             *h = board.hash_under_symmetry(SYMS[s]);
         }
+        let mut sym_hashes2 = [0u64; 8];
+        if Board::<ROWS, COLS, LANES, NPOINTS>::WIDE {
+            for (s, h) in sym_hashes2.iter_mut().enumerate().take(nsym) {
+                *h = board.hash2_under_symmetry(SYMS[s]);
+            }
+        }
         let mut hist = HashHistory::with_capacity(256);
-        hist.push(board.hash());
+        hist.push(board.key());
+        let (sig, sig2) = Self::sig_terms(board.hash(), board.hash2());
+        let shadow_pos = pos.clone();
         let mut me = Self {
             pos,
+            shadow_pos,
+            shadow_hist: HashHistory::with_capacity(256),
+            sim_bufs: Vec::new(),
             hist,
             path: Vec::with_capacity(256),
-            sig: mix(board.hash()),
-            sig2: mix2(board.hash()),
+            sig,
+            sig2,
             sym_hashes,
+            sym_hashes2,
             path_sym_mask: 0,
             tt,
             sc,
@@ -819,7 +870,7 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
             zob2: Vec::new(),
             region_cache: std::collections::HashMap::default(),
         };
-        let z2 = |i: usize, c: usize| mix(0xA076_1D64_78BD_642F ^ ((i * 2 + c) as u64).wrapping_mul(0xE703_7ED1_A0B4_28DB));
+        let z2 = k2_point;
         me.zob2 = (0..nsym)
             .map(|s| {
                 let mut t = [[0u64; 2]; 64];
@@ -861,11 +912,26 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
     fn stabilizer(&self) -> u8 {
         let mut m = 1u8;
         for s in 1..self.nsym {
-            if self.sym_hashes[s] == self.sym_hashes[0] {
+            // Exact: the 64-bit hash up to 30 points, the 128-bit key above.
+            if self.sym_hashes[s] == self.sym_hashes[0]
+                && (!Board::<ROWS, COLS, LANES, NPOINTS>::WIDE || self.sym_hashes2[s] == self.sym_hashes2[0])
+            {
                 m |= 1 << s;
             }
         }
         m
+    }
+
+    /// The two per-board terms of the path signatures. Up to 30 points the
+    /// 64-bit board hash is exact and is mixed alone. Above, both halves of the
+    /// exact 128-bit board key go in, so that distinct boards give unrelated terms.
+    #[inline]
+    const fn sig_terms(h: u64, h2: u64) -> (u64, u64) {
+        if Board::<ROWS, COLS, LANES, NPOINTS>::WIDE {
+            (mix(h ^ mix2(h2 ^ 0x2545_F491_4F6C_DD1D)), mix2(h2 ^ mix(h ^ 0x9FB2_1C65_1E98_DF25)))
+        } else {
+            (mix(h), mix2(h))
+        }
     }
 
     #[inline]
@@ -884,10 +950,10 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
     fn do_move(
         &mut self,
         mv: Move<ROWS, COLS>,
-    ) -> Result<(sanko_core::UndoInfo<ROWS, COLS, LANES, NPOINTS>, [u64; 8], (u64, u64), u8), PlayError> {
+    ) -> Result<(sanko_core::UndoInfo<ROWS, COLS, LANES, NPOINTS>, [u64; 8], [u64; 8], (u64, u64), u8), PlayError> {
         let mover = self.pos.to_move();
         let undo = self.pos.play(mv, &mut self.hist)?;
-        let saved = (self.sym_hashes, (self.sig, self.sig2), self.path_sym_mask);
+        let saved = (self.sym_hashes, self.sym_hashes2, (self.sig, self.sig2), self.path_sym_mask);
         if let Move::Stone(p) = mv {
             let opp = mover.opponent();
             let pi = p.index();
@@ -899,8 +965,19 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
                 self.sym_hashes[s] = h;
             }
             debug_assert_eq!(self.sym_hashes[0], self.pos.board().hash());
-            self.sig ^= mix(self.sym_hashes[0]);
-            self.sig2 ^= mix2(self.sym_hashes[0]);
+            if Board::<ROWS, COLS, LANES, NPOINTS>::WIDE {
+                for s in 0..self.nsym {
+                    let mut h = self.sym_hashes2[s] ^ Board::<ROWS, COLS, LANES, NPOINTS>::sym_zobrist2(s, pi, mover);
+                    for q in &undo.captures {
+                        h ^= Board::<ROWS, COLS, LANES, NPOINTS>::sym_zobrist2(s, q, opp);
+                    }
+                    self.sym_hashes2[s] = h;
+                }
+                debug_assert_eq!(self.sym_hashes2[0], self.pos.board().hash2());
+            }
+            let (t1, t2) = Self::sig_terms(self.sym_hashes[0], self.sym_hashes2[0]);
+            self.sig ^= t1;
+            self.sig2 ^= t2;
             let (canon, _) = self.canon();
             let b = self.pos.board();
             let mut cap = self.path[self.path.len() - 1].cap;
@@ -918,18 +995,19 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
                 self.stats.max_ply = ply;
             }
         }
-        Ok((undo, saved.0, saved.1, saved.2))
+        Ok((undo, saved.0, saved.1, saved.2, saved.3))
     }
 
     fn undo(
         &mut self,
         mv: Move<ROWS, COLS>,
-        st: &(sanko_core::UndoInfo<ROWS, COLS, LANES, NPOINTS>, [u64; 8], (u64, u64), u8),
+        st: &(sanko_core::UndoInfo<ROWS, COLS, LANES, NPOINTS>, [u64; 8], [u64; 8], (u64, u64), u8),
     ) {
         self.pos.unmake(&st.0, &mut self.hist);
         self.sym_hashes = st.1;
-        (self.sig, self.sig2) = st.2;
-        self.path_sym_mask = st.3;
+        self.sym_hashes2 = st.2;
+        (self.sig, self.sig2) = st.3;
+        self.path_sym_mask = st.4;
         if matches!(mv, Move::Stone(_)) {
             self.path.pop();
         }
@@ -941,11 +1019,11 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
         let b = self.pos.board();
         let t = &self.zob2[sym as usize];
         let mut h = match self.pos.to_move() {
-            Color::Black => 0x6A09_E667_F3BC_C908,
-            Color::White => 0xBB67_AE85_84CA_A73B,
+            Color::Black => K2_STM_BLACK,
+            Color::White => K2_STM_WHITE,
         };
         if self.pos.consecutive_passes() > 0 {
-            h ^= 0x3C6E_F372_FE94_F82B;
+            h ^= K2_PASS;
         }
         for i in &b.stones(Color::Black) {
             h ^= t[i][0];
@@ -988,19 +1066,6 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
     /// Exact data only: no hash has to be collision-free (see module docs). A
     /// proof proved on this very path takes the same test.
     fn transfers(&mut self, e: &PnEntry, sym: u8) -> bool {
-        let same_path = e.sig == self.sig && e.sym == sym;
-        let ok = self.transfer_test(e, sym);
-        if same_path {
-            if ok {
-                self.stats.reuse_exact += 1;
-            } else {
-                self.stats.reject_same_path += 1;
-            }
-        }
-        ok
-    }
-
-    fn transfer_test(&mut self, e: &PnEntry, sym: u8) -> bool {
         if self.cfg.exact_only || e.many {
             self.stats.reject_target += 1;
             return false;
@@ -1025,15 +1090,17 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
             if pe.black & ab == ab
                 && pe.white & aw == aw
                 && pe.stones >= e.min_stones
-                && e.bloom & bloom_bits(pe.canon) == bloom_bits(pe.canon)
+                && {
+                    // The entry is not path-specific, so `sig` holds the second word.
+                    let (b1, b2) = bloom_pair(pe.canon);
+                    if b1 == 0 { e.sig & b2 == b2 } else { e.bloom & b1 == b1 }
+                }
             {
                 self.stats.reject_bloom += 1;
                 return false;
             }
         }
-        if !(e.sig == self.sig && e.sym == sym) {
-            self.stats.reuse_checked += 1;
-        }
+        self.stats.reuse_checked += 1;
         true
     }
 
@@ -1041,6 +1108,7 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
         let (ab, aw) = self.common_of(e, sym);
         Attrs {
             bloom: e.bloom,
+            bloom2: if e.many { 0 } else { e.sig },
             target: if e.many { Target::Many(MANY_TABLE) } else { Target::None },
             min_stones: e.min_stones,
             ab,
@@ -1516,15 +1584,14 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
                         return c;
                     } else if t.check != k2 ^ self.sig2 {
                         self.stats.check_mismatch += 1;
-                    } else if t.sym == sym && t.sig == self.sig {
+                    } else if t.many && t.sym == sym && t.sig == self.sig {
                         // Same canonical key, path signature and frame: the
                         // same raw board with the same set of earlier boards,
                         // i.e. the identical superko game. (A mirror image of
                         // the board with the same board set is another game.
-                        // The signature test matters for a path whose
-                        // signature equals an `ALT_KEYS` constant: its twin
-                        // key is then an alternate slot holding another
-                        // path's proof.)
+                        // A path whose signature equals an `ALT_KEYS` constant
+                        // has an alternate slot as its twin key: the entry
+                        // there is not path-specific, `many` rejects it.)
                         self.stats.twin_hits += 1;
                         let a = self.attrs_of(&t, sym);
                         solved(&mut c, t.status == PnStatus::Win, a);
@@ -1541,7 +1608,7 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
                     self.stats.tt_probes += 1;
                     if let Some(t) = self.tt.probe(key ^ self.sig) {
                         if t.status != PnStatus::Unproven && t.check == self.key2(sym) ^ self.sig2 {
-                            if t.sym == sym && t.sig == self.sig {
+                            if t.many && t.sym == sym && t.sig == self.sig {
                                 self.stats.twin_hits += 1;
                                 let a = self.attrs_of(&t, sym);
                                 solved(&mut c, t.status == PnStatus::Win, a);
@@ -1760,7 +1827,8 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
     fn board_attrs(&self) -> Attrs {
         let top = self.path[self.path.len() - 1];
         Attrs {
-            bloom: bloom_bits(top.canon),
+            bloom: bloom_pair(top.canon).0,
+            bloom2: bloom_pair(top.canon).1,
             target: Target::None,
             min_stones: top.stones,
             ab: top.black,
@@ -1853,15 +1921,20 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
                 self.tt.mark_twinned(c.base_key);
             }
             self.stats.twin_stores += 1;
-        } else if c.twin {
-            // A target-free proof of a child searched under its twin key (the
-            // base slot holds another path's proof): an alternate base proof.
-            self.stats.path_specific[3] += 1;
-            self.store_alternate(&mut e, c.base_key);
-        } else if !self.tt.store_base_proof(&e) {
-            // Another path's proof already holds the base slot.
-            self.stats.path_specific[4] += 1;
-            self.store_alternate(&mut e, c.base_key);
+        } else {
+            // A transferable proof always takes the full transfer test, so it
+            // needs no path signature: `sig` holds the second Bloom word.
+            e.sig = attrs.bloom2;
+            if c.twin {
+                // A target-free proof of a child searched under its twin key (the
+                // base slot holds another path's proof): an alternate base proof.
+                self.stats.path_specific[3] += 1;
+                self.store_alternate(&mut e, c.base_key);
+            } else if !self.tt.store_base_proof(&e) {
+                // Another path's proof already holds the base slot.
+                self.stats.path_specific[4] += 1;
+                self.store_alternate(&mut e, c.base_key);
+            }
         }
     }
 
@@ -1869,6 +1942,7 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
     /// chosen by the path signature so that different paths spread over them.
     /// A later proof from another path may replace it, which costs only time.
     fn store_alternate(&mut self, e: &mut PnEntry, base_key: u64) {
+        // The slot is chosen by the path signature (`e.sig` holds the second Bloom word).
         e.key = base_key ^ ALT_KEYS[(self.sig >> 7) as usize % ALT_KEYS.len()];
         e.many = false;
         self.tt.store(e);
@@ -1933,6 +2007,12 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
             self.store_proof(&me, true, attrs, pv, 1);
             result = (0, INF, attrs);
         } else {
+            // Simulation: the last child proven a win for the opponent (its
+            // stored proof is the source), and the children already tried.
+            let mut sim_last = usize::MAX;
+            let mut sim_tried = 0u64;
+            // `sim_tried` has a bit per child (at most NPOINTS + 1 <= 50).
+            let sim_on = self.cfg.simulate > 0 && kids.len() <= 64;
             loop {
                 if self.par {
                     // See the other workers' progress on unsolved siblings. Only
@@ -2087,6 +2167,16 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
                     c = kids[rb];
                     (c_th_phi, c_th_delta) = thresholds(&c, rd2);
                 }
+                if sim_on && sim_last != usize::MAX && !self.aborted && sim_tried & (1u64 << best) == 0 {
+                    sim_tried |= 1u64 << best;
+                    if let Some(a) = self.simulate(kids[sim_last].mv, &c) {
+                        let k = &mut kids[best];
+                        k.phi = 0;
+                        k.delta = INF;
+                        k.attrs = a;
+                        continue;
+                    }
+                }
                 let mv = Move::<ROWS, COLS>::decode(c.mv as usize).expect("valid move code");
                 let st = self.do_move(mv).expect("child move was legal at generation");
                 let (cphi, cdelta, cattrs) = self.mid(c, c_th_phi, c_th_delta, depth + 1);
@@ -2095,10 +2185,182 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
                 k.phi = cphi;
                 k.delta = cdelta;
                 k.attrs = cattrs;
+                if cphi == 0 {
+                    // A new source: try every unsolved sibling not tried yet.
+                    sim_last = best;
+                    if sim_on && !self.aborted {
+                        let src = kids[best].mv;
+                        for (j, k) in kids.iter_mut().enumerate() {
+                            if k.phi != 0 && k.delta != 0 && sim_tried & (1u64 << j) == 0 {
+                                sim_tried |= 1u64 << j;
+                                if let Some(a) = self.simulate(src, k) {
+                                    k.phi = 0;
+                                    k.delta = INF;
+                                    k.attrs = a;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         self.bufs[depth] = kids;
         result
+    }
+
+    /// Kawano's simulation: try to prove that the opponent wins after the side
+    /// to move plays `target`, given that the opponent wins after `src` (its
+    /// proof is stored). The shadow position follows `src`'s line: at the
+    /// opponent's turns the stored winning move of the shadow position is
+    /// played on both boards, and at ours every legal reply is answered on both.
+    /// Everything is verified on the real position with the search's own
+    /// classification and proof attributes (the shadow only suggests moves), and
+    /// every node proven on the way is stored. `None` when a suggestion is
+    /// missing or fails, a reply is illegal on the shadow, or the budget runs out.
+    fn simulate(&mut self, src: u8, target: &Child) -> Option<Attrs> {
+        self.stats.sim_attempts += 1;
+        let smv = Move::<ROWS, COLS>::decode(src as usize)?;
+        self.shadow_pos.clone_from(&self.pos);
+        let su = self.shadow_pos.play(smv, &mut self.shadow_hist).ok()?;
+        let ssig = if matches!(smv, Move::Stone(_)) { self.sig ^ Self::sig_terms(self.shadow_pos.board().hash(), self.shadow_pos.board().hash2()).0 } else { self.sig };
+        let mv = Move::<ROWS, COLS>::decode(target.mv as usize).expect("valid move code");
+        let st = self.do_move(mv).expect("child move was legal at generation");
+        let mut budget = self.cfg.simulate;
+        let r = self.sim_win(target, ssig, &mut budget, 0);
+        self.undo(mv, &st);
+        self.shadow_pos.unmake(&su, &mut self.shadow_hist);
+        // Simulated nodes are not expansions (`stats.nodes`), but they count
+        // towards the node limit and the progress of the stop polling.
+        let used = self.cfg.simulate - budget;
+        self.stats.sim_nodes += used;
+        self.pending_nodes += used;
+        if r.is_some() {
+            self.stats.sim_successes += 1;
+        }
+        r
+    }
+
+    /// Simulation at a node where the opponent of the original side is to move
+    /// (`me`, the current position): play the shadow's suggestion.
+    fn sim_win(&mut self, me: &Child, ssig: u64, budget: &mut u64, d: usize) -> Option<Attrs> {
+        if *budget == 0 || self.hist.len() >= MAX_PLY {
+            return None;
+        }
+        let start = *budget;
+        *budget -= 1;
+        let hint = self.shadow_hint(ssig)?;
+        let mv = Move::<ROWS, COLS>::decode(hint)?;
+        let st = self.do_move(mv).ok()?;
+        let r = if let Ok(su) = self.shadow_pos.play(mv, &mut self.shadow_hist) {
+            let s2 = if matches!(mv, Move::Stone(_)) { ssig ^ Self::sig_terms(self.shadow_pos.board().hash(), self.shadow_pos.board().hash2()).0 } else { ssig };
+            let c = self.classify(hint as u8);
+            let r = if c.delta == 0 {
+                // A leaf or stored proof: the side to move there loses.
+                Some(c.attrs)
+            } else if c.phi == 0 {
+                None
+            } else {
+                self.sim_loss(&c, s2, budget, d)
+            };
+            self.shadow_pos.unmake(&su, &mut self.shadow_hist);
+            r
+        } else {
+            None
+        };
+        self.undo(mv, &st);
+        let attrs = self.win_attrs(r?);
+        self.store_proof(me, true, attrs, hint as u8, start - *budget);
+        Some(attrs)
+    }
+
+    /// Simulation at a node where the original side is to move (`me`, the
+    /// current position): every legal move must lose, as in `mid_inner`.
+    fn sim_loss(&mut self, me: &Child, ssig: u64, budget: &mut u64, d: usize) -> Option<Attrs> {
+        if *budget == 0 || self.hist.len() >= MAX_PLY {
+            return None;
+        }
+        let start = *budget;
+        *budget -= 1;
+        while self.sim_bufs.len() <= d {
+            self.sim_bufs.push(Vec::with_capacity(NPOINTS + 1));
+        }
+        let mut kids = std::mem::take(&mut self.sim_bufs[d]);
+        let (win_now, excl, merged) = self.generate(&mut kids);
+        let mut ok = win_now.is_none();
+        if ok {
+            for k in &mut kids {
+                if k.phi == 0 {
+                    continue;
+                }
+                let c = *k;
+                let mv = Move::<ROWS, COLS>::decode(c.mv as usize).expect("valid move code");
+                let st = self.do_move(mv).expect("child move was legal at generation");
+                let r = if let Ok(su) = self.shadow_pos.play(mv, &mut self.shadow_hist) {
+                    let s2 = if matches!(mv, Move::Stone(_)) { ssig ^ Self::sig_terms(self.shadow_pos.board().hash(), self.shadow_pos.board().hash2()).0 } else { ssig };
+                    let r = self.sim_win(&c, s2, budget, d + 1);
+                    self.shadow_pos.unmake(&su, &mut self.shadow_hist);
+                    r
+                } else {
+                    None
+                };
+                self.undo(mv, &st);
+                if let Some(a) = r {
+                    k.phi = 0;
+                    k.delta = INF;
+                    k.attrs = a;
+                } else {
+                    ok = false;
+                    break;
+                }
+            }
+        }
+        let res = if ok {
+            let mut a = Attrs { target: excl, ..Attrs::empty::<NPOINTS>() };
+            for c in &kids {
+                a = a.join(c.attrs);
+            }
+            if merged {
+                a.target = Target::Many(MANY_MERGE | a.target.many_causes());
+            }
+            let attrs = self.loss_attrs(a);
+            self.store_proof(me, false, attrs, NPOINTS as u8, start - *budget);
+            Some(attrs)
+        } else {
+            None
+        };
+        self.sim_bufs[d] = kids;
+        res
+    }
+
+    /// The winning move stored for the shadow position, in its raw frame, from
+    /// any proven entry of it: base, alternate or this line's twin. A hint only:
+    /// the simulation verifies whatever it plays.
+    fn shadow_hint(&self, ssig: u64) -> Option<usize> {
+        let b = self.shadow_pos.board();
+        let mut canon = u64::MAX;
+        let mut sym = 0;
+        for (s, &symmetry) in SYMS.iter().enumerate().take(self.nsym) {
+            let h = b.hash_under_symmetry(symmetry);
+            if h < canon {
+                canon = h;
+                sym = s;
+            }
+        }
+        let stm = match self.shadow_pos.to_move() {
+            Color::Black => STM_BLACK,
+            Color::White => STM_WHITE,
+        };
+        let passes = if self.shadow_pos.consecutive_passes() > 0 { PASS_KEY } else { 0 };
+        let key = canon ^ stm ^ passes;
+        for k in [key, key ^ ALT_KEYS[0], key ^ ALT_KEYS[1], key ^ ssig] {
+            if let Some(e) = self.tt.probe(k) {
+                if e.status == PnStatus::Win {
+                    let pv = e.pv as usize;
+                    return Some(if pv < NPOINTS { self.sym_map[sym_inverse(sym)][pv] } else { pv });
+                }
+            }
+        }
+        None
     }
 
     /// A stored proof that the side to move wins the current position *on this
@@ -2118,7 +2380,7 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
         }
         self.tt
             .probe(key ^ self.sig)
-            .filter(|e| e.status == PnStatus::Win && e.check == k2 ^ self.sig2 && e.sym == sym && e.sig == self.sig)
+            .filter(|e| e.status == PnStatus::Win && e.many && e.check == k2 ^ self.sig2 && e.sym == sym && e.sig == self.sig)
     }
 
     /// The winning move of `stored_win`, mapped back to the current frame.
@@ -2263,7 +2525,7 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
         let s = &self.stats;
         let el = self.started.elapsed().as_secs_f64();
         eprintln!(
-            "[dfpn] {:>8.1}s nodes={} ({:.0}/s) root={:?} kids(t0)={} depth={} maxply={} tt_hit={:.1}% reuse exact/checked={}/{} rej tgt/bloom={}/{} twin hit/store={}/{} psk={}",
+            "[dfpn] {:>8.1}s nodes={} ({:.0}/s) root={:?} kids(t0)={} depth={} maxply={} tt_hit={:.1}% reused={} rej tgt/bloom={}/{} twin hit/store={}/{} psk={}",
             el,
             total,
             total as f64 / el.max(1e-9),
@@ -2272,7 +2534,6 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
             depth,
             s.max_ply,
             100.0 * s.tt_hits as f64 / (s.tt_probes.max(1)) as f64,
-            s.reuse_exact,
             s.reuse_checked,
             s.reject_target,
             s.reject_bloom,
@@ -2304,11 +2565,13 @@ fn solve_inner<const ROWS: usize, const COLS: usize, const LANES: usize, const N
     prefix: &[Move<ROWS, COLS>],
     cfg: DfpnConfig,
 ) -> DfpnResult {
-    // At most 30 points: the 2N Zobrist keys are then linearly independent, so
-    // the 64-bit board hash is injective and the superko check (and the path
-    // signature's per-board inputs) are exact. Above 30 points independence is
-    // not checked, and from 33 points on it is impossible (66 keys in 64 bits).
-    assert!(NPOINTS <= 30, "boards above 30 points need a wider board hash for an exact superko check");
+    // At most 49 points: the 128-bit board key and the 128-bit position key
+    // (base key and second hash) are then exact, because their generators are
+    // linearly independent (tested in `sanko-core`'s `zobrist.rs` and below).
+    // So the superko check, the stabilizer, the path signatures' per-board
+    // inputs and the identity of proof entries are exact. Up to 30 points the
+    // 64-bit halves alone are exact, and the second board table is not kept.
+    assert!(NPOINTS <= 49, "boards above 49 points need wider keys");
     let layout = crate::pntt::Layout::for_points(NPOINTS);
     let tt = if cfg.proof_buckets > 0 {
         PnTable::with_sizes(cfg.tt_log_buckets, cfg.proof_buckets as usize, layout, cfg.threads)
@@ -2475,7 +2738,7 @@ mod tests {
             static_cache_log_slots: 16,
             ..DfpnConfig::default()
         };
-        let oracle = DfpnConfig { exact_only: true, no_static: true, ..cfg };
+        let oracle = DfpnConfig { exact_only: true, no_static: true, simulate: 0, ..cfg };
         let mut frame_rejects = 0;
         for (first, second) in [(&a, &b), (&b, &a)] {
             for k in 1..=second.len() {
@@ -2498,7 +2761,7 @@ mod tests {
     ) -> Vec<Move<R, C>> {
         let mut pos: Position<R, C, L, N> = Position::new();
         let mut hist = HashHistory::new();
-        hist.push(pos.board().hash());
+        hist.push(pos.board().key());
         let mut moves = Vec::new();
         for _ in 0..plies {
             let mut legal: Vec<Move<R, C>> = (0..N)
@@ -2539,7 +2802,7 @@ mod tests {
                 node_limit: 2_000_000,
                 ..DfpnConfig::default()
             };
-            let oracle = DfpnConfig { exact_only: true, no_static: true, region_solver: false, ..cfg };
+            let oracle = DfpnConfig { exact_only: true, no_static: true, region_solver: false, simulate: 0, ..cfg };
             let tt = PnTable::new(cfg.tt_log_buckets, cfg.proof_log, false);
             let sc = StaticCache::new(cfg.static_cache_log_slots, 1);
             for _ in 0..games {
@@ -2632,7 +2895,7 @@ mod tests {
     ) -> Option<Color> {
         let mut pos: Position<R, C, L, N> = Position::new();
         let mut hist = HashHistory::new();
-        hist.push(pos.board().hash());
+        hist.push(pos.board().key());
         let mut bf = BruteForce { memo: std::collections::HashMap::new(), boards: vec![pos.board().hash()], budget };
         for &mv in line {
             pos.play(mv, &mut hist).unwrap();
@@ -2660,8 +2923,26 @@ mod tests {
         scale: f32,
         mid: bool,
     ) -> u64 {
+        let sim = DfpnConfig::default().simulate;
+        brute_force_check_with::<R, C, L, N>(seed, games, plies, komis, budget, prior, scale, mid, sim).0
+    }
+
+    /// `brute_force_check` with simulation budget `simulate`; also returns the
+    /// number of successful simulations.
+    #[allow(clippy::too_many_arguments)]
+    fn brute_force_check_with<const R: usize, const C: usize, const L: usize, const N: usize>(
+        seed: u64,
+        games: usize,
+        plies: u32,
+        komis: &[i32],
+        budget: u64,
+        prior: Option<[f32; PRIOR_FEATURES]>,
+        scale: f32,
+        mid: bool,
+        simulate: u64,
+    ) -> (u64, u64) {
         let mut rng = sanko_core::Rng::new(seed);
-        let mut compared = 0;
+        let (mut compared, mut sims) = (0, 0);
         for &k2 in komis {
             let cfg = DfpnConfig {
                 komi_times_two: k2,
@@ -2672,6 +2953,7 @@ mod tests {
                 node_limit: 2_000_000,
                 prior_weights: prior,
                 prior_scale: scale,
+                simulate,
                 ..DfpnConfig::default()
             };
             // The mid layout (any board up to 32 points) in a table whose size
@@ -2693,6 +2975,7 @@ mod tests {
                 }
                 for (n, want) in truth.iter().enumerate() {
                     let r = search_all::<R, C, L, N>(&line[..n], &tt, &sc, cfg, &Shared::new(1));
+                    sims += r.stats.sim_successes;
                     if let (Some(x), Some(y)) = (r.winner, *want) {
                         assert_eq!(x, y, "{R}x{C} komi2={k2} prefix {n} of {line:?}");
                         compared += 1;
@@ -2700,7 +2983,24 @@ mod tests {
                 }
             }
         }
-        compared
+        (compared, sims)
+    }
+
+    #[test]
+    fn simulation_keeps_brute_force_results() {
+        // A budget of one node (almost every attempt fails half-way) and an
+        // unlimited one (attempts run to the end of the replayed line), and the
+        // simulation must actually prove nodes.
+        let mut compared = 0;
+        for sim in [1, 1_000_000] {
+            let (a, s1) = brute_force_check_with::<1, 5, 1, 5>(31, 20, 24, &[-5, -3, -1, 1], 200_000, None, 0.0, false, sim);
+            let (b, s2) = brute_force_check_with::<2, 3, 1, 6>(33, 12, 16, &[-1, 1, 3], 200_000, None, 0.0, true, sim);
+            let (c, s3) = brute_force_check_with::<3, 3, 1, 9>(35, 6, 14, &[5, 13, 17], 200_000, None, 0.0, false, sim);
+            assert!(sim == 1 || s1 + s2 + s3 > 0, "no successful simulation");
+            compared += a + b + c;
+        }
+        assert!(compared > 400, "only {compared} positions compared");
+        eprintln!("simulation brute-force check: {compared} positions compared");
     }
 
     #[test]
@@ -2777,6 +3077,52 @@ mod tests {
             let mut with = gens.clone();
             with.push(extra);
             assert_eq!(rank(&with), 63, "{extra:#x} is in the key span");
+        }
+    }
+
+    #[test]
+    fn position_keys_are_exact_to_49_points() {
+        // Above 30 points the base key alone is not exact. A proof entry is
+        // identified by its base key and its second hash together, a 128-bit
+        // linear key. It is exact when the 2N point generators (base and second
+        // key of each point and colour), the side-to-move generator and the pass
+        // generator are linearly independent as 128-bit vectors. Alternate slots
+        // change only the base key, so their constants (and their XOR) must lie
+        // outside that span too. Keys depend only on the point index: 49 points
+        // (7x7, the largest supported board) cover every board.
+        let pair = |a: u64, b: u64| u128::from(a) | (u128::from(b) << 64);
+        let mut gens: Vec<u128> = (0..49)
+            .flat_map(|i| {
+                [(Color::Black, 0), (Color::White, 1)]
+                    .map(|(c, ci)| pair(Board::<7, 7, 1, 49>::sym_zobrist(0, i, c), k2_point(i, ci)))
+            })
+            .collect();
+        gens.push(pair(STM_BLACK ^ STM_WHITE, K2_STM_BLACK ^ K2_STM_WHITE));
+        gens.push(pair(PASS_KEY, K2_PASS));
+        let rank = |vs: &[u128]| {
+            let mut basis = [0u128; 128];
+            let mut r = 0;
+            for &v0 in vs {
+                let mut v = v0;
+                for bit in (0..128).rev() {
+                    if (v >> bit) & 1 == 0 {
+                        continue;
+                    }
+                    if basis[bit] == 0 {
+                        basis[bit] = v;
+                        r += 1;
+                        break;
+                    }
+                    v ^= basis[bit];
+                }
+            }
+            r
+        };
+        assert_eq!(rank(&gens), 100);
+        for extra in [ALT_KEYS[0], ALT_KEYS[1], ALT_KEYS[0] ^ ALT_KEYS[1]] {
+            let mut with = gens.clone();
+            with.push(u128::from(extra));
+            assert_eq!(rank(&with), 101, "{extra:#x} is in the 128-bit key span");
         }
     }
 

@@ -75,7 +75,7 @@ fn mirror_endpoints_with_the_same_board_set_are_different_games() {
     let c = cfg(-5);
     assert_eq!(solve_dfpn::<1, 5, 1, 5>(&a, c).winner, Some(Color::White));
     assert_eq!(solve_dfpn::<1, 5, 1, 5>(&b, c).winner, Some(Color::Black));
-    let exact = DfpnConfig { exact_only: true, no_static: true, ..c };
+    let exact = DfpnConfig { exact_only: true, no_static: true, simulate: 0, ..c };
     assert_eq!(solve_dfpn::<1, 5, 1, 5>(&a, exact).winner, Some(Color::White));
     assert_eq!(solve_dfpn::<1, 5, 1, 5>(&b, exact).winner, Some(Color::Black));
 }
@@ -87,7 +87,7 @@ fn random_prefix<const R: usize, const C: usize, const L: usize, const N: usize>
 ) -> Option<Vec<Move<R, C>>> {
     let mut pos: Position<R, C, L, N> = Position::new();
     let mut hist = HashHistory::new();
-    hist.push(pos.board().hash());
+    hist.push(pos.board().key());
     let mut moves = Vec::new();
     for _ in 0..rng.next_below(max_len) {
         let mut legal: Vec<Move<R, C>> = (0..N)
@@ -115,7 +115,7 @@ fn transfers_and_regions_agree_with_exact_only_oracle() {
         let Some(moves) = random_prefix::<3, 4, 1, 12>(&mut rng, 14) else { continue };
         let komi_times_two = 2 * (rng.next_below(13) as i32 - 6) + 1;
         let full = DfpnConfig { region_solver: true, node_limit: 2_000_000, ..cfg(komi_times_two) };
-        let oracle = DfpnConfig { exact_only: true, node_limit: 2_000_000, ..cfg(komi_times_two) };
+        let oracle = DfpnConfig { exact_only: true, node_limit: 2_000_000, simulate: 0, ..cfg(komi_times_two) };
         let a = solve_dfpn::<3, 4, 1, 12>(&moves, full).winner;
         let b = solve_dfpn::<3, 4, 1, 12>(&moves, oracle).winner;
         if let (Some(a), Some(b)) = (a, b) {

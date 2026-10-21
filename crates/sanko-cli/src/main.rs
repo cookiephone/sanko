@@ -70,7 +70,7 @@ struct TopBoardArgs {
     /// Number of rows.
     #[arg(long, value_name = "R")]
     rows: Option<usize>,
-    /// Number of columns (the board may have at most 30 points).
+    /// Number of columns (the board may have at most 49 points).
     #[arg(long, value_name = "C")]
     cols: Option<usize>,
 }
@@ -129,7 +129,7 @@ struct BoardArgs {
     /// Number of rows.
     #[arg(long, value_name = "R")]
     rows: usize,
-    /// Number of columns (the board may have at most 30 points).
+    /// Number of columns (the board may have at most 49 points).
     #[arg(long, value_name = "C")]
     cols: usize,
 }
@@ -156,6 +156,9 @@ struct SolverArgs {
     /// With --prune-for: keep one skipped move per node (a tempo move that changes the board).
     #[arg(long, help_heading = "Pruning")]
     keep_tempo: bool,
+    /// Simulation: prove siblings by replaying a proven sibling's winning moves, at most N nodes per attempt (0 = off).
+    #[arg(long, value_name = "N", default_value_t = 100, help_heading = "Search")]
+    simulate: u64,
     /// Use the closed-region solver (Black kills everything inside enclosed regions).
     #[arg(long, overrides_with = "no_regions", help_heading = "Knowledge")]
     regions: bool,
@@ -525,8 +528,9 @@ macro_rules! with_board {
             (1,4) (1,5) (1,6) (1,7) (1,8) (1,9) (1,10) (1,11) (1,12) (1,13) (1,14) (1,15) (1,16)
             (1,17) (1,18) (1,19) (1,20) (1,21) (1,22) (1,23) (1,24)
             (2,2) (2,3) (2,4) (2,5) (2,6) (2,7) (2,8) (2,9) (2,10) (2,11) (2,12) (2,13) (2,14) (2,15)
-            (3,3) (3,4) (3,5) (3,6) (3,7) (3,8) (3,9) (3,10)
-            (4,4) (4,5) (4,6) (4,7) (5,5) (5,6))
+            (2,16) (2,17)
+            (3,3) (3,4) (3,5) (3,6) (3,7) (3,8) (3,9) (3,10) (3,11) (3,12)
+            (4,4) (4,5) (4,6) (4,7) (4,8) (4,9) (5,5) (5,6) (5,7) (6,6))
     };
     (@sizes ($rows:expr, $cols:expr) $f:ident $args:tt; $(($r:literal, $c:literal))*) => {
         match ($rows, $cols) {
@@ -536,7 +540,7 @@ macro_rules! with_board {
     };
 }
 
-const SIZES: &str = "1x4 to 1x24, 2x2 to 2x15, 3x3 to 3x10, 4x4 to 4x7, 5x5 and 5x6";
+const SIZES: &str = "1x4 to 1x24, 2x2 to 2x17, 3x3 to 3x12, 4x4 to 4x9, 5x5 to 5x7 and 6x6";
 
 fn fail(msg: &str) -> ExitCode {
     ui::error(msg);
@@ -587,6 +591,7 @@ fn solver_config(s: &SolverArgs) -> DfpnConfig {
         virtual_loss: !s.no_virtual_loss,
         prefetch: !s.no_prefetch,
         keep_tempo: s.keep_tempo,
+        simulate: s.simulate,
         region_interior: s.region_interior,
         ..DfpnConfig::default()
     }
@@ -629,7 +634,7 @@ fn replay<const R: usize, const C: usize, const L: usize, const N: usize>(
 ) -> Result<(Position<R, C, L, N>, HashHistory), String> {
     let mut pos: Position<R, C, L, N> = Position::new();
     let mut hist = HashHistory::new();
-    hist.push(pos.board().hash());
+    hist.push(pos.board().key());
     for (i, &m) in moves.iter().enumerate() {
         if pos.is_terminal() {
             return Err(format!("move {} ({}) comes after the game has ended", i + 1, ui::move_name(m)));
@@ -792,10 +797,8 @@ fn solve_plain<const R: usize, const C: usize, const L: usize, const N: usize>(
         s.terminal_leaves, s.static_leaves, s.tt_probes, s.tt_hits, s.max_ply, s.sym_merged
     );
     println!(
-        "ghi: proofs_stored={} reuse same-path={} (rejected {}) checked={}  reject target={} bloom={}  twin hits={} stores={} frame-rejects={}  psk_exclusions={}",
+        "ghi: proofs_stored={} reused={}  reject target={} bloom={}  twin hits={} stores={} frame-rejects={}  psk_exclusions={}",
         s.proofs_stored,
-        s.reuse_exact,
-        s.reject_same_path,
         s.reuse_checked,
         s.reject_target,
         s.reject_bloom,
@@ -814,6 +817,7 @@ fn solve_plain<const R: usize, const C: usize, const L: usize, const N: usize>(
         "path-specific proofs: two-targets={}  symmetry-merge={}  from-table={}  alternates: twin-child={}  base-taken={}  stored={} reused={}",
         p[0], p[1], p[2], p[3], p[4], s.alt_stores, s.alt_hits
     );
+    println!("simulation: attempts={} successes={} nodes={}", s.sim_attempts, s.sim_successes, s.sim_nodes);
     println!(
         "closed-region solver leaves: {}  failures [unused, too big, <2 pure eyes, local loss]: {:?}",
         s.region_leaves, s.reg_fail
@@ -1019,9 +1023,8 @@ fn solve_report<const R: usize, const C: usize, const L: usize, const N: usize>(
     ui::row(
         "Proofs",
         format!(
-            "{} stored · reused {} on the same path, {} transferred, {} path-specific",
+            "{} stored · {} transferred, {} path-specific",
             ui::grouped(s.proofs_stored),
-            ui::grouped(s.reuse_exact),
             ui::grouped(s.reuse_checked),
             ui::grouped(s.twin_hits)
         ),
@@ -1105,7 +1108,7 @@ fn selftest_on<const R: usize, const C: usize, const L: usize, const N: usize>(a
         // prefixes keep big-board positions within the oracle's reach.
         let mut pos: Position<R, C, L, N> = Position::new();
         let mut hist = HashHistory::new();
-        hist.push(pos.board().hash());
+        hist.push(pos.board().key());
         let min = a.min_plies.min(N as u32);
         let len = min + rng.next_below((N as u32) + 4 - min);
         let mut moves: Vec<Move<R, C>> = Vec::new();
@@ -1148,6 +1151,7 @@ fn selftest_on<const R: usize, const C: usize, const L: usize, const N: usize>(a
                 region_solver: false,
                 prune_for: None,
                 no_static: a.oracle_no_static,
+                simulate: 0,
                 ..base
             },
         );
@@ -1244,7 +1248,7 @@ fn staticcheck_on<const R: usize, const C: usize, const L: usize, const N: usize
     for i in 0..n {
         let mut pos: Position<R, C, L, N> = Position::new();
         let mut hist = HashHistory::new();
-        hist.push(pos.board().hash());
+        hist.push(pos.board().key());
         let len = rng.next_below(2 * N as u32 + 2);
         let mut moves: Vec<Move<R, C>> = Vec::new();
         let mut cap = [0u64; 2];
@@ -1294,7 +1298,7 @@ fn staticcheck_on<const R: usize, const C: usize, const L: usize, const N: usize
             let full = solve_dfpn::<R, C, L, N>(&moves, DfpnConfig { region_solver: true, ..cfg });
             let oracle = solve_dfpn::<R, C, L, N>(
                 &moves,
-                DfpnConfig { exact_only: true, no_static: true, region_solver: false, prune_for: None, threads: 1, ..cfg },
+                DfpnConfig { exact_only: true, no_static: true, region_solver: false, prune_for: None, threads: 1, simulate: 0, ..cfg },
             );
             probes += 1;
             match (full.winner, oracle.winner) {
@@ -1396,8 +1400,8 @@ fn pskcheck_on<const R: usize, const C: usize, const L: usize, const N: usize>(a
     }
     let mut pos: Position<R, C, L, N> = Position::new();
     let mut hist = HashHistory::new();
-    hist.push(pos.board().hash());
-    let mut boards: Vec<u64> = vec![pos.board().hash()];
+    hist.push(pos.board().key());
+    let mut boards: Vec<u128> = vec![pos.board().key()];
     let mut last = None;
     let mut found = 0;
     for (ply, &m) in moves.iter().enumerate() {
@@ -1405,7 +1409,7 @@ fn pskcheck_on<const R: usize, const C: usize, const L: usize, const N: usize>(a
         let mut only_psk = Vec::new();
         for k in 0..N {
             let p = Point::<R, C>::from_index_unchecked(k);
-            if let Some(h) = pos.board_hash_after(p) {
+            if let Some(h) = pos.board_key_after(p) {
                 if hist.contains(h) && Some(h) != before_opp {
                     only_psk.push(p);
                 }
@@ -1432,7 +1436,7 @@ fn pskcheck_on<const R: usize, const C: usize, const L: usize, const N: usize>(a
         }
         pos.play(m, &mut hist).expect("checked by replay");
         if let Move::Stone(p) = m {
-            boards.push(pos.board().hash());
+            boards.push(pos.board().key());
             last = Some(p);
         }
     }

@@ -5,12 +5,17 @@
 //! for reproducible bug reports).
 //!
 //! The table is per-`(point, color)`. The Board owns position-only hash.
-//! Side-to-move XOR is left to the search/TT layer.
+//! Side-to-move XOR is left to the search/TT layer. A second, independent
+//! table gives each board a 128-bit key (see `Board::key`), exact on boards of
+//! up to 49 points.
 
 use crate::color::Color;
 
 const SEED_BLACK: u64 = 0xC0FF_EEC0_DEC0_DEC0;
 const SEED_WHITE: u64 = 0xDEAD_BEEF_CAFE_F00D;
+/// Seeds of the second table (digits of pi, far from the first seeds).
+const SEED2_BLACK: u64 = 0x243F_6A88_85A3_08D3;
+const SEED2_WHITE: u64 = 0x1319_8A2E_0370_7344;
 
 /// David Stafford's variant of the splitmix64 finalizer (Mix13).
 #[inline]
@@ -28,11 +33,20 @@ pub(crate) struct Zobrist<const NPOINTS: usize> {
 
 impl<const NPOINTS: usize> Zobrist<NPOINTS> {
     pub(crate) const fn new() -> Self {
+        Self::seeded(SEED_BLACK, SEED_WHITE)
+    }
+
+    /// The second table, independent of the first.
+    pub(crate) const fn second() -> Self {
+        Self::seeded(SEED2_BLACK, SEED2_WHITE)
+    }
+
+    const fn seeded(black: u64, white: u64) -> Self {
         let mut t = [[0u64; 2]; NPOINTS];
         let mut i = 0;
         while i < NPOINTS {
-            t[i][0] = splitmix64(SEED_BLACK.wrapping_add(i as u64));
-            t[i][1] = splitmix64(SEED_WHITE.wrapping_add(i as u64));
+            t[i][0] = splitmix64(black.wrapping_add(i as u64));
+            t[i][1] = splitmix64(white.wrapping_add(i as u64));
             i += 1;
         }
         Self { by_point_color: t }
@@ -101,6 +115,36 @@ mod tests {
             }
         }
         assert_eq!(rank, 62);
+    }
+
+    /// The 128-bit board key (`Board::key`) XORs, for each stone, the pair of its
+    /// keys in the two tables. It is exact when the 2N pairs are linearly
+    /// independent as 128-bit vectors over GF(2). Keys depend only on the point
+    /// index, so 49 points (7×7, the largest supported board) cover all boards.
+    #[test]
+    fn board_keys_are_linearly_independent_to_49_points() {
+        let (z, z2): (Zobrist<49>, Zobrist<49>) = (Zobrist::new(), Zobrist::second());
+        let gens: Vec<u128> = (0..49)
+            .flat_map(|i| {
+                [Color::Black, Color::White].map(|c| u128::from(z.key(i, c)) | (u128::from(z2.key(i, c)) << 64))
+            })
+            .collect();
+        let mut basis = [0u128; 128];
+        let mut rank = 0;
+        for mut v in gens {
+            for bit in (0..128).rev() {
+                if (v >> bit) & 1 == 0 {
+                    continue;
+                }
+                if basis[bit] == 0 {
+                    basis[bit] = v;
+                    rank += 1;
+                    break;
+                }
+                v ^= basis[bit];
+            }
+        }
+        assert_eq!(rank, 98);
     }
 
     #[test]
