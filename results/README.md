@@ -6,6 +6,7 @@ The output of every solver run behind the values, speed measurements and ablatio
 - [`logs/`](logs/): the solver's output of each solve. The first line names the build (version and a fingerprint of the solver source) and the full command line.
 - [`suites/`](suites/): the benchmark suites behind the ablations and the prior comparison (`sanko bench` output, one file per configuration and suite).
 - [`validation/`](validation/): the selftests, threshold probes and large-board selftests. Only a COUNTEREXAMPLE line (the solver and the oracle disagree) would indicate an error, and there are none. A NOTE line in the threshold probes marks a position where the static analysis alone would name a winner, but that player has just passed, so the opponent can pass and end the game at once. The solver does not use the static rule in such positions, and its result agrees with the oracle.
+- [`4x7/`](4x7/): the small proofs behind the paper's analysis of MIGOS's 4×7 line, run with Sanko 0.4.1 (`63014da88da067d1`). `chain.out` is the output of `scripts/reproduce_4x7_migos_line.sh` (the eight proofs of the appendix table, with their expansion counts; the whole chain takes about three seconds), and `move-values-after-25.out` and `move-values-after-G2.out` give the exact PSK value of every White move after Black's 25th move and of every Black reply after White's G2 (`scripts/move_values.py`, bisection over komi with trusted pruned proofs; moves as row and column digits, row 0 at the top). The `*-job.out` files hold the commands.
 
 ## Build and Hardware
 

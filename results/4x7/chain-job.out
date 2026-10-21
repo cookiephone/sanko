@@ -1,0 +1,6 @@
+host htc-cmp302.zib.de Mo 19. Okt 15:50:56 CEST 2026
+== [1] 15:50:56 bash scripts/reproduce_4x7_migos_line.sh ./bin/sanko
+   exit 0 at 15:50:59
+winner: Some(Black)   nodes: 9318   children: 53822   elapsed: 0.346s   nodes/s: 26924 
+root winning move: 26 winner: Some(White)   nodes: 889   children: 4186   elapsed: 0.383s   nodes/s: 2323 
+winner: Some(White)   nodes: 73   children: 205   elapsed: 0.321s   nodes/s: 227 

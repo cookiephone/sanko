@@ -1,0 +1,26 @@
+1. The whole line is PSK-legal (no superko-only exclusions):
+final: Position<4x7> to_move=White passes=0
+O . X X X X X
+X X X X O X .
+O O O X O O X
+. O . O O X .
+2. Its end position is a Black win at komi 27.5 under PSK (Black-pruned, trusted):
+winner: Some(Black)   nodes: 9318   children: 53822   elapsed: 0.346s   nodes/s: 26924 
+3. Walking back: Black still wins after 26 moves, not after 24:
+   after 26 moves: root winning move: 32 winner: Some(Black)   nodes: 134266   children: 877849   elapsed: 0.438s   nodes/s: 306584 
+   after 24 moves: winner: None   nodes: 9660   children: 62667   elapsed: 0.346s   nodes/s: 27883 
+4. After Black's 25th move (A3), White wins at 27.5 (White-pruned, trusted); root move = G2 (26):
+root winning move: 26 winner: Some(White)   nodes: 889   children: 4186   elapsed: 0.383s   nodes/s: 2323 
+5. Exact value after White G2 is B+3 (Black wins at 2.5, White at 3.5):
+   k2.5: root winning move: 20 winner: Some(Black)   nodes: 436   children: 1766   elapsed: 0.323s   nodes/s: 1349 
+   k3.5: winner: Some(White)   nodes: 495   children: 1953   elapsed: 0.321s   nodes/s: 1542 
+6. The seki line (optimal under PSK): B A2, W C1, B A1, W B4, B A4, pass, pass:
+final: Position<4x7> to_move=White passes=2
+X . X X X X X
+X X X X O X O
+X O O X O O O
+X . O O O . O
+7. Moonshine life: after B B1, W C1, B A2, W A1 (ko capture), White wins at 27.5 under PSK:
+winner: Some(White)   nodes: 73   children: 205   elapsed: 0.321s   nodes/s: 227 
+8. If Black could retake (MIGOS's three-pass rule), White's group falls and Black kills all:
+   (PSK-legal order B B1, W C1, B A2, W pass, B F1) k27.5: winner: Some(Black)   nodes: 77411   children: 525481   elapsed: 0.385s   nodes/s: 201065 
