@@ -34,7 +34,7 @@ Every value except that of 5×5 is new under PSK. Earlier solutions of these boa
 
 ## Build
 
-Requires Rust 1.87 or later.
+Requires Rust 1.88 or later.
 
 ```sh
 cargo build --release
@@ -87,18 +87,37 @@ On a terminal, Sanko shows a live panel and board diagrams. With `--plain`, or w
 | `--proof-gib G` | proof table of G GiB, any size |
 | `--node-limit N` | stop after N expansions (result unknown) |
 | `--prior learned\|eye` | initial proof numbers from the learned prior (default) or from White's eye space |
-| `--eps E` | growth factor of the 1+ε rule (default 0.3) |
+| `--eps E` | growth factor of the 1+ε rule (default 0.15, 0.3 up to version 0.5.2) |
 | `--simulate N` | simulation of sibling proofs, at most N nodes per attempt (default 100, 0 turns it off) |
+| `--checkpoint PATH`, `--checkpoint-every D` | write snapshots of the search to PATH every D (default 6h) and at `--stop-after` |
+| `--resume PATH` | continue from a snapshot (same build, problem and table sizes) |
+| `--stop-after D` | stop after D of wall time (such as 9d23h), with a last snapshot when writing them (exit code 75) |
 
-The reported runs use `--regions --region-interior 8 --keep-tempo` with the defaults otherwise. The paper's runs were made with versions 0.4.1 and 0.4.2, before simulation, so later versions find the same values with fewer expansions. Boards of up to 25 points use `--pn-tt-log 30 --proof-log 31 --sc-log 30` (about 0.45 TiB), larger boards `--pn-tt-log 31 --proof-log 31 --sc-log 29`. 4×8 was solved with 0.5.1 and `--pn-tt-log 31 --proof-log 32 --sc-log 32` (about 0.9 TiB). On multi-socket machines, run under `numactl --interleave=all`. Parallel runs are not deterministic, so expansion counts vary between runs while the winner does not. Serial runs are deterministic.
+The reported runs use `--regions --region-interior 8 --keep-tempo` with the defaults otherwise, which included `--eps 0.3` up to version 0.5.2. Pass `--eps 0.3` to repeat their exact expansion counts with a later version. The winners do not depend on it. The paper's runs were made with versions 0.4.1 and 0.4.2, before simulation, so later versions find the same values with fewer expansions. Boards of up to 25 points use `--pn-tt-log 30 --proof-log 31 --sc-log 30` (about 0.45 TiB), larger boards `--pn-tt-log 31 --proof-log 31 --sc-log 29`. 4×8 was solved with 0.5.1 and `--pn-tt-log 31 --proof-log 32 --sc-log 32` (about 0.9 TiB). On multi-socket machines, run under `numactl --interleave=all`. Parallel runs are not deterministic, so expansion counts vary between runs while the winner does not. Serial runs are deterministic.
 
 Other commands:
 
 - `sanko selftest` solves random positions (random legal games, so real superko histories, and random komi) with the full solver and with an oracle that reuses results only on the identical game. `--oracle-no-static` also removes all static knowledge from the oracle.
 - `sanko staticcheck` sets the komi exactly at the point where a static rule declares a winner and checks the verdict against search.
 - `sanko pskcheck --moves ...` replays a game and lists the moves that superko forbids but basic ko would allow.
+- `sanko checkpoint info PATH` prints a checkpoint's header: build, problem, table sizes, and the expansions and time so far.
 - `sanko bench` solves seeded random positions near a prefix, for comparing options.
 - `sanko train` fits the learned prior.
+
+## Long Runs
+
+A solve can run as a series of segments that each fit a job's time limit. df-pn keeps its whole state in the tables, so a snapshot of the tables is enough to continue. `--checkpoint PATH` writes one every `--checkpoint-every` (default 6h) and at `--stop-after`, and `--resume PATH` continues from it. Writing a snapshot pauses the search and does not change it.
+
+```sh
+S="sanko --rows 6 --cols 6 --komi 3.5 --moves C3,D4 --prune-for black --regions --region-interior 8 --keep-tempo \
+   --threads 192 --pn-tt-log 31 --proof-log 32 --sc-log 32"
+$S --checkpoint run.ckpt --stop-after 9d23h                       # the first segment
+$S --resume run.ckpt --checkpoint run.ckpt --stop-after 9d23h     # every later one, until the exit code is 0
+```
+
+A segment exits with code 75 when it stopped with a snapshot written, and with 0 once the search has ended. A checkpoint is resumed only by the same build (source fingerprint), for the same position, komi, pruning and knowledge options, with the same table sizes. The thread count, `--eps`, the prior and `--simulate` may change between segments. `--checkpoint` refuses an existing file unless it is also the `--resume` file.
+
+A snapshot is as large as the tables (about 1.1 TiB at the sizes above), and while it replaces the previous one both exist, so leave room for twice that. The static cache is not saved. A resumed search restarts from the root, so its expansion counts differ slightly from those of an uninterrupted run, while the result does not.
 
 ## Learned Prior
 

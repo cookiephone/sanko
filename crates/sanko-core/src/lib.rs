@@ -36,7 +36,7 @@ pub use position::{PlayError, Position, UndoInfo};
 pub use pure_eye::{PureEyeAnalysis, pure_eye_analysis, pure_eye_analysis_of, secure_upper_bound};
 pub use rng::Rng;
 pub use safety::{may_be_decided, statically_decided, statically_decided_life};
-pub use score::{area_score, set_atari_dead, terminal_winner};
+pub use score::{area_score, atari_dead, set_atari_dead, terminal_winner};
 pub use symmetry::Symmetry;
 pub use zobrist::{PASS_KEY, STM_BLACK, STM_WHITE};
 

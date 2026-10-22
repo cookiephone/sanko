@@ -86,14 +86,15 @@
 //! reported as unknown.
 
 use std::sync::atomic::{AtomicBool, AtomicU16, AtomicU64, Ordering};
-use std::sync::Mutex;
-use std::time::Instant;
+use std::sync::{Condvar, Mutex};
+use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
 use sanko_core::{
     Board, Color, HashHistory, Move, PASS_KEY, PlayError, Point, Position, STM_BLACK, STM_WHITE,
     Symmetry, terminal_winner,
 };
 
+use crate::checkpoint::{self, CheckpointError, CheckpointHeader, CheckpointOptions};
 use crate::pntt::{INF as TT_INF, PnEntry, PnStatus, PnTable, TableFill};
 
 /// Solved proof/disproof number. Proof numbers are 64-bit inside the search:
@@ -143,10 +144,10 @@ pub fn enable_proof_dump(path: &str, rate: u64) -> std::io::Result<()> {
 
 /// Flush the proof dump, if any.
 pub fn flush_proof_dump() {
-    if let Some((_, w)) = PROOF_DUMP.get() {
-        if let Ok(mut w) = w.lock() {
-            let _ = std::io::Write::flush(&mut *w);
-        }
+    if let Some((_, w)) = PROOF_DUMP.get()
+        && let Ok(mut w) = w.lock()
+    {
+        let _ = std::io::Write::flush(&mut *w);
     }
 }
 
@@ -292,7 +293,7 @@ impl Default for DfpnConfig {
             tt_log_buckets: 20,
             proof_log: 18,
             static_cache_log_slots: 22,
-            eps: 0.25,
+            eps: 0.15,
             node_limit: 0,
             prune_for: None,
             progress: false,
@@ -422,6 +423,17 @@ impl DfpnStats {
     }
 }
 
+/// Checkpoint gate state (see `Shared::park`).
+#[derive(Debug, Default)]
+struct Gate {
+    /// A snapshot is being taken.
+    paused: bool,
+    /// Workers waiting in `Shared::park`.
+    parked: usize,
+    /// Workers that have not returned yet.
+    active: usize,
+}
+
 /// State shared by all worker threads besides the TT and static cache.
 #[derive(Debug)]
 struct Shared {
@@ -434,6 +446,11 @@ struct Shared {
     nodes: AtomicU64,
     /// The first root verdict found: `true` = side to move at the root wins.
     result: Mutex<Option<bool>>,
+    /// Set while a checkpoint is taken: workers park at their next batch check
+    /// (a fast copy of `gate.paused`, see `Shared::park`).
+    pause: AtomicBool,
+    gate: Mutex<Gate>,
+    gate_cv: Condvar,
 }
 
 impl Shared {
@@ -446,7 +463,56 @@ impl Shared {
             stop: AtomicBool::new(false),
             nodes: AtomicU64::new(0),
             result: Mutex::new(None),
+            pause: AtomicBool::new(false),
+            gate: Mutex::new(Gate::default()),
+            gate_cv: Condvar::new(),
         }
+    }
+
+    /// Wait while a checkpoint is taken (workers call this at their batch check
+    /// once `pause` is set). The worker keeps its stack and continues after.
+    fn park(&self) {
+        let mut g = self.gate.lock().expect("gate lock");
+        g.parked += 1;
+        self.gate_cv.notify_all();
+        while g.paused {
+            g = self.gate_cv.wait(g).expect("gate lock");
+        }
+        g.parked -= 1;
+    }
+
+    /// A worker has returned (see `Leaving`).
+    fn leave(&self) {
+        self.gate.lock().expect("gate lock").active -= 1;
+        self.gate_cv.notify_all();
+    }
+
+    /// Ask every worker to park and wait until all running workers have, so
+    /// that the table stays unchanged. Returns whether any worker still runs.
+    fn pause_all(&self) -> bool {
+        let mut g = self.gate.lock().expect("gate lock");
+        g.paused = true;
+        self.pause.store(true, Ordering::Relaxed);
+        while g.parked < g.active {
+            g = self.gate_cv.wait(g).expect("gate lock");
+        }
+        g.active > 0
+    }
+
+    /// Let the parked workers continue.
+    fn resume_all(&self) {
+        let mut g = self.gate.lock().expect("gate lock");
+        g.paused = false;
+        self.pause.store(false, Ordering::Relaxed);
+        drop(g);
+        self.gate_cv.notify_all();
+    }
+
+    /// Wait until every worker has returned, at most `timeout`. Returns
+    /// whether all have.
+    fn wait_done(&self, timeout: Duration) -> bool {
+        let g = self.gate.lock().expect("gate lock");
+        self.gate_cv.wait_timeout_while(g, timeout, |g| g.active > 0).expect("gate lock").0.active == 0
     }
 
     #[inline]
@@ -1132,14 +1198,16 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
             return None;
         }
         let (w, life) = sanko_core::statically_decided_life(&self.pos, k2);
-        if w.is_none() && self.cfg.region_solver && !life.black_alive.is_empty() {
-            if let Some(terr) = self.regions_won(&life) {
-                let n = NPOINTS as i32;
-                if 4 * n > 2 * n + k2 {
-                    let cap = self.path[self.path.len() - 1].cap[Color::Black as usize];
-                    self.stats.region_leaves += 1;
-                    return Some((Color::Black, (cap & terr == 0 && self.game_continues_for(Color::Black)).then_some(terr)));
-                }
+        if w.is_none()
+            && self.cfg.region_solver
+            && !life.black_alive.is_empty()
+            && let Some(terr) = self.regions_won(&life)
+        {
+            let n = NPOINTS as i32;
+            if 4 * n > 2 * n + k2 {
+                let cap = self.path[self.path.len() - 1].cap[Color::Black as usize];
+                self.stats.region_leaves += 1;
+                return Some((Color::Black, (cap & terr == 0 && self.game_continues_for(Color::Black)).then_some(terr)));
             }
         }
         let Some(w) = w else {
@@ -1563,13 +1631,15 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
                 }
                 for alt in ALT_KEYS {
                     self.stats.tt_probes += 1;
-                    if let Some(t) = self.tt.probe(key ^ alt) {
-                        if t.status != PnStatus::Unproven && t.check == k2 && self.transfers(&t, sym) {
-                            self.stats.alt_hits += 1;
-                            let a = self.attrs_of(&t, sym);
-                            solved(&mut c, t.status == PnStatus::Win, a);
-                            return c;
-                        }
+                    if let Some(t) = self.tt.probe(key ^ alt)
+                        && t.status != PnStatus::Unproven
+                        && t.check == k2
+                        && self.transfers(&t, sym)
+                    {
+                        self.stats.alt_hits += 1;
+                        let a = self.attrs_of(&t, sym);
+                        solved(&mut c, t.status == PnStatus::Win, a);
+                        return c;
                     }
                 }
                 let tkey = key ^ self.sig;
@@ -1606,15 +1676,16 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
                 c.delta = from_tt(e.delta);
                 if e.twinned {
                     self.stats.tt_probes += 1;
-                    if let Some(t) = self.tt.probe(key ^ self.sig) {
-                        if t.status != PnStatus::Unproven && t.check == self.key2(sym) ^ self.sig2 {
-                            if t.many && t.sym == sym && t.sig == self.sig {
-                                self.stats.twin_hits += 1;
-                                let a = self.attrs_of(&t, sym);
-                                solved(&mut c, t.status == PnStatus::Win, a);
-                            } else {
-                                self.stats.twin_frame_rejects += 1;
-                            }
+                    if let Some(t) = self.tt.probe(key ^ self.sig)
+                        && t.status != PnStatus::Unproven
+                        && t.check == self.key2(sym) ^ self.sig2
+                    {
+                        if t.many && t.sym == sym && t.sig == self.sig {
+                            self.stats.twin_hits += 1;
+                            let a = self.attrs_of(&t, sym);
+                            solved(&mut c, t.status == PnStatus::Win, a);
+                        } else {
+                            self.stats.twin_frame_rejects += 1;
                         }
                     }
                 }
@@ -1623,10 +1694,11 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
             }
             None => c.fresh = true,
         }
-        if let Some(w) = self.cfg.prior_weights {
-            if c.phi != 0 && c.delta != 0 {
-                (c.phi, c.delta) = self.learned_prior(&w, stm);
-            }
+        if let Some(w) = self.cfg.prior_weights
+            && c.phi != 0
+            && c.delta != 0
+        {
+            (c.phi, c.delta) = self.learned_prior(&w, stm);
         }
         c
     }
@@ -1775,10 +1847,10 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
                     tempo_kept &= !is_tempo;
                     if e == PlayError::PositionalSuperko {
                         self.stats.psk_exclusions += 1;
-                        if let Move::Stone(p) = mv {
-                            if let Some(h) = self.pos.board_hash_after(p) {
-                                excl = excl.union(Target::One(h));
-                            }
+                        if let Move::Stone(p) = mv
+                            && let Some(h) = self.pos.board_hash_after(p)
+                        {
+                            excl = excl.union(Target::One(h));
                         }
                     }
                     continue;
@@ -1880,18 +1952,18 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
         e.terr = self.xform(attrs.terr, sym as usize);
         e.check = self.key2(sym);
         self.stats.proofs_stored += 1;
-        if let Some((rate, w)) = PROOF_DUMP.get() {
-            if c.base_key.wrapping_mul(0x9E37_79B9_7F4A_7C15) >> 40 < (1u64 << 24) / rate {
-                let stm_wins = win;
-                let black_wins = stm_wins == (self.pos.to_move() == Color::Black);
-                let f = self.prior_features();
-                let mut rec = Vec::with_capacity(4 * (PRIOR_FEATURES + 2));
-                for x in f.iter().chain([&f32::from(u8::from(black_wins)), &((work as f32) + 1.0).log2()]) {
-                    rec.extend_from_slice(&x.to_le_bytes());
-                }
-                if let Ok(mut w) = w.lock() {
-                    let _ = std::io::Write::write_all(&mut *w, &rec);
-                }
+        if let Some((rate, w)) = PROOF_DUMP.get()
+            && c.base_key.wrapping_mul(0x9E37_79B9_7F4A_7C15) >> 40 < (1u64 << 24) / rate
+        {
+            let stm_wins = win;
+            let black_wins = stm_wins == (self.pos.to_move() == Color::Black);
+            let f = self.prior_features();
+            let mut rec = Vec::with_capacity(4 * (PRIOR_FEATURES + 2));
+            for x in f.iter().chain([&f32::from(u8::from(black_wins)), &((work as f32) + 1.0).log2()]) {
+                rec.extend_from_slice(&x.to_le_bytes());
+            }
+            if let Ok(mut w) = w.lock() {
+                let _ = std::io::Write::write_all(&mut *w, &rec);
             }
         }
         // The table stores neither exclusion targets nor (narrow layout)
@@ -1973,6 +2045,9 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
         if self.pending_nodes >= 4096 {
             let total = self.sh.nodes.fetch_add(self.pending_nodes, Ordering::Relaxed) + self.pending_nodes;
             self.pending_nodes = 0;
+            if self.sh.pause.load(Ordering::Relaxed) {
+                self.sh.park();
+            }
             if self.cfg.node_limit != 0 && total >= self.cfg.node_limit {
                 self.sh.stop.store(true, Ordering::Relaxed);
             }
@@ -2029,15 +2104,16 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
                         }
                     }
                     for c in &mut kids {
-                        if c.phi != 0 && c.delta != 0 {
-                            if let Some((p, d)) = self.tt.probe_numbers(c.key) {
-                                // Only ever raise: TT numbers are rounded down
-                                // (15-bit floats), and lowering a value a child
-                                // just returned above its threshold would make
-                                // the loop re-select it forever.
-                                c.phi = c.phi.max(from_tt(p));
-                                c.delta = c.delta.max(from_tt(d));
-                            }
+                        if c.phi != 0
+                            && c.delta != 0
+                            && let Some((p, d)) = self.tt.probe_numbers(c.key)
+                        {
+                            // Only ever raise: TT numbers are rounded down
+                            // (15-bit floats), and lowering a value a child
+                            // just returned above its threshold would make
+                            // the loop re-select it forever.
+                            c.phi = c.phi.max(from_tt(p));
+                            c.delta = c.delta.max(from_tt(d));
                         }
                     }
                 }
@@ -2353,11 +2429,11 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
         let passes = if self.shadow_pos.consecutive_passes() > 0 { PASS_KEY } else { 0 };
         let key = canon ^ stm ^ passes;
         for k in [key, key ^ ALT_KEYS[0], key ^ ALT_KEYS[1], key ^ ssig] {
-            if let Some(e) = self.tt.probe(k) {
-                if e.status == PnStatus::Win {
-                    let pv = e.pv as usize;
-                    return Some(if pv < NPOINTS { self.sym_map[sym_inverse(sym)][pv] } else { pv });
-                }
+            if let Some(e) = self.tt.probe(k)
+                && e.status == PnStatus::Win
+            {
+                let pv = e.pv as usize;
+                return Some(if pv < NPOINTS { self.sym_map[sym_inverse(sym)][pv] } else { pv });
             }
         }
         None
@@ -2372,10 +2448,10 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
         let key = self.key_of(canon);
         let k2 = self.key2(sym);
         for k in [key, key ^ ALT_KEYS[0], key ^ ALT_KEYS[1]] {
-            if let Some(e) = self.tt.probe(k).filter(|e| e.status == PnStatus::Win && e.check == k2) {
-                if self.transfers(&e, sym) {
-                    return Some(e);
-                }
+            if let Some(e) = self.tt.probe(k).filter(|e| e.status == PnStatus::Win && e.check == k2)
+                && self.transfers(&e, sym)
+            {
+                return Some(e);
             }
         }
         self.tt
@@ -2415,10 +2491,10 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
                     let Ok(st) = self.do_move(mv) else { continue };
                     let work = self.stored_win().map(|e| e.work);
                     self.undo(mv, &st);
-                    if let Some(w) = work {
-                        if best.is_none_or(|(bw, _)| w > bw) {
-                            best = Some((w, k));
-                        }
+                    if let Some(w) = work
+                        && best.is_none_or(|(bw, _)| w > bw)
+                    {
+                        best = Some((w, k));
                     }
                 }
                 match best {
@@ -2710,6 +2786,297 @@ fn run_worker<const ROWS: usize, const COLS: usize, const LANES: usize, const NP
             last = (phi, delta);
         }
     }
+}
+
+/// Outcome of [`solve_dfpn_resumable`].
+#[derive(Clone, Debug)]
+pub struct ResumableResult {
+    /// This segment's result. Its statistics cover this segment only.
+    pub result: DfpnResult,
+    /// The search stopped at `stop_after` before the root was decided.
+    pub stopped: bool,
+    /// The segment's number: 1 for a fresh run, else one more than the
+    /// resumed checkpoint's.
+    pub segment: u64,
+    /// Expansions and seconds of the earlier segments (0 for a fresh run).
+    pub earlier_nodes: u64,
+    pub earlier_seconds: f64,
+    /// Snapshots written by this segment.
+    pub snapshots: u64,
+    /// The error of the last snapshot, if it failed.
+    pub snapshot_error: Option<String>,
+}
+
+/// Marks a worker as returned when dropped, also when it unwinds, so that a
+/// snapshot never waits for a worker that is gone.
+struct Leaving<'a>(&'a Shared);
+
+impl Drop for Leaving<'_> {
+    fn drop(&mut self) {
+        self.0.leave();
+    }
+}
+
+/// The checkpoint side of a resumable solve: periodic snapshots and the stop.
+struct Snapshots<'a> {
+    opts: &'a CheckpointOptions,
+    header: CheckpointHeader,
+    started: Instant,
+    segment: u64,
+    earlier_nodes: u64,
+    earlier_seconds: f64,
+    io_threads: usize,
+    written: u64,
+    error: Option<String>,
+    stopped: bool,
+}
+
+impl Snapshots<'_> {
+    /// Write a snapshot of `tt` while the workers are parked, if the run
+    /// writes any.
+    fn snapshot(&mut self, tt: &PnTable, sh: &Shared) {
+        let Some(path) = &self.opts.write else { return };
+        let mut h = self.header.clone();
+        h.set("segments", self.segment);
+        h.set("nodes", self.earlier_nodes + sh.nodes.load(Ordering::Relaxed));
+        h.set("seconds", format!("{:.1}", self.earlier_seconds + self.started.elapsed().as_secs_f64()));
+        h.set("written_unix", SystemTime::now().duration_since(UNIX_EPOCH).map_or(0, |d| d.as_secs()));
+        let t = Instant::now();
+        match checkpoint::write_snapshot(tt, &h, path, self.io_threads) {
+            Ok(()) => {
+                self.written += 1;
+                self.error = None;
+                eprintln!(
+                    "[checkpoint] wrote {} ({:.1} GiB in {:.1} s)",
+                    path.display(),
+                    tt.bytes() as f64 / f64::from(1u32 << 30),
+                    t.elapsed().as_secs_f64()
+                );
+            }
+            Err(e) => {
+                eprintln!("[checkpoint] snapshot failed: {e}");
+                self.error = Some(e.to_string());
+            }
+        }
+    }
+
+    /// Run until every worker has returned: a snapshot every `every` (with
+    /// `write`), and at `stop_after` a last snapshot and the stop.
+    fn coordinate(&mut self, tt: &PnTable, sh: &Shared) {
+        let every = self.opts.write.as_ref().and(self.opts.every);
+        let mut next = every.map(|d| Instant::now() + d);
+        let mut stop_at = self.opts.stop_after.map(|d| self.started + d);
+        loop {
+            let now = Instant::now();
+            let step = [next, stop_at]
+                .into_iter()
+                .flatten()
+                .map(|t| t.saturating_duration_since(now))
+                .fold(Duration::from_millis(500), Duration::min)
+                .max(Duration::from_millis(1));
+            if sh.wait_done(step) {
+                return;
+            }
+            let now = Instant::now();
+            if stop_at.is_some_and(|t| now >= t) {
+                if sh.pause_all() && !sh.stop.load(Ordering::Relaxed) {
+                    self.snapshot(tt, sh);
+                    self.stopped = true;
+                }
+                sh.stop.store(true, Ordering::Relaxed);
+                sh.resume_all();
+                (stop_at, next) = (None, None);
+            } else if next.is_some_and(|t| now >= t) {
+                if sh.pause_all() && !sh.stop.load(Ordering::Relaxed) {
+                    self.snapshot(tt, sh);
+                }
+                sh.resume_all();
+                next = every.map(|d| Instant::now() + d);
+            }
+        }
+    }
+}
+
+/// `search_all` with a checkpoint coordinator on the calling thread. Workers
+/// always run on their own threads, also a single one.
+fn search_checkpointed<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: usize>(
+    prefix: &[Move<ROWS, COLS>],
+    tt: &PnTable,
+    sc: &StaticCache,
+    cfg: DfpnConfig,
+    sh: &Shared,
+    snaps: &mut Snapshots<'_>,
+) -> DfpnResult {
+    let root_stm = Searcher::<ROWS, COLS, LANES, NPOINTS>::new(prefix, tt, sc, cfg, sh, usize::MAX).pos.to_move();
+    let workers = cfg.threads.max(1);
+    sh.gate.lock().expect("gate lock").active = workers;
+    let results: Vec<DfpnResult> = std::thread::scope(|scope| {
+        // Collect first: spawning lazily inside the join loop would serialize workers.
+        #[allow(clippy::needless_collect)]
+        let handles: Vec<_> = (0..workers)
+            .map(|tid| {
+                std::thread::Builder::new()
+                    .stack_size(1 << 30)
+                    .spawn_scoped(scope, move || {
+                        let _leaving = Leaving(sh);
+                        run_worker::<ROWS, COLS, LANES, NPOINTS>(prefix, tt, sc, cfg, sh, tid)
+                    })
+                    .expect("spawn worker")
+            })
+            .collect();
+        snaps.coordinate(tt, sh);
+        handles.into_iter().map(|h| h.join().expect("worker panicked")).collect()
+    });
+    let mut stats = DfpnStats::default();
+    for r in &results {
+        stats.merge(&r.stats);
+    }
+    let verdict = *sh.result.lock().expect("result lock");
+    let winner = verdict.and_then(|stm_wins| reported(cfg, if stm_wins { root_stm } else { root_stm.opponent() }));
+    DfpnResult { winner, stats, root_move: None, pv: Vec::new() }
+}
+
+/// The settings that a checkpoint of this run records. Those of
+/// `checkpoint::MUST_MATCH` must agree for a resume. The rest steer the search
+/// without changing what a proof means and are recorded for reference.
+fn run_header<const ROWS: usize, const COLS: usize>(
+    prefix: &[Move<ROWS, COLS>],
+    cfg: DfpnConfig,
+    build: &str,
+    layout: crate::pntt::Layout,
+    proof_buckets: usize,
+) -> CheckpointHeader {
+    let mut h = CheckpointHeader::default();
+    h.set("build", build);
+    h.set("board", format!("{ROWS}x{COLS}"));
+    h.set("komi_times_two", cfg.komi_times_two);
+    h.set("moves", prefix.iter().map(|m| m.encode().to_string()).collect::<Vec<_>>().join(","));
+    h.set(
+        "prune_for",
+        match cfg.prune_for {
+            Some(Color::Black) => "black",
+            Some(Color::White) => "white",
+            None => "none",
+        },
+    );
+    h.set("keep_tempo", cfg.keep_tempo);
+    h.set("exact_only", cfg.exact_only);
+    h.set("no_static", cfg.no_static);
+    h.set("region_solver", cfg.region_solver);
+    h.set("region_max", cfg.region_max);
+    h.set("region_interior", cfg.region_interior);
+    h.set("atari_dead", sanko_core::atari_dead());
+    h.set("layout", layout.name());
+    h.set("unproven_buckets", 1u64 << cfg.tt_log_buckets);
+    h.set("proof_buckets", proof_buckets);
+    h.set("eps", cfg.eps);
+    h.set("simulate", cfg.simulate);
+    h.set("threads", cfg.threads);
+    h
+}
+
+/// [`solve_dfpn`] with checkpoints (see [`crate::checkpoint`]). It continues
+/// from `opts.resume` when given (the same build, problem and table sizes, or
+/// an error), writes a snapshot to `opts.write` every `opts.every`, and after
+/// `opts.stop_after` writes a last one and stops. A snapshot pauses the search
+/// without changing it, so serial runs stay deterministic between resumes.
+pub fn solve_dfpn_resumable<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: usize>(
+    prefix: &[Move<ROWS, COLS>],
+    cfg: DfpnConfig,
+    opts: &CheckpointOptions,
+) -> Result<ResumableResult, CheckpointError> {
+    let prefix = prefix.to_vec();
+    let opts = opts.clone();
+    std::thread::Builder::new()
+        .stack_size(1 << 30)
+        .spawn(move || resumable_inner::<ROWS, COLS, LANES, NPOINTS>(&prefix, cfg, &opts))
+        .expect("spawn solver thread")
+        .join()
+        .expect("solver thread panicked")
+}
+
+fn resumable_inner<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: usize>(
+    prefix: &[Move<ROWS, COLS>],
+    cfg: DfpnConfig,
+    opts: &CheckpointOptions,
+) -> Result<ResumableResult, CheckpointError> {
+    assert!(NPOINTS <= 49, "boards above 49 points need wider keys");
+    let started = Instant::now();
+    let layout = crate::pntt::Layout::for_points(NPOINTS);
+    let proof_buckets = if cfg.proof_buckets > 0 { cfg.proof_buckets as usize } else { 1usize << cfg.proof_log };
+    let header = run_header(prefix, cfg, &opts.build, layout, proof_buckets);
+    if let Some(w) = &opts.write
+        && w.exists()
+        && !opts.resume.as_deref().is_some_and(|r| checkpoint::same_file(r, w))
+    {
+        return Err(CheckpointError::Refused(format!(
+            "{} exists and is not the checkpoint being resumed: resume from it or remove it",
+            w.display()
+        )));
+    }
+    let resumed = match &opts.resume {
+        Some(path) => {
+            let h = checkpoint::read_checkpoint_header(path)?;
+            let diff = h.mismatches(&header);
+            if !diff.is_empty() {
+                return Err(CheckpointError::Refused(format!(
+                    "{} belongs to a different run:\n  {}",
+                    path.display(),
+                    diff.join("\n  ")
+                )));
+            }
+            Some((path, h))
+        }
+        None => None,
+    };
+    let io_threads = cfg.threads.clamp(1, 32);
+    let tt = PnTable::with_sizes(cfg.tt_log_buckets, proof_buckets, layout, cfg.threads);
+    let (segment, earlier_nodes, earlier_seconds) = match &resumed {
+        Some((path, h)) => {
+            let t = Instant::now();
+            checkpoint::load_snapshot(&tt, h, path, io_threads)?;
+            eprintln!(
+                "[checkpoint] resumed {} ({:.1} GiB in {:.1} s)",
+                path.display(),
+                tt.bytes() as f64 / f64::from(1u32 << 30),
+                t.elapsed().as_secs_f64()
+            );
+            (h.number("segments") + 1, h.number("nodes"), h.get("seconds").and_then(|v| v.parse().ok()).unwrap_or(0.0))
+        }
+        None => (1, 0, 0.0),
+    };
+    let sc = StaticCache::new(cfg.static_cache_log_slots, cfg.threads);
+    let sh = Shared::new(cfg.threads);
+    let mut snaps = Snapshots {
+        opts,
+        header,
+        started,
+        segment,
+        earlier_nodes,
+        earlier_seconds,
+        io_threads,
+        written: 0,
+        error: None,
+        stopped: false,
+    };
+    let mut res = search_checkpointed::<ROWS, COLS, LANES, NPOINTS>(prefix, &tt, &sc, cfg, &sh, &mut snaps);
+    if let Some(w) = res.winner {
+        let quiet = Shared::new(1);
+        let mut s = Searcher::<ROWS, COLS, LANES, NPOINTS>::new(prefix, &tt, &sc, cfg, &quiet, 1);
+        if w == s.pos.to_move() {
+            res.root_move = s.stored_win_move();
+        }
+        res.pv = s.principal_variation(w, 300);
+    }
+    Ok(ResumableResult {
+        result: res,
+        stopped: snaps.stopped,
+        segment,
+        earlier_nodes,
+        earlier_seconds,
+        snapshots: snaps.written,
+        snapshot_error: snaps.error,
+    })
 }
 
 #[cfg(test)]

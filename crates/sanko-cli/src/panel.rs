@@ -242,10 +242,11 @@ fn marks(ctx: &Context, p: &Progress) -> (Vec<Option<Mark>>, Option<Mark>) {
     }
     // Moves merged with a symmetric one share its value.
     for i in 0..points {
-        if marks[i].is_none() && ctx.cells[i].is_none() {
-            if let Some(m) = p.root_symmetries.iter().find_map(|map| map.get(i).and_then(|&j| marks.get(j).copied().flatten())) {
-                marks[i] = Some(if m == Mark::Focus { Mark::Open(0) } else { m });
-            }
+        if marks[i].is_none()
+            && ctx.cells[i].is_none()
+            && let Some(m) = p.root_symmetries.iter().find_map(|map| map.get(i).and_then(|&j| marks.get(j).copied().flatten()))
+        {
+            marks[i] = Some(if m == Mark::Focus { Mark::Open(0) } else { m });
         }
     }
     (marks, pass)

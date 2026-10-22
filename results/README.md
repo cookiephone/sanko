@@ -18,4 +18,5 @@ The record runs used Sanko 0.4.1, source fingerprint `63014da88da067d1`. The sol
 - **Pruned runs** (`--prune-for black|white`) skip the pruned side's own eye fills and moves inside its own territory, except for one kept tempo move per node. They can only prove a win for that side. Any other outcome is reported as unknown (`winner: None`). Unpruned runs are trusted in both directions.
 - **Moves** in commands are Go coordinates or `rc` digits (row 0 at the top), or `pass`. The table shows Go coordinates (A1 at the bottom left, no I).
 - **Split proofs.** The upper bounds of 3×10 and 5×6 are proved with one White-pruned run per symmetry-unique first move of Black.
+- **The 1+ε rule.** Every run here used the default `--eps 0.3` of versions up to 0.5.2, which the commands in `runs.md` leave implicit. Later versions default to 0.15, so add `--eps 0.3` to repeat a run's expansion count. The winner does not depend on it.
 - **Times** are wall-clock and include setting up the tables, which takes about 50 seconds with 0.4.1 (one thread) and about 10 seconds with 0.4.2 and later.

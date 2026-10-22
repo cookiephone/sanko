@@ -10,13 +10,14 @@ mod ui;
 
 use std::fmt::Write as _;
 use std::io::IsTerminal;
+use std::path::PathBuf;
 use std::process::ExitCode;
-use std::time::Instant;
+use std::time::{Duration, Instant};
 
 use clap::error::ErrorKind;
 use clap::{Args, CommandFactory, Parser, Subcommand, ValueEnum};
 use sanko_core::{Color, HashHistory, Move, PlayError, Point, Position, Rng};
-use sanko_search::{DfpnConfig, DfpnResult, solve_dfpn};
+use sanko_search::{CheckpointOptions, DfpnConfig, DfpnResult, ResumableResult, solve_dfpn};
 
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 const SOURCE: &str = env!("SANKO_SOURCE");
@@ -101,6 +102,8 @@ Benchmark suite: --bench-n positions reached from --moves by --bench-plies rando
 stone moves (seeded by --rng-seed), each solved with the given options and a node limit.
 Serial runs are deterministic, so two configurations can be compared problem by problem.")]
     Bench(BenchArgs),
+    /// Inspect a checkpoint written by --checkpoint.
+    Checkpoint(CheckpointCmd),
     /// Fit the learned prior to proof dumps (from --dump-proofs) and print its weights.
     #[command(long_about = "\
 Fit the learned prior to proof dumps written by solves with --dump-proofs. The model is a
@@ -108,6 +111,21 @@ logistic regression of the winner on the prior's board features, fitted by Newto
 with every dump weighted equally. The weights are printed as a --prior-weights argument.
 With --validate, each dump is also predicted by a model fitted to the other dumps.")]
     Train(TrainArgs),
+}
+
+#[derive(Args, Debug)]
+struct CheckpointCmd {
+    #[command(subcommand)]
+    action: CheckpointAction,
+}
+
+#[derive(Subcommand, Debug)]
+enum CheckpointAction {
+    /// Print a checkpoint's header: build, problem, table sizes, segments, expansions and time so far.
+    Info {
+        /// The checkpoint file.
+        path: PathBuf,
+    },
 }
 
 #[derive(Args, Debug)]
@@ -181,7 +199,7 @@ struct SolverArgs {
     #[arg(long, help_heading = "Knowledge")]
     eye_komi: bool,
     /// Growth factor of the 1+ε rule for child thresholds (0 = plain df-pn).
-    #[arg(long, value_name = "E", default_value_t = 0.3, help_heading = "Search")]
+    #[arg(long, value_name = "E", default_value_t = 0.15, help_heading = "Search")]
     eps: f64,
     /// Worker threads sharing one table.
     #[arg(long, value_name = "N", default_value_t = 1, help_heading = "Search")]
@@ -268,7 +286,56 @@ struct SolveOptions {
     #[arg(long, value_name = "N", default_value_t = 100, help_heading = "Output")]
     dump_rate: u64,
     #[command(flatten)]
+    checkpoints: CheckpointArgs,
+    #[command(flatten)]
     output: OutputArgs,
+}
+
+/// Snapshots of the search state, to continue a long solve in a later run.
+#[derive(Args, Debug, Clone)]
+#[command(next_help_heading = "Checkpoints")]
+struct CheckpointArgs {
+    /// Write snapshots of the search to PATH, every --checkpoint-every and at --stop-after. An
+    /// existing PATH is refused unless it is also the --resume file.
+    #[arg(long, value_name = "PATH")]
+    checkpoint: Option<PathBuf>,
+    /// Continue the search from the snapshot at PATH (same build, problem and table sizes).
+    #[arg(long, value_name = "PATH")]
+    resume: Option<PathBuf>,
+    /// With --checkpoint: time between snapshots, such as 90m, 6h or 1d12h.
+    #[arg(long, value_name = "DURATION", default_value = "6h", value_parser = parse_duration)]
+    checkpoint_every: Duration,
+    /// Stop after this much wall time, with a last snapshot if --checkpoint is given (exit code 75
+    /// when one was written, the result is then unknown).
+    #[arg(long, value_name = "DURATION", value_parser = parse_duration)]
+    stop_after: Option<Duration>,
+}
+
+/// A duration such as `90m`, `6h`, `1d12h` or `3600s` (units d, h, m and s).
+fn parse_duration(s: &str) -> Result<Duration, String> {
+    let bad = || format!("not a duration: {s} (use e.g. 90m, 6h or 1d12h)");
+    let (mut total, mut num, mut units) = (0u64, String::new(), 0);
+    for ch in s.trim().chars() {
+        if ch.is_ascii_digit() {
+            num.push(ch);
+            continue;
+        }
+        let unit = match ch {
+            'd' => 86_400,
+            'h' => 3_600,
+            'm' => 60,
+            's' => 1,
+            _ => return Err(bad()),
+        };
+        let n: u64 = num.parse().map_err(|_| bad())?;
+        total = n.checked_mul(unit).and_then(|v| total.checked_add(v)).ok_or_else(bad)?;
+        num.clear();
+        units += 1;
+    }
+    if !num.is_empty() || units == 0 || total == 0 {
+        return Err(bad());
+    }
+    Ok(Duration::from_secs(total))
 }
 
 /// Where the initial proof and disproof numbers of new nodes come from.
@@ -459,7 +526,21 @@ fn main() -> ExitCode {
         Some(Command::Staticcheck(a)) => staticcheck_cmd(&a),
         Some(Command::Pskcheck(a)) => pskcheck_cmd(&a),
         Some(Command::Bench(a)) => bench_cmd(&a),
+        Some(Command::Checkpoint(c)) => checkpoint_cmd(&c),
         Some(Command::Train(a)) => train_cmd(&a),
+    }
+}
+
+/// `sanko checkpoint`: inspect a checkpoint.
+fn checkpoint_cmd(c: &CheckpointCmd) -> ExitCode {
+    match &c.action {
+        CheckpointAction::Info { path } => match sanko_search::read_checkpoint_header(path) {
+            Ok(h) => {
+                print!("{h}");
+                ExitCode::SUCCESS
+            }
+            Err(e) => fail(&e.to_string()),
+        },
     }
 }
 
@@ -469,7 +550,7 @@ fn train_cmd(a: &TrainArgs) -> ExitCode {
     let label = RECORD_FLOATS - 2;
     let black_share = |d: &[f32]| {
         let n = d.len() / RECORD_FLOATS;
-        d.chunks_exact(RECORD_FLOATS).filter(|r| r[label] > 0.5).count() as f64 / n.max(1) as f64
+        d.as_chunks::<RECORD_FLOATS>().0.iter().filter(|r| r[label] > 0.5).count() as f64 / n.max(1) as f64
     };
     let mut sets = Vec::new();
     for path in &a.dumps {
@@ -483,7 +564,7 @@ fn train_cmd(a: &TrainArgs) -> ExitCode {
             eprintln!("note: {}: ignoring a partial last record ({} bytes)", path.display(), bytes.len() - whole);
         }
         let data: Vec<f32> =
-            bytes[..whole].chunks_exact(4).map(|c| f32::from_le_bytes([c[0], c[1], c[2], c[3]])).collect();
+            bytes[..whole].as_chunks::<4>().0.iter().map(|c| f32::from_le_bytes(*c)).collect();
         println!(
             "{}: {} records, Black wins {:.3}",
             path.display(),
@@ -721,10 +802,21 @@ fn solve_on<const R: usize, const C: usize, const L: usize, const N: usize>(a: &
             prior_label(&cfg),
         );
     }
-    if let Some(path) = &a.dump_proofs {
-        if let Err(e) = sanko_search::enable_proof_dump(path, a.dump_rate) {
-            return fail(&format!("cannot write {path}: {e}"));
-        }
+    if let Some(path) = &a.dump_proofs
+        && let Err(e) = sanko_search::enable_proof_dump(path, a.dump_rate)
+    {
+        return fail(&format!("cannot write {path}: {e}"));
+    }
+    let ck = &a.checkpoints;
+    if ck.checkpoint.is_some() || ck.resume.is_some() || ck.stop_after.is_some() {
+        let opts = CheckpointOptions {
+            write: ck.checkpoint.clone(),
+            resume: ck.resume.clone(),
+            every: Some(ck.checkpoint_every),
+            stop_after: ck.stop_after,
+            build: LONG_VERSION.to_string(),
+        };
+        return solve_resumable::<R, C, L, N>(a, &cfg, &opts, &root, &hist, &moves, pretty, live);
     }
     let started = Instant::now();
     let r = solve_dfpn::<R, C, L, N>(&moves, cfg);
@@ -739,6 +831,75 @@ fn solve_on<const R: usize, const C: usize, const L: usize, const N: usize>(a: &
         solve_plain::<R, C, L, N>(&root, &hist, &r, el);
     }
     ExitCode::SUCCESS
+}
+
+/// A solve with checkpoints (see `CheckpointArgs`): the report, then the
+/// checkpoint lines. Exit code 75 when it stopped with a snapshot written.
+#[allow(clippy::too_many_arguments)]
+fn solve_resumable<const R: usize, const C: usize, const L: usize, const N: usize>(
+    a: &SolveOptions,
+    cfg: &DfpnConfig,
+    opts: &CheckpointOptions,
+    root: &Position<R, C, L, N>,
+    hist: &HashHistory,
+    moves: &[Move<R, C>],
+    pretty: bool,
+    live: bool,
+) -> ExitCode {
+    let started = Instant::now();
+    let rr = sanko_search::solve_dfpn_resumable::<R, C, L, N>(moves, *cfg, opts);
+    sanko_search::flush_proof_dump();
+    let el = started.elapsed().as_secs_f64();
+    if live {
+        panel::clear();
+    }
+    let rr = match rr {
+        Ok(rr) => rr,
+        Err(e) => return fail(&e.to_string()),
+    };
+    if pretty {
+        solve_report::<R, C, L, N>(a, cfg, root, hist, &rr.result, el);
+    } else {
+        solve_plain::<R, C, L, N>(root, hist, &rr.result, el);
+    }
+    checkpoint_report(opts, &rr, el);
+    if rr.stopped && rr.snapshot_error.is_some() {
+        ExitCode::from(1)
+    } else if rr.stopped && opts.write.is_some() {
+        ExitCode::from(75)
+    } else {
+        ExitCode::SUCCESS
+    }
+}
+
+/// The checkpoint lines after a solve's report (plain format in both modes).
+fn checkpoint_report(opts: &CheckpointOptions, rr: &ResumableResult, el: f64) {
+    if let Some(p) = &opts.resume {
+        println!(
+            "checkpoint: resumed {} as segment {} (earlier segments: {} expansions, {:.1}s)",
+            p.display(),
+            rr.segment,
+            rr.earlier_nodes,
+            rr.earlier_seconds
+        );
+    }
+    if let Some(p) = &opts.write {
+        println!("checkpoint: {} snapshots written to {}", rr.snapshots, p.display());
+    }
+    if let Some(e) = &rr.snapshot_error {
+        println!("checkpoint: the last snapshot failed: {e}");
+    }
+    if rr.stopped {
+        println!("stopped: --stop-after reached before a result");
+    }
+    if rr.segment > 1 {
+        println!(
+            "total: {} expansions, {:.1}s over {} segments",
+            rr.earlier_nodes + rr.result.stats.nodes,
+            rr.earlier_seconds + el,
+            rr.segment
+        );
+    }
 }
 
 /// Replay move codes from `root`: the final position, the last stone move, the
@@ -1409,10 +1570,11 @@ fn pskcheck_on<const R: usize, const C: usize, const L: usize, const N: usize>(a
         let mut only_psk = Vec::new();
         for k in 0..N {
             let p = Point::<R, C>::from_index_unchecked(k);
-            if let Some(h) = pos.board_key_after(p) {
-                if hist.contains(h) && Some(h) != before_opp {
-                    only_psk.push(p);
-                }
+            if let Some(h) = pos.board_key_after(p)
+                && hist.contains(h)
+                && Some(h) != before_opp
+            {
+                only_psk.push(p);
             }
         }
         if !only_psk.is_empty() {

@@ -306,6 +306,16 @@ impl Layout {
             Self::Narrow
         }
     }
+
+    /// The layout's name (`narrow`, `mid` or `wide`), as checkpoints record it.
+    #[must_use]
+    pub const fn name(self) -> &'static str {
+        match self {
+            Self::Narrow => "narrow",
+            Self::Mid => "mid",
+            Self::Wide => "wide",
+        }
+    }
 }
 
 /// One self-validating proof entry of `W` data words.
@@ -387,6 +397,24 @@ fn fraction(part: u64, whole: u64) -> f64 {
     if whole == 0 { 0.0 } else { part as f64 / whole as f64 }
 }
 
+/// Append a proof bucket's words: each slot's `xkey`, then its data words.
+fn push_slots<const W: usize>(slots: &[Slot<W>; 4], out: &mut Vec<u64>) {
+    for s in slots {
+        out.push(s.xkey.load(Ordering::Relaxed));
+        out.extend(s.w.iter().map(|w| w.load(Ordering::Relaxed)));
+    }
+}
+
+/// Store a proof bucket's words, in the order of `push_slots`.
+fn store_slots<const W: usize>(slots: &[Slot<W>; 4], words: &[u64]) {
+    for (s, ws) in slots.iter().zip(words.chunks_exact(1 + W)) {
+        s.xkey.store(ws[0], Ordering::Relaxed);
+        for (w, &v) in s.w.iter().zip(&ws[1..]) {
+            w.store(v, Ordering::Relaxed);
+        }
+    }
+}
+
 /// splitmix64 finalizer (bijective, non-linear), for [`PnTable::seal`].
 #[inline]
 const fn seal_mix(x: u64) -> u64 {
@@ -454,6 +482,53 @@ impl PnTable {
         self.unproven.len() * std::mem::size_of::<UBucket>()
             + self.proofs.len() * std::mem::size_of::<PBucket<NW>>()
             + self.wproofs.len() * std::mem::size_of::<PBucket<WW>>()
+    }
+
+    /// The storage as two runs of buckets, for checkpoints: the unproven
+    /// buckets (part 0) and the proof buckets (part 1), each as `(buckets,
+    /// words per bucket)`. A bucket's words are its slots in order, and a proof
+    /// slot is its `xkey` followed by its data words.
+    pub(crate) const fn parts(&self) -> [(usize, usize); 2] {
+        let proof = if self.wide { (self.wproofs.len(), 4 * (1 + WW)) } else { (self.proofs.len(), 4 * (1 + NW)) };
+        [(self.unproven.len(), 8), proof]
+    }
+
+    /// Append the words of the buckets `range` of `part` (see [`Self::parts`])
+    /// to `out`. Callers must keep writers away (checkpoints pause the search).
+    pub(crate) fn read_buckets(&self, part: usize, range: std::ops::Range<usize>, out: &mut Vec<u64>) {
+        if part == 0 {
+            for b in &self.unproven[range] {
+                out.extend(b.slots.iter().map(|s| s.load(Ordering::Relaxed)));
+            }
+        } else if self.wide {
+            for b in &self.wproofs[range] {
+                push_slots(&b.slots, out);
+            }
+        } else {
+            for b in &self.proofs[range] {
+                push_slots(&b.slots, out);
+            }
+        }
+    }
+
+    /// Overwrite the buckets of `part` from bucket `first` on with `words`
+    /// (whole buckets, in the order of [`Self::read_buckets`]).
+    pub(crate) fn write_buckets(&self, part: usize, first: usize, words: &[u64]) {
+        if part == 0 {
+            for (b, ws) in self.unproven[first..].iter().zip(words.as_chunks::<8>().0) {
+                for (s, &w) in b.slots.iter().zip(ws) {
+                    s.store(w, Ordering::Relaxed);
+                }
+            }
+        } else if self.wide {
+            for (b, ws) in self.wproofs[first..].iter().zip(words.as_chunks::<{ 4 * (1 + WW) }>().0) {
+                store_slots(&b.slots, ws);
+            }
+        } else {
+            for (b, ws) in self.proofs[first..].iter().zip(words.as_chunks::<{ 4 * (1 + NW) }>().0) {
+                store_slots(&b.slots, ws);
+            }
+        }
     }
 
     /// Occupancy estimated from up to `samples` buckets of each part, spread

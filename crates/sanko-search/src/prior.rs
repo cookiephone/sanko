@@ -84,7 +84,7 @@ pub fn fit(datasets: &[&[f32]], l2: f64) -> [f32; PRIOR_FEATURES] {
         let mut grad = [0.0; F];
         let mut hess = [[0.0; F]; F];
         for &(set, share) in &sets {
-            for rec in set.chunks_exact(RECORD_FLOATS) {
+            for rec in set.as_chunks::<RECORD_FLOATS>().0 {
                 let prob = sigmoid(dot(&weights, &rec[..F]));
                 let err = share * (prob - f64::from(rec[F]));
                 let curv = share * prob * (1.0 - prob);
@@ -120,7 +120,7 @@ pub fn fit(datasets: &[&[f32]], l2: f64) -> [f32; PRIOR_FEATURES] {
 pub fn evaluate(weights: &[f32; PRIOR_FEATURES], data: &[f32]) -> (f64, f64) {
     let wide = weights.map(f64::from);
     let (mut loss, mut right, mut count) = (0.0, 0usize, 0usize);
-    for rec in data.chunks_exact(RECORD_FLOATS) {
+    for rec in data.as_chunks::<RECORD_FLOATS>().0 {
         let prob = sigmoid(dot(&wide, &rec[..F])).clamp(1e-6, 1.0 - 1e-6);
         let black = rec[F] > 0.5;
         loss -= if black { prob.ln() } else { (1.0 - prob).ln() };

@@ -8,7 +8,7 @@ This crate is the command-line solver. The search is in [`sanko-search`](https:/
 
 ## Install
 
-Requires Rust 1.87 or later.
+Requires Rust 1.88 or later.
 
 ```sh
 cargo install sanko
@@ -48,16 +48,20 @@ On a terminal, Sanko shows a live panel and board diagrams. With `--plain`, or w
 | `--proof-gib G` | proof table of G GiB, any size |
 | `--node-limit N` | stop after N expansions (result unknown) |
 | `--prior learned\|eye` | initial proof numbers from the learned prior (default) or from White's eye space |
-| `--eps E` | growth factor of the 1+ε rule (default 0.3) |
+| `--eps E` | growth factor of the 1+ε rule (default 0.15, 0.3 up to version 0.5.2) |
 | `--simulate N` | simulation of sibling proofs, at most N nodes per attempt (default 100, 0 turns it off) |
+| `--checkpoint PATH`, `--checkpoint-every D` | write snapshots of the search to PATH every D (default 6h) and at `--stop-after` |
+| `--resume PATH` | continue from a snapshot (same build, problem and table sizes) |
+| `--stop-after D` | stop after D of wall time (such as 9d23h), with a last snapshot when writing them (exit code 75) |
 
-The repository README gives the settings of the reported runs and the table sizes they used.
+The repository README gives the settings of the reported runs and the table sizes they used, and explains long runs in segments with checkpoints.
 
 Other commands:
 
 - `sanko selftest` solves random positions (random legal games, so real superko histories, and random komi) with the full solver and with an oracle that reuses results only on the identical game. `--oracle-no-static` also removes all static knowledge from the oracle.
 - `sanko staticcheck` sets the komi exactly at the point where a static rule declares a winner and checks the verdict against search.
 - `sanko pskcheck --moves ...` replays a game and lists the moves that superko forbids but basic ko would allow.
+- `sanko checkpoint info PATH` prints a checkpoint's header: build, problem, table sizes, and the expansions and time so far.
 - `sanko bench` solves seeded random positions near a prefix, for comparing options.
 - `sanko train` fits the learned prior.
 

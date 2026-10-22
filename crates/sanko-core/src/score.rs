@@ -30,6 +30,12 @@ pub fn set_atari_dead(on: bool) {
     ATARI_DEAD.store(on, AtomicOrdering::Relaxed);
 }
 
+/// Whether the atari-dead terminal convention is on (see `set_atari_dead`).
+#[must_use]
+pub fn atari_dead() -> bool {
+    ATARI_DEAD.load(AtomicOrdering::Relaxed)
+}
+
 /// Area-score `(black, white)` at any position. Counts stones plus
 /// single-color empty regions.
 #[must_use]
