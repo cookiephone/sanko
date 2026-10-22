@@ -11,6 +11,22 @@ The search of [Sanko](https://github.com/cookiephone/sanko), a solver for Go on 
 
 The API serves the [`sanko`](https://crates.io/crates/sanko) solver and is not stable: it may change in any 0.x release.
 
+## Citation
+
+Sanko is described in the paper [*Solving Go under Positional Superko: Sound Proof Transfer and New Board Values*](https://arxiv.org/abs/2610.29414). If you use it, please cite:
+
+```bibtex
+@misc{kharma2026solvingpositionalsuperkosound,
+  title={Solving Go under Positional Superko: Sound Proof Transfer and New Board Values},
+  author={Sami Kharma and Florian Schintke},
+  year={2026},
+  eprint={2610.29414},
+  archivePrefix={arXiv},
+  primaryClass={cs.AI},
+  url={https://arxiv.org/abs/2610.29414},
+}
+```
+
 ## License
 
 Apache License 2.0, see [`LICENSE`](https://github.com/cookiephone/sanko/blob/HEAD/LICENSE).

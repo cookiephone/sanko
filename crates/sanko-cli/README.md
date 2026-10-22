@@ -1,8 +1,8 @@
 # Sanko
 
-[![Paper](https://img.shields.io/badge/paper-arXiv%20preprint%20coming%20soon-b31b1b.svg)](#citation)
+[![arXiv](https://img.shields.io/badge/arXiv-2610.29414-b31b1b.svg)](https://arxiv.org/abs/2610.29414)
 
-Sanko solves Go on small rectangular boards under positional superko (PSK), the repetition rule of the Chinese rules, with area scoring and no suicide. It is the solver behind the paper *Solving Go under Positional Superko: Sound Proof Transfer and New Board Values* (Sami Kharma and Florian Schintke, preprint to appear on arXiv, see [Citation](#citation)). It established the PSK values of 23 boards, 11 of which had no earlier value under any rules, among them 1×18, 2×15 and 3×10.
+Sanko solves Go on small rectangular boards under positional superko (PSK), the repetition rule of the Chinese rules, with area scoring and no suicide. It is the solver behind the paper *Solving Go under Positional Superko: Sound Proof Transfer and New Board Values* (Sami Kharma and Florian Schintke, [arXiv:2610.29414](https://arxiv.org/abs/2610.29414), see [Citation](#citation)). It established the PSK values of 24 boards, 12 of which had no earlier value under any rules, among them 1×18, 2×15, 3×10 and 4×8, the first board above 30 points with a value.
 
 This crate is the command-line solver. The search is in [`sanko-search`](https://crates.io/crates/sanko-search) and the rules engine in [`sanko-core`](https://crates.io/crates/sanko-core). The source, the logs of every run behind the board values and the full documentation are at [github.com/cookiephone/sanko](https://github.com/cookiephone/sanko).
 
@@ -63,7 +63,19 @@ Other commands:
 
 ## Citation
 
-The paper will appear on arXiv shortly. This section will then be updated with its link and a BibTeX entry.
+If you use Sanko or its results, please cite the paper:
+
+```bibtex
+@misc{kharma2026solvingpositionalsuperkosound,
+  title={Solving Go under Positional Superko: Sound Proof Transfer and New Board Values},
+  author={Sami Kharma and Florian Schintke},
+  year={2026},
+  eprint={2610.29414},
+  archivePrefix={arXiv},
+  primaryClass={cs.AI},
+  url={https://arxiv.org/abs/2610.29414},
+}
+```
 
 ## License
 
