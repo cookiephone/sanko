@@ -1,6 +1,6 @@
 # Results
 
-The output of every solver run behind the values, speed measurements and ablations reported in the [paper](https://arxiv.org/abs/2610.29414), and of the 4×8 solve that followed it.
+The output of every solver run behind the values, speed measurements and ablations reported in the [paper](https://arxiv.org/abs/2610.29414), and of the 4×8 and 3×11 solves that followed it.
 
 - [`runs.md`](runs.md): one row per solve (board, komi, opening moves, pruned side, winner, winning move at the root, expansions, wall time, threads), followed by the full command of each solve. Generated from the logs by `campaign_status.py`, which also checks every winner against the reported board value.
 - [`logs/`](logs/): the solver's output of each solve. The first line names the build (version and a fingerprint of the solver source) and the full command line.
@@ -10,7 +10,7 @@ The output of every solver run behind the values, speed measurements and ablatio
 
 ## Build and Hardware
 
-The record runs used Sanko 0.4.1, source fingerprint `63014da88da067d1`. The solves whose time was dominated by setting up the tables were repeated with Sanko 0.4.2, source fingerprint `af01dd77d1c0e3b0`, which fills the tables with the solver's own threads and otherwise runs the same search (serial runs give identical expansion counts). Both logs of such a solve are kept, the first line of each log names its build, and `runs.md` lists the build of every run. 4×8 was solved after the paper with Sanko 0.5.1, source fingerprint `10f4dc2943d7e161` (the commit "Sanko 0.5.1"), which adds simulation and a 128-bit Bloom filter. The binaries are profile-guided builds for the AMD EPYC 9475F, which run the same search as the plain build (`cargo build --release` prints the same fingerprint). Every solve ran on one machine with two AMD EPYC 9475F CPUs (192 threads, 1.5 TB). Parallel runs are not deterministic: expansion counts vary between runs, while the winner does not. Serial runs are deterministic.
+The record runs used Sanko 0.4.1, source fingerprint `63014da88da067d1`. The solves whose time was dominated by setting up the tables were repeated with Sanko 0.4.2, source fingerprint `af01dd77d1c0e3b0`, which fills the tables with the solver's own threads and otherwise runs the same search (serial runs give identical expansion counts). Both logs of such a solve are kept, the first line of each log names its build, and `runs.md` lists the build of every run. 4×8 and 3×11 were solved after the paper with Sanko 0.5.1, source fingerprint `10f4dc2943d7e161` (the commit "Sanko 0.5.1"), which adds simulation and a 128-bit Bloom filter, and the White side of 3×11 with Sanko 0.5.3, source fingerprint `d80e7d06004ffc3a` (the commit "Sanko 0.5.3"), which adds checkpoints and makes ε = 0.15 the default. The binaries are profile-guided builds for the AMD EPYC 9475F, which run the same search as the plain build (`cargo build --release` prints the same fingerprint). Every solve ran on one machine with two AMD EPYC 9475F CPUs (192 threads, 1.5 TB). Parallel runs are not deterministic: expansion counts vary between runs, while the winner does not. Serial runs are deterministic.
 
 ## How to Read a Run
 
@@ -18,5 +18,5 @@ The record runs used Sanko 0.4.1, source fingerprint `63014da88da067d1`. The sol
 - **Pruned runs** (`--prune-for black|white`) skip the pruned side's own eye fills and moves inside its own territory, except for one kept tempo move per node. They can only prove a win for that side. Any other outcome is reported as unknown (`winner: None`). Unpruned runs are trusted in both directions.
 - **Moves** in commands are Go coordinates or `rc` digits (row 0 at the top), or `pass`. The table shows Go coordinates (A1 at the bottom left, no I).
 - **Split proofs.** The upper bounds of 3×10 and 5×6 are proved with one White-pruned run per symmetry-unique first move of Black.
-- **The 1+ε rule.** Every run here used the default `--eps 0.3` of versions up to 0.5.2, which the commands in `runs.md` leave implicit. Later versions default to 0.15, so add `--eps 0.3` to repeat a run's expansion count. The winner does not depend on it.
+- **The 1+ε rule.** Every run here except the 0.5.3 one (ε = 0.15, its default) used the default `--eps 0.3` of versions up to 0.5.2, which the commands in `runs.md` leave implicit. Later versions default to 0.15, so add `--eps 0.3` to repeat a run's expansion count. The winner does not depend on it.
 - **Times** are wall-clock and include setting up the tables, which takes about 50 seconds with 0.4.1 (one thread) and about 10 seconds with 0.4.2 and later.

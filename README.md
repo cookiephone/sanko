@@ -22,13 +22,13 @@ The value of a board is Black's winning margin with optimal play under PSK. It i
 | 1×11 | 2 | 2×11 | 6 | 3×8 | 24 | 4×6 | 8 |
 | 1×12 | 2 | 2×12 | 4\* | 3×9 | 5 | 4×7 | 12 |
 | 1×13 | 0\* | 2×13 | 6\* | 3×10 | 8\* | 4×8 | 6\* |
-| 1×14 | 1\* | 2×14 | 4\* | | | 5×5 | 25 |
+| 1×14 | 1\* | 2×14 | 4\* | 3×11 | 9\* | 5×5 | 25 |
 | 1×15 | 2\* | 2×15 | 6\* | | | 5×6 | 4 |
 | 1×16 | 1\* | | | | | | |
 | 1×17 | 0\* | | | | | | |
 | 1×18 | 1\* | | | | | | |
 
-Every value except that of 5×5 is new under PSK. Earlier solutions of these boards used basic ko (MIGOS, van der Werf and Winands 2009). Values marked with \* had no earlier value under any rules: MIGOS stopped at 1×12 and 2×11, and for 3×10 it found only the lower bound 6. The linear values from 1×9 to 1×15 repeat 0, 1, 2, 2 with period four, but 1×16 is worth 1, not 2, and 1×17 and 1×18 return to the pattern with 0 and 1. 4×8 was solved after the paper, with Sanko 0.5.1 on one machine: Black wins at komi 5.5 with D3 in 8.6 hours and White at 6.5 in 6.1 hours. At 32 points it is the first board above 30 points with a value under any rules (MIGOS covered boards of up to 30 points). On the boards that both rule sets cover, the PSK value equals the basic-ko value, except on 4×7, which is worth 28 under basic ko but only 12 under PSK. Smaller boards agree with the literature.
+Every value except that of 5×5 is new under PSK. Earlier solutions of these boards used basic ko (MIGOS, van der Werf and Winands 2009). Values marked with \* had no earlier value under any rules: MIGOS stopped at 1×12 and 2×11, and for 3×10 it found only the lower bound 6. The linear values from 1×9 to 1×15 repeat 0, 1, 2, 2 with period four, but 1×16 is worth 1, not 2, and 1×17 and 1×18 return to the pattern with 0 and 1. 4×8 and 3×11 were solved after the paper, each on one machine. On 4×8, Black wins at komi 5.5 with D3 in 8.6 hours and White at 6.5 in 6.1 hours (Sanko 0.5.1). On 3×11, Black wins at komi 8.5 with E2 in 49 hours (0.5.1) and White at 9.5 (0.5.3). At 32 and 33 points they are the first boards above 30 points with a value under any rules (MIGOS covered boards of up to 30 points). On the boards that both rule sets cover, the PSK value equals the basic-ko value, except on 4×7, which is worth 28 under basic ko but only 12 under PSK. Smaller boards agree with the literature.
 
 [`results/`](results/) holds the output of every run behind these values. The first line of each log names the build (version and a fingerprint of the solver source) and the full command line.
 
@@ -93,7 +93,7 @@ On a terminal, Sanko shows a live panel and board diagrams. With `--plain`, or w
 | `--resume PATH` | continue from a snapshot (same build, problem and table sizes) |
 | `--stop-after D` | stop after D of wall time (such as 9d23h), with a last snapshot when writing them (exit code 75) |
 
-The reported runs use `--regions --region-interior 8 --keep-tempo` with the defaults otherwise, which included `--eps 0.3` up to version 0.5.2. Pass `--eps 0.3` to repeat their exact expansion counts with a later version. The winners do not depend on it. The paper's runs were made with versions 0.4.1 and 0.4.2, before simulation, so later versions find the same values with fewer expansions. Boards of up to 25 points use `--pn-tt-log 30 --proof-log 31 --sc-log 30` (about 0.45 TiB), larger boards `--pn-tt-log 31 --proof-log 31 --sc-log 29`. 4×8 was solved with 0.5.1 and `--pn-tt-log 31 --proof-log 32 --sc-log 32` (about 0.9 TiB). On multi-socket machines, run under `numactl --interleave=all`. Parallel runs are not deterministic, so expansion counts vary between runs while the winner does not. Serial runs are deterministic.
+The reported runs use `--regions --region-interior 8 --keep-tempo` with the defaults otherwise, which included `--eps 0.3` up to version 0.5.2. Pass `--eps 0.3` to repeat their exact expansion counts with a later version. The winners do not depend on it. The paper's runs were made with versions 0.4.1 and 0.4.2, before simulation, so later versions find the same values with fewer expansions. Boards of up to 25 points use `--pn-tt-log 30 --proof-log 31 --sc-log 30` (about 0.45 TiB), larger boards `--pn-tt-log 31 --proof-log 31 --sc-log 29`. 4×8 and 3×11 were solved with 0.5.1 and 0.5.3 and `--pn-tt-log 31 --proof-log 32 --sc-log 32` (about 0.9 TiB). On multi-socket machines, run under `numactl --interleave=all`. Parallel runs are not deterministic, so expansion counts vary between runs while the winner does not. Serial runs are deterministic.
 
 Other commands:
 
