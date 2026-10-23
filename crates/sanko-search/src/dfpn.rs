@@ -811,6 +811,9 @@ struct Searcher<'a, const ROWS: usize, const COLS: usize, const LANES: usize, co
     next_progress: f64,
     /// `(selected move, phi, delta)` of the nodes at depths 0..4 on the current path.
     path_pd: [(u8, u64, u64); 4],
+    /// `generate` lists every child, also after a winning one (see
+    /// `children_numbers`). Never set during search.
+    list_all: bool,
     /// Memo of the closed-region local games (see `regions_won`).
     region_cache: std::collections::HashMap<RegionKey, bool, RegionHasher>,
     /// Second Zobrist table, per symmetry: `zob2[s][i][c]` keys a `c` stone at
@@ -933,6 +936,7 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
             root_sym_mask: 1,
             next_progress: 0.0,
             path_pd: [(0, 0, 0); 4],
+            list_all: false,
             zob2: Vec::new(),
             region_cache: std::collections::HashMap::default(),
         };
@@ -1859,11 +1863,24 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
             let c = self.classify(mv.encode() as u8);
             self.undo(mv, &st);
             kids.push(c);
-            if c.delta == 0 {
+            if c.delta == 0 && !self.list_all {
                 return (Some(kids.len() - 1), excl, merged);
             }
         }
         (None, excl, merged)
+    }
+
+    /// Every child of the current node as the search generates it (moves
+    /// merged under the symmetries of the whole game so far, the pruned side's
+    /// skipped moves left out), with its numbers `(move code, phi, delta)` seen
+    /// from the position after the move: delta 0 marks a winning move, phi 0 a
+    /// refuted one. A stored proof counts only where it transfers to this path.
+    fn children_numbers(&mut self) -> Vec<(usize, u64, u64)> {
+        self.list_all = true;
+        let mut kids = Vec::new();
+        self.generate(&mut kids);
+        self.list_all = false;
+        kids.iter().map(|k| (usize::from(k.mv), k.phi, k.delta)).collect()
     }
 
     /// Load the TT bucket and static-cache slot of every stone child (computed
@@ -1951,6 +1968,7 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
         e.cw = self.xform(attrs.aw, sym as usize);
         e.terr = self.xform(attrs.terr, sym as usize);
         e.check = self.key2(sym);
+        e.black = self.pos.to_move() == Color::Black;
         self.stats.proofs_stored += 1;
         if let Some((rate, w)) = PROOF_DUMP.get()
             && c.base_key.wrapping_mul(0x9E37_79B9_7F4A_7C15) >> 40 < (1u64 << 24) / rate
@@ -2805,6 +2823,33 @@ pub struct ResumableResult {
     pub snapshots: u64,
     /// The error of the last snapshot, if it failed.
     pub snapshot_error: Option<String>,
+    /// The checkpoint of an earlier position of the game that seeded this run.
+    pub seeded_from: Option<std::path::PathBuf>,
+    /// The root's children with their final numbers (see `root_children`),
+    /// empty at a terminal root.
+    pub root_moves: Vec<(usize, u64, u64)>,
+    /// Seeded at another komi: the proofs kept and cleared (see
+    /// [`crate::checkpoint`]).
+    pub komi_seed: Option<(u64, u64)>,
+}
+
+/// The root's children as the search generates them: `(move code, phi,
+/// delta)`, seen from the position after the move (delta 0 marks a winning
+/// move, phi 0 a refuted one). Symmetric moves are merged under the symmetries
+/// that fix every board of the game so far, and the pruned side's skipped moves
+/// are left out, exactly as in the search. With a fresh table the numbers come
+/// from static knowledge and the prior.
+#[must_use]
+pub fn root_children<const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS: usize>(
+    prefix: &[Move<ROWS, COLS>],
+    cfg: DfpnConfig,
+) -> Vec<(usize, u64, u64)> {
+    let layout = crate::pntt::Layout::for_points(NPOINTS);
+    let tt = PnTable::with_layout(cfg.tt_log_buckets, cfg.proof_log, layout, 1);
+    let sc = StaticCache::new(cfg.static_cache_log_slots, 1);
+    let sh = Shared::new(1);
+    let mut s = Searcher::<ROWS, COLS, LANES, NPOINTS>::new(prefix, &tt, &sc, cfg, &sh, 1);
+    if s.pos.is_terminal() { Vec::new() } else { s.children_numbers() }
 }
 
 /// Marks a worker as returned when dropped, also when it unwinds, so that a
@@ -2875,6 +2920,10 @@ impl Snapshots<'_> {
                 .fold(Duration::from_millis(500), Duration::min)
                 .max(Duration::from_millis(1));
             if sh.wait_done(step) {
+                if self.opts.at_end && !self.stopped {
+                    // Every worker has returned, so the table no longer changes.
+                    self.snapshot(tt, sh);
+                }
                 return;
             }
             let now = Instant::now();
@@ -3014,10 +3063,52 @@ fn resumable_inner<const ROWS: usize, const COLS: usize, const LANES: usize, con
             w.display()
         )));
     }
+    let mut header = header;
     let resumed = match &opts.resume {
         Some(path) => {
             let h = checkpoint::read_checkpoint_header(path)?;
-            let diff = h.mismatches(&header);
+            let mut diff = h.mismatches(&header);
+            let moves = |h: &CheckpointHeader| -> Vec<String> {
+                h.get("moves").unwrap_or("").split(',').filter(|m| !m.is_empty()).map(str::to_string).collect()
+            };
+            let (theirs, ours) = (moves(&h), moves(&header));
+            let prefix_seed = theirs.len() < ours.len() && ours.starts_with(&theirs);
+            // Another komi keeps the proofs that stay valid at it: Black's wins
+            // below the checkpoint's komi, White's above, each only if the
+            // checkpoint's run was not pruned for the other side.
+            let komi = |h: &CheckpointHeader| h.get("komi_times_two").and_then(|v| v.parse::<i32>().ok());
+            let (k_old, k_new) = (komi(&h), komi(&header));
+            let (p_old, p_new) = (h.get("prune_for").unwrap_or("-"), header.get("prune_for").unwrap_or("-"));
+            let mut komi_seed = None;
+            match (k_old, k_new) {
+                (Some(a), Some(b)) if a != b => komi_seed = Some((b < a && p_old != "white", b > a && p_old != "black")),
+                (Some(_), Some(_)) if p_old != p_new => {
+                    diff.push(format!("prune_for: {p_old} in the checkpoint, {p_new} in this run (only another komi may change it)"));
+                }
+                (Some(_), Some(_)) => {}
+                _ => diff.push("komi_times_two: missing".to_string()),
+            }
+            let seeded = prefix_seed || komi_seed.is_some();
+            if theirs != ours && !prefix_seed {
+                diff.push(format!(
+                    "moves: {} in the checkpoint, {} in this run (it must be this position or an earlier one of the same game)",
+                    h.get("moves").unwrap_or(""),
+                    header.get("moves").unwrap_or("")
+                ));
+            }
+            if seeded {
+                header.set(
+                    "seed",
+                    format!(
+                        "{} at moves {} komi_times_two {}",
+                        path.display(),
+                        h.get("moves").unwrap_or(""),
+                        h.get("komi_times_two").unwrap_or("")
+                    ),
+                );
+            } else if let Some(seed) = h.get("seed") {
+                header.set("seed", seed);
+            }
             if !diff.is_empty() {
                 return Err(CheckpointError::Refused(format!(
                     "{} belongs to a different run:\n  {}",
@@ -3025,23 +3116,40 @@ fn resumable_inner<const ROWS: usize, const COLS: usize, const LANES: usize, con
                     diff.join("\n  ")
                 )));
             }
-            Some((path, h))
+            Some((path, h, seeded, komi_seed))
         }
         None => None,
     };
     let io_threads = cfg.threads.clamp(1, 32);
     let tt = PnTable::with_sizes(cfg.tt_log_buckets, proof_buckets, layout, cfg.threads);
+    let seeded_from = resumed.as_ref().filter(|r| r.2).map(|r| r.0.clone());
+    let mut komi_seed = None;
     let (segment, earlier_nodes, earlier_seconds) = match &resumed {
-        Some((path, h)) => {
+        Some((path, h, seeded, keep)) => {
             let t = Instant::now();
             checkpoint::load_snapshot(&tt, h, path, io_threads)?;
+            if let Some((keep_black, keep_white)) = *keep {
+                let (kept, cleared) =
+                    tt.retain_proofs(|black_wins| if black_wins { keep_black } else { keep_white }, io_threads);
+                let which = match (keep_black, keep_white) {
+                    (true, _) => "Black's wins",
+                    (_, true) => "White's wins",
+                    _ => "no proofs",
+                };
+                eprintln!("[checkpoint] another komi: kept {kept} proofs ({which}), cleared {cleared}");
+                komi_seed = Some((kept, cleared));
+            }
             eprintln!(
                 "[checkpoint] resumed {} ({:.1} GiB in {:.1} s)",
                 path.display(),
                 tt.bytes() as f64 / f64::from(1u32 << 30),
                 t.elapsed().as_secs_f64()
             );
-            (h.number("segments") + 1, h.number("nodes"), h.get("seconds").and_then(|v| v.parse().ok()).unwrap_or(0.0))
+            if *seeded {
+                (1, 0, 0.0)
+            } else {
+                (h.number("segments") + 1, h.number("nodes"), h.get("seconds").and_then(|v| v.parse().ok()).unwrap_or(0.0))
+            }
         }
         None => (1, 0, 0.0),
     };
@@ -3060,14 +3168,15 @@ fn resumable_inner<const ROWS: usize, const COLS: usize, const LANES: usize, con
         stopped: false,
     };
     let mut res = search_checkpointed::<ROWS, COLS, LANES, NPOINTS>(prefix, &tt, &sc, cfg, &sh, &mut snaps);
+    let quiet = Shared::new(1);
+    let mut s = Searcher::<ROWS, COLS, LANES, NPOINTS>::new(prefix, &tt, &sc, cfg, &quiet, 1);
     if let Some(w) = res.winner {
-        let quiet = Shared::new(1);
-        let mut s = Searcher::<ROWS, COLS, LANES, NPOINTS>::new(prefix, &tt, &sc, cfg, &quiet, 1);
         if w == s.pos.to_move() {
             res.root_move = s.stored_win_move();
         }
         res.pv = s.principal_variation(w, 300);
     }
+    let root_moves = if s.pos.is_terminal() { Vec::new() } else { s.children_numbers() };
     Ok(ResumableResult {
         result: res,
         stopped: snaps.stopped,
@@ -3076,6 +3185,9 @@ fn resumable_inner<const ROWS: usize, const COLS: usize, const LANES: usize, con
         earlier_seconds,
         snapshots: snaps.written,
         snapshot_error: snaps.error,
+        seeded_from,
+        root_moves,
+        komi_seed,
     })
 }
 

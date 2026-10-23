@@ -167,6 +167,9 @@ pub struct PnEntry {
     pub check: u64,
     /// Base entries: a path-specific twin entry exists for this position.
     pub twinned: bool,
+    /// Proven: Black is to move at the entry's position, so with `status` the
+    /// entry names its winner (see `PnTable::retain_proofs`).
+    pub black: bool,
     /// Search effort spent below this node (replacement priority).
     pub work: u64,
 }
@@ -190,6 +193,7 @@ impl PnEntry {
             terr: 0,
             check: 0,
             twinned: false,
+            black: false,
             work,
         }
     }
@@ -241,13 +245,13 @@ const fn enc_work6(w: u64) -> u64 {
 
 // ---------------------------------------------------------------------------
 // Proof table encoding. Narrow: words [bloom, sig, check, a, b] (48-byte entries):
-//   a = black-common:25 | white-common:25 | min_stones:6 | sym:3 | loss | many | . | . | occupied
+//   a = black-common:25 | white-common:25 | min_stones:6 | sym:3 | loss | many | black | . | occupied
 //   b = terr:32 | pv:7 | work:25
 // Mid: words [bloom, sig, check, a, b] (48-byte entries, boards of 26 to 32 points):
-//   a = terr:32 | pv:7 | work:11 (float) | min_stones:6 | sym:3 | loss | many | . | . | occupied
+//   a = terr:32 | pv:7 | work:11 (float) | min_stones:6 | sym:3 | loss | many | black | . | occupied
 //   b = black-common:32 | white-common:32
 // Wide: words [bloom, sig, check, a, terr, cb, cw] (64-byte entries):
-//   a = pv:7 | work:25 | . | min_stones:6 | sym:3 | loss | many | . | . | occupied
+//   a = pv:7 | work:25 | . | min_stones:6 | sym:3 | loss | many | black | . | occupied
 // ---------------------------------------------------------------------------
 
 const PA_WHITE_SHIFT: u64 = 25;
@@ -255,6 +259,8 @@ const PA_MINS_SHIFT: u64 = 50;
 const PA_SYM_SHIFT: u64 = 56;
 const PA_LOSS: u64 = 1 << 59;
 const PA_MANY: u64 = 1 << 60;
+/// Black is to move at the proof's position.
+const PA_BLACK: u64 = 1 << 61;
 const C25: u64 = (1 << 25) - 1;
 const PB_PV_SHIFT: u64 = 32;
 const PB_WORK_SHIFT: u64 = 39;
@@ -397,6 +403,27 @@ fn fraction(part: u64, whole: u64) -> f64 {
     if whole == 0 { 0.0 } else { part as f64 / whole as f64 }
 }
 
+/// Clear the slots of a proof bucket whose winner fails `keep(black_wins)`,
+/// counting kept and cleared slots (see [`PnTable::retain_proofs`]).
+fn retain_slots<const W: usize>(slots: &[Slot<W>; 4], keep: &impl Fn(bool) -> bool, kept: &mut u64, cleared: &mut u64) {
+    for s in slots {
+        let a = s.w[3].load(Ordering::Relaxed);
+        if a & OCCUPIED == 0 {
+            continue;
+        }
+        let black_wins = (a & PA_LOSS == 0) == (a & PA_BLACK != 0);
+        if keep(black_wins) {
+            *kept += 1;
+        } else {
+            s.xkey.store(0, Ordering::Relaxed);
+            for w in &s.w {
+                w.store(0, Ordering::Relaxed);
+            }
+            *cleared += 1;
+        }
+    }
+}
+
 /// Append a proof bucket's words: each slot's `xkey`, then its data words.
 fn push_slots<const W: usize>(slots: &[Slot<W>; 4], out: &mut Vec<u64>) {
     for s in slots {
@@ -531,6 +558,37 @@ impl PnTable {
         }
     }
 
+    /// Clear every proof whose winner fails `keep(black_wins)`, with `threads`
+    /// threads, and return `(kept, cleared)`. A checkpoint that seeds a search
+    /// at another komi keeps only the proofs that stay valid there (callers
+    /// keep writers away).
+    pub(crate) fn retain_proofs(&self, keep: impl Fn(bool) -> bool + Sync, threads: usize) -> (u64, u64) {
+        let n = if self.wide { self.wproofs.len() } else { self.proofs.len() };
+        let chunk = n.div_ceil(threads.max(1)).max(1);
+        let (kept, cleared) = (AtomicU64::new(0), AtomicU64::new(0));
+        std::thread::scope(|s| {
+            for start in (0..n).step_by(chunk) {
+                let (keep, kept, cleared) = (&keep, &kept, &cleared);
+                s.spawn(move || {
+                    let end = (start + chunk).min(n);
+                    let (mut k, mut c) = (0, 0);
+                    if self.wide {
+                        for b in &self.wproofs[start..end] {
+                            retain_slots(&b.slots, keep, &mut k, &mut c);
+                        }
+                    } else {
+                        for b in &self.proofs[start..end] {
+                            retain_slots(&b.slots, keep, &mut k, &mut c);
+                        }
+                    }
+                    kept.fetch_add(k, Ordering::Relaxed);
+                    cleared.fetch_add(c, Ordering::Relaxed);
+                });
+            }
+        });
+        (kept.into_inner(), cleared.into_inner())
+    }
+
     /// Occupancy estimated from up to `samples` buckets of each part, spread
     /// evenly over it (bucket indices are hashed, so the estimate is unbiased).
     /// Read-only, for progress displays: concurrent writers can make it a
@@ -649,6 +707,7 @@ impl PnTable {
             delta: if loss { 0 } else { INF },
             bloom,
             many: a & PA_MANY != 0,
+            black: a & PA_BLACK != 0,
             sig,
             cb: 0,
             cw: 0,
@@ -821,6 +880,9 @@ impl PnTable {
         }
         if e.many {
             a |= PA_MANY;
+        }
+        if e.black {
+            a |= PA_BLACK;
         }
         if self.wide {
             a |= (u64::from(e.pv) & 0x7F) | (e.work.min(PB_WORK_MAX) << PW_WORK_SHIFT);

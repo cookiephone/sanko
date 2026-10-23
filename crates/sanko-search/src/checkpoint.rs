@@ -9,6 +9,18 @@
 //! on the same problem, with the same table sizes. The static cache is a cache
 //! and is not saved.
 //!
+//! A checkpoint can also seed a run on a later position of the same game (its
+//! moves extended by more moves), which is how a proof is split into parts:
+//! every stored proof is reused there only through the transfer test on the
+//! seeded run's own path, as within one run.
+//!
+//! And it can seed a run at another komi. A proof's leaves (game ends, static
+//! verdicts, closed regions) compare areas with the komi, so a win for Black
+//! stays a win at any lower komi and a win for White at any higher one. The
+//! seeded run keeps only those proofs, and only if the earlier run trusted them
+//! (it was not pruned for the other side); unproven numbers are kept as they
+//! only steer the search.
+//!
 //! ## File format
 //!
 //! - Bytes `0..HEADER_BYTES`: UTF-8 text, the line `sanko-checkpoint 1`, then
@@ -39,12 +51,12 @@ const MAGIC: &str = "sanko-checkpoint 1";
 
 /// Header keys that must agree for a checkpoint to be resumed: the build,
 /// everything that decides what a stored proof means, and the table sizes.
-const MUST_MATCH: [&str; 15] = [
+/// The moves, the komi and the pruning are checked separately: the run's moves
+/// must extend the checkpoint's, and another komi keeps only the proofs that
+/// stay valid at it (see the module docs).
+const MUST_MATCH: [&str; 12] = [
     "build",
     "board",
-    "komi_times_two",
-    "moves",
-    "prune_for",
     "keep_tempo",
     "exact_only",
     "no_static",
@@ -63,12 +75,16 @@ pub struct CheckpointOptions {
     /// Write snapshots here, every `every` and at `stop_after`. An existing
     /// file is refused unless it is also the `resume` file.
     pub write: Option<PathBuf>,
-    /// Continue from the snapshot at this path.
+    /// Continue from the snapshot at this path: the same position, or seed a
+    /// run on a later position of the same game (see the module docs).
     pub resume: Option<PathBuf>,
     /// Time between snapshots (with `write`).
     pub every: Option<Duration>,
     /// Stop after this much wall time, with a last snapshot if `write` is set.
     pub stop_after: Option<Duration>,
+    /// Also write a snapshot when the search ends with a result (to seed runs
+    /// at other komi or of later positions, as a value search does).
+    pub at_end: bool,
     /// The solver build (version and source fingerprint). A checkpoint is
     /// resumed only by the build that wrote it.
     pub build: String,

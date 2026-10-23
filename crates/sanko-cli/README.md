@@ -51,7 +51,8 @@ On a terminal, Sanko shows a live panel and board diagrams. With `--plain`, or w
 | `--eps E` | growth factor of the 1+ε rule (default 0.15, 0.3 up to version 0.5.2) |
 | `--simulate N` | simulation of sibling proofs, at most N nodes per attempt (default 100, 0 turns it off) |
 | `--checkpoint PATH`, `--checkpoint-every D` | write snapshots of the search to PATH every D (default 6h) and at `--stop-after` |
-| `--resume PATH` | continue from a snapshot (same build, problem and table sizes) |
+| `--resume PATH` | continue from a snapshot (same build, problem and table sizes), or seed a run of a later position or at another komi with it |
+| `--snapshot-at-end` | with `--checkpoint`: also write a snapshot when the search ends with a result |
 | `--stop-after D` | stop after D of wall time (such as 9d23h), with a last snapshot when writing them (exit code 75) |
 
 The repository README gives the settings of the reported runs and the table sizes they used, and explains long runs in segments with checkpoints.
@@ -61,6 +62,7 @@ Other commands:
 - `sanko selftest` solves random positions (random legal games, so real superko histories, and random komi) with the full solver and with an oracle that reuses results only on the identical game. `--oracle-no-static` also removes all static knowledge from the oracle.
 - `sanko staticcheck` sets the komi exactly at the point where a static rule declares a winner and checks the verdict against search.
 - `sanko pskcheck --moves ...` replays a game and lists the moves that superko forbids but basic ko would allow.
+- `sanko moves --moves ...` lists a position's moves as the search generates them (symmetric moves merged, the pruned side's skipped moves left out), with their proof and disproof numbers.
 - `sanko checkpoint info PATH` prints a checkpoint's header: build, problem, table sizes, and the expansions and time so far.
 - `sanko bench` solves seeded random positions near a prefix, for comparing options.
 - `sanko train` fits the learned prior.

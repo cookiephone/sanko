@@ -90,7 +90,8 @@ On a terminal, Sanko shows a live panel and board diagrams. With `--plain`, or w
 | `--eps E` | growth factor of the 1+ε rule (default 0.15, 0.3 up to version 0.5.2) |
 | `--simulate N` | simulation of sibling proofs, at most N nodes per attempt (default 100, 0 turns it off) |
 | `--checkpoint PATH`, `--checkpoint-every D` | write snapshots of the search to PATH every D (default 6h) and at `--stop-after` |
-| `--resume PATH` | continue from a snapshot (same build, problem and table sizes) |
+| `--resume PATH` | continue from a snapshot (same build, problem and table sizes), or seed a run of a later position or at another komi with it |
+| `--snapshot-at-end` | with `--checkpoint`: also write a snapshot when the search ends with a result |
 | `--stop-after D` | stop after D of wall time (such as 9d23h), with a last snapshot when writing them (exit code 75) |
 
 The reported runs use `--regions --region-interior 8 --keep-tempo` with the defaults otherwise, which included `--eps 0.3` up to version 0.5.2. Pass `--eps 0.3` to repeat their exact expansion counts with a later version. The winners do not depend on it. The paper's runs were made with versions 0.4.1 and 0.4.2, before simulation, so later versions find the same values with fewer expansions. Boards of up to 25 points use `--pn-tt-log 30 --proof-log 31 --sc-log 30` (about 0.45 TiB), larger boards `--pn-tt-log 31 --proof-log 31 --sc-log 29`. 4×8 and 3×11 were solved with 0.5.1 and 0.5.3 and `--pn-tt-log 31 --proof-log 32 --sc-log 32` (about 0.9 TiB). On multi-socket machines, run under `numactl --interleave=all`. Parallel runs are not deterministic, so expansion counts vary between runs while the winner does not. Serial runs are deterministic.
@@ -100,6 +101,7 @@ Other commands:
 - `sanko selftest` solves random positions (random legal games, so real superko histories, and random komi) with the full solver and with an oracle that reuses results only on the identical game. `--oracle-no-static` also removes all static knowledge from the oracle.
 - `sanko staticcheck` sets the komi exactly at the point where a static rule declares a winner and checks the verdict against search.
 - `sanko pskcheck --moves ...` replays a game and lists the moves that superko forbids but basic ko would allow.
+- `sanko moves --moves ...` lists a position's moves as the search generates them (symmetric moves merged, the pruned side's skipped moves left out), with their proof and disproof numbers.
 - `sanko checkpoint info PATH` prints a checkpoint's header: build, problem, table sizes, and the expansions and time so far.
 - `sanko bench` solves seeded random positions near a prefix, for comparing options.
 - `sanko train` fits the learned prior.
@@ -116,6 +118,8 @@ $S --resume run.ckpt --checkpoint run.ckpt --stop-after 9d23h     # every later 
 ```
 
 A segment exits with code 75 when it stopped with a snapshot written, and with 0 once the search has ended. A checkpoint is resumed only by the same build (source fingerprint), for the same position, komi, pruning and knowledge options, with the same table sizes. The thread count, `--eps`, the prior and `--simulate` may change between segments. `--checkpoint` refuses an existing file unless it is also the `--resume` file.
+
+A snapshot can also seed a different run. With `--moves` extending the snapshot's moves, a run of a later position of the same game starts with every proof of the earlier one, each reused only where it passes the transfer test on the new path. With another `--komi`, the run keeps the proofs that stay valid there: Black's wins at a lower komi, White's at a higher one, each only if the earlier run was not pruned for the other side. A value search can chain its runs this way, each komi resuming from the previous one's snapshot (`--snapshot-at-end` writes one when a run ends with its result). A run with checkpoints ends by listing the root's moves with their numbers (`root moves:`), the moves that a split of the position into parts needs.
 
 A snapshot is as large as the tables (about 1.1 TiB at the sizes above), and while it replaces the previous one both exist, so leave room for twice that. The static cache is not saved. A resumed search restarts from the root, so its expansion counts differ slightly from those of an uninterrupted run, while the result does not.
 

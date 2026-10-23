@@ -102,6 +102,13 @@ Benchmark suite: --bench-n positions reached from --moves by --bench-plies rando
 stone moves (seeded by --rng-seed), each solved with the given options and a node limit.
 Serial runs are deterministic, so two configurations can be compared problem by problem.")]
     Bench(BenchArgs),
+    /// List a position's moves as the search generates them, with their numbers.
+    #[command(long_about = "\
+List the moves of the position after --moves as the search generates them: symmetric moves
+merged under the symmetries that fix every board of the game so far, and with --prune-for the
+pruned side's skipped moves left out. Each move comes with the proof and disproof numbers of the
+position after it (static knowledge and the prior), then the position is shown.")]
+    Moves(MovesArgs),
     /// Inspect a checkpoint written by --checkpoint.
     Checkpoint(CheckpointCmd),
     /// Fit the learned prior to proof dumps (from --dump-proofs) and print its weights.
@@ -111,6 +118,16 @@ logistic regression of the winner on the prior's board features, fitted by Newto
 with every dump weighted equally. The weights are printed as a --prior-weights argument.
 With --validate, each dump is also predicted by a model fitted to the other dumps.")]
     Train(TrainArgs),
+}
+
+#[derive(Args, Debug, Clone)]
+struct MovesArgs {
+    #[command(flatten)]
+    board: BoardArgs,
+    #[command(flatten)]
+    position: PositionArgs,
+    #[command(flatten)]
+    solver: SolverArgs,
 }
 
 #[derive(Args, Debug)]
@@ -299,7 +316,9 @@ struct CheckpointArgs {
     /// existing PATH is refused unless it is also the --resume file.
     #[arg(long, value_name = "PATH")]
     checkpoint: Option<PathBuf>,
-    /// Continue the search from the snapshot at PATH (same build, problem and table sizes).
+    /// Continue the search from the snapshot at PATH (same build, problem and table sizes), or
+    /// seed a search with it: of a later position of the same game (--moves extending its moves),
+    /// or at another komi (keeping the proofs that stay valid there).
     #[arg(long, value_name = "PATH")]
     resume: Option<PathBuf>,
     /// With --checkpoint: time between snapshots, such as 90m, 6h or 1d12h.
@@ -309,6 +328,10 @@ struct CheckpointArgs {
     /// when one was written, the result is then unknown).
     #[arg(long, value_name = "DURATION", value_parser = parse_duration)]
     stop_after: Option<Duration>,
+    /// With --checkpoint: also write a snapshot when the search ends with a result, to seed runs at
+    /// other komi or of later positions with it (as a value search does).
+    #[arg(long)]
+    snapshot_at_end: bool,
 }
 
 /// A duration such as `90m`, `6h`, `1d12h` or `3600s` (units d, h, m and s).
@@ -526,9 +549,21 @@ fn main() -> ExitCode {
         Some(Command::Staticcheck(a)) => staticcheck_cmd(&a),
         Some(Command::Pskcheck(a)) => pskcheck_cmd(&a),
         Some(Command::Bench(a)) => bench_cmd(&a),
+        Some(Command::Moves(a)) => moves_cmd(&a),
         Some(Command::Checkpoint(c)) => checkpoint_cmd(&c),
         Some(Command::Train(a)) => train_cmd(&a),
     }
+}
+
+/// `root moves: <rc>:<phi>:<delta> ...` (numbers seen from the position after
+/// the move, `inf` for a solved infinity).
+fn root_moves_line<const R: usize, const C: usize>(kids: &[(usize, u64, u64)]) -> String {
+    let num = |v: u64| if v == u64::MAX { "inf".to_string() } else { v.to_string() };
+    let parts: Vec<String> = kids
+        .iter()
+        .filter_map(|&(code, p, d)| Move::<R, C>::decode(code).map(|m| format!("{}:{}:{}", rc(m), num(p), num(d))))
+        .collect();
+    format!("root moves: {}", parts.join(" "))
 }
 
 /// `sanko checkpoint`: inspect a checkpoint.
@@ -747,6 +782,36 @@ const fn color_name(c: Color) -> &'static str {
     }
 }
 
+/// `sanko moves`: the root's children as the search generates them.
+fn moves_cmd(a: &MovesArgs) -> ExitCode {
+    sanko_core::set_atari_dead(a.solver.atari_dead);
+    with_board!(a.board.rows, a.board.cols, moves_on(a)).unwrap_or_else(|| unsupported(a.board))
+}
+
+fn moves_on<const R: usize, const C: usize, const L: usize, const N: usize>(a: &MovesArgs) -> ExitCode {
+    let moves = match parse_moves::<R, C>(&a.position.moves) {
+        Ok(m) => m,
+        Err(e) => return fail(&e),
+    };
+    let (root, _) = match replay::<R, C, L, N>(&moves) {
+        Ok(x) => x,
+        Err(e) => return fail(&e),
+    };
+    let mut cfg = solver_config(&a.solver);
+    cfg.komi_times_two = komi_times_two(a.position.komi);
+    (cfg.tt_log_buckets, cfg.proof_log, cfg.static_cache_log_slots) = (12, 12, 12);
+    let kids = sanko_search::root_children::<R, C, L, N>(&moves, cfg);
+    println!(
+        "position: {R}x{C} komi={} moves={} to_move={}",
+        a.position.komi,
+        moves.iter().map(|&m| rc(m)).collect::<Vec<_>>().join(","),
+        color_name(root.to_move())
+    );
+    println!("{}", root_moves_line::<R, C>(&kids));
+    println!("{root:?}");
+    ExitCode::SUCCESS
+}
+
 // ---------------------------------------------------------------------------
 // solve
 
@@ -814,6 +879,7 @@ fn solve_on<const R: usize, const C: usize, const L: usize, const N: usize>(a: &
             resume: ck.resume.clone(),
             every: Some(ck.checkpoint_every),
             stop_after: ck.stop_after,
+            at_end: ck.snapshot_at_end,
             build: LONG_VERSION.to_string(),
         };
         return solve_resumable::<R, C, L, N>(a, &cfg, &opts, &root, &hist, &moves, pretty, live);
@@ -862,6 +928,7 @@ fn solve_resumable<const R: usize, const C: usize, const L: usize, const N: usiz
     } else {
         solve_plain::<R, C, L, N>(root, hist, &rr.result, el);
     }
+    println!("{}", root_moves_line::<R, C>(&rr.root_moves));
     checkpoint_report(opts, &rr, el);
     if rr.stopped && rr.snapshot_error.is_some() {
         ExitCode::from(1)
@@ -874,7 +941,11 @@ fn solve_resumable<const R: usize, const C: usize, const L: usize, const N: usiz
 
 /// The checkpoint lines after a solve's report (plain format in both modes).
 fn checkpoint_report(opts: &CheckpointOptions, rr: &ResumableResult, el: f64) {
-    if let Some(p) = &opts.resume {
+    if let (Some(p), Some((kept, cleared))) = (&rr.seeded_from, rr.komi_seed) {
+        println!("checkpoint: seeded from {} at another komi ({kept} proofs kept, {cleared} cleared)", p.display());
+    } else if let Some(p) = &rr.seeded_from {
+        println!("checkpoint: seeded from {} (an earlier position of this game)", p.display());
+    } else if let Some(p) = &opts.resume {
         println!(
             "checkpoint: resumed {} as segment {} (earlier segments: {} expansions, {:.1}s)",
             p.display(),
