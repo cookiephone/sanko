@@ -83,6 +83,7 @@ On a terminal, Sanko shows a live panel and board diagrams. With `--plain`, or w
 | `--keep-tempo` | with pruning: keep one skipped move per node |
 | `--regions`, `--region-interior N` | closed-region solver, with interior moves in regions of at most N points |
 | `--threads N` | worker threads sharing one table |
+| `--vl-free K` | with pruning: at the pruned side's nodes, the first K other threads inside a child do not count for its virtual loss (default an eighth of the threads, 0 up to version 0.5.4) |
 | `--pn-tt-log L --proof-log P --sc-log S` | tables of 64 B·2^L, 192 B·2^P (256 B above 32 points) and 8 B·2^S |
 | `--proof-gib G` | proof table of G GiB, any size |
 | `--node-limit N` | stop after N expansions (result unknown) |
@@ -94,7 +95,7 @@ On a terminal, Sanko shows a live panel and board diagrams. With `--plain`, or w
 | `--snapshot-at-end` | with `--checkpoint`: also write a snapshot when the search ends with a result |
 | `--stop-after D` | stop after D of wall time (such as 9d23h), with a last snapshot when writing them (exit code 75) |
 
-The reported runs use `--regions --region-interior 8 --keep-tempo` with the defaults otherwise, which included `--eps 0.3` up to version 0.5.2. Pass `--eps 0.3` to repeat their exact expansion counts with a later version. The winners do not depend on it. The paper's runs were made with versions 0.4.1 and 0.4.2, before simulation, so later versions find the same values with fewer expansions. Boards of up to 25 points use `--pn-tt-log 30 --proof-log 31 --sc-log 30` (about 0.45 TiB), larger boards `--pn-tt-log 31 --proof-log 31 --sc-log 29`. 4×8 and 3×11 were solved with 0.5.1 and 0.5.3 and `--pn-tt-log 31 --proof-log 32 --sc-log 32` (about 0.9 TiB). On multi-socket machines, run under `numactl --interleave=all`. Parallel runs are not deterministic, so expansion counts vary between runs while the winner does not. Serial runs are deterministic.
+The reported runs use `--regions --region-interior 8 --keep-tempo` with the defaults otherwise, which included `--eps 0.3` up to version 0.5.2. Pass `--eps 0.3` to repeat their exact expansion counts with a later version. The winners do not depend on it. From version 0.5.5, pruned parallel runs let up to an eighth of the threads work in the same child at the pruned side's nodes (`--vl-free`), which took 49% to 90% of the time of 0.5.4 on six pruned problems with 192 threads. `--vl-free 0` restores the earlier selection. The paper's runs were made with versions 0.4.1 and 0.4.2, before simulation, so later versions find the same values with fewer expansions. Boards of up to 25 points use `--pn-tt-log 30 --proof-log 31 --sc-log 30` (about 0.45 TiB), larger boards `--pn-tt-log 31 --proof-log 31 --sc-log 29`. 4×8 and 3×11 were solved with 0.5.1 and 0.5.3 and `--pn-tt-log 31 --proof-log 32 --sc-log 32` (about 0.9 TiB). On multi-socket machines, run under `numactl --interleave=all`. Parallel runs are not deterministic, so expansion counts vary between runs while the winner does not. Serial runs are deterministic.
 
 Other commands:
 

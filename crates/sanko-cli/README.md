@@ -44,6 +44,7 @@ On a terminal, Sanko shows a live panel and board diagrams. With `--plain`, or w
 | `--keep-tempo` | with pruning: keep one skipped move per node |
 | `--regions`, `--region-interior N` | closed-region solver, with interior moves in regions of at most N points |
 | `--threads N` | worker threads sharing one table |
+| `--vl-free K` | with pruning: at the pruned side's nodes, the first K other threads inside a child do not count for its virtual loss (default an eighth of the threads, 0 up to version 0.5.4) |
 | `--pn-tt-log L --proof-log P --sc-log S` | tables of 64 B·2^L, 192 B·2^P (256 B above 32 points) and 8 B·2^S |
 | `--proof-gib G` | proof table of G GiB, any size |
 | `--node-limit N` | stop after N expansions (result unknown) |

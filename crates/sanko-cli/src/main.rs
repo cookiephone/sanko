@@ -227,6 +227,10 @@ struct SolverArgs {
     /// Ablation: parallel search without virtual loss.
     #[arg(long, help_heading = "Search")]
     no_virtual_loss: bool,
+    /// At the nodes of the --prune-for side, the first K other workers inside a child do not count for its
+    /// virtual loss (default: an eighth of the threads).
+    #[arg(long, value_name = "K", help_heading = "Search")]
+    vl_free: Option<u64>,
     /// Initial proof and disproof numbers of new nodes: the learned prior or the eye-space prior.
     #[arg(long, value_enum, default_value_t = PriorKind::Learned, help_heading = "Knowledge")]
     prior: PriorKind,
@@ -705,6 +709,7 @@ fn solver_config(s: &SolverArgs) -> DfpnConfig {
         eye_weight: s.eye_weight,
         eye_komi: s.eye_komi,
         virtual_loss: !s.no_virtual_loss,
+        vl_free: s.vl_free,
         prefetch: !s.no_prefetch,
         keep_tempo: s.keep_tempo,
         simulate: s.simulate,
@@ -857,13 +862,14 @@ fn solve_on<const R: usize, const C: usize, const L: usize, const N: usize>(a: &
     } else {
         banner();
         println!(
-            "solving {R}x{C} komi={} (tt 2^{} buckets = {} MB, eps={}, prune_for={:?}, threads={}, prior={}) ...",
+            "solving {R}x{C} komi={} (tt 2^{} buckets = {} MB, eps={}, prune_for={:?}, threads={}, vl_free={}, prior={}) ...",
             a.position.komi,
             cfg.tt_log_buckets,
             table_bytes >> 20,
             cfg.eps,
             cfg.prune_for,
             cfg.threads,
+            cfg.vl_free_workers(),
             prior_label(&cfg),
         );
     }

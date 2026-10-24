@@ -248,6 +248,13 @@ pub struct DfpnConfig {
     /// Virtual loss: a child with `b` other workers inside is selected by
     /// `delta · (1 + b)`. Off only for the ablation (selection by `delta`).
     pub virtual_loss: bool,
+    /// At the nodes of the `prune_for` side, the conjectured winner, who needs
+    /// only one winning child: this many other workers inside a child do not
+    /// count for its virtual loss, so the workers stay together on the most
+    /// proving child instead of spreading over alternatives the proof may not
+    /// need. `None`: an eighth of the threads (see
+    /// [`DfpnConfig::vl_free_workers`]).
+    pub vl_free: Option<u64>,
     /// `eye_init`: extra area credited per existing White eye point.
     pub eye_weight: u32,
     /// `eye_init`: measure White's area above the most it may own while Black
@@ -305,6 +312,7 @@ impl Default for DfpnConfig {
             eye_weight: 0,
             eye_komi: false,
             virtual_loss: true,
+            vl_free: None,
             prefetch: true,
             keep_tempo: false,
             simulate: 100,
@@ -315,6 +323,18 @@ impl Default for DfpnConfig {
             prior_weights: None,
             prior_scale: crate::prior::DEFAULT_PRIOR_SCALE,
             proof_buckets: 0,
+        }
+    }
+}
+
+impl DfpnConfig {
+    /// The workers inside a child of a `prune_for` node that do not count for
+    /// its virtual loss: `vl_free`, or an eighth of the threads.
+    #[must_use]
+    pub const fn vl_free_workers(&self) -> u64 {
+        match self.vl_free {
+            Some(k) => k,
+            None => self.threads as u64 / 8,
         }
     }
 }
@@ -2106,6 +2126,8 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
             let mut sim_tried = 0u64;
             // `sim_tried` has a bit per child (at most NPOINTS + 1 <= 50).
             let sim_on = self.cfg.simulate > 0 && kids.len() <= 64;
+            // Free workers for the virtual loss at the conjectured winner's nodes.
+            let vl_free = if self.cfg.prune_for == Some(self.pos.to_move()) { self.cfg.vl_free_workers() } else { 0 };
             loop {
                 if self.par {
                     // See the other workers' progress on unsolved siblings. Only
@@ -2136,7 +2158,8 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
                     }
                 }
                 // phi = min delta(c), and delta = Σ phi(c). Selection uses delta
-                // inflated by the number of other workers inside the child.
+                // inflated by the number of other workers inside the child
+                // (beyond the free ones at the conjectured winner's nodes).
                 let mut phi = INF;
                 let mut best = usize::MAX;
                 let mut best_eff = u64::MAX;
@@ -2145,7 +2168,7 @@ impl<'a, const ROWS: usize, const COLS: usize, const LANES: usize, const NPOINTS
                 for (i, c) in kids.iter().enumerate() {
                     phi = phi.min(c.delta);
                     let eff = if self.par && self.cfg.virtual_loss && c.delta != 0 {
-                        let b = u64::from(self.sh.slot(c.key).load(Ordering::Relaxed));
+                        let b = u64::from(self.sh.slot(c.key).load(Ordering::Relaxed)).saturating_sub(vl_free);
                         if b == 0 {
                             c.delta
                         } else {
@@ -3021,6 +3044,7 @@ fn run_header<const ROWS: usize, const COLS: usize>(
     h.set("eps", cfg.eps);
     h.set("simulate", cfg.simulate);
     h.set("threads", cfg.threads);
+    h.set("vl_free", cfg.vl_free_workers());
     h
 }
 

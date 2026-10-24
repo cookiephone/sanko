@@ -40,6 +40,21 @@ fn four_by_four_is_black_by_two() {
 }
 
 #[test]
+fn free_workers_at_the_winners_nodes_keep_the_winner() {
+    // Pruned parallel solves on both sides, with workers that do not count for
+    // the virtual loss at the conjectured winner's nodes (selection only).
+    let c = DfpnConfig { tt_log_buckets: 20, threads: 4, ..cfg(3) };
+    for free in [1, 2, 4] {
+        let black = DfpnConfig { prune_for: Some(Color::Black), vl_free: Some(free), ..c };
+        assert_eq!(winner::<4, 4, 1, 16>(black), Some(Color::Black), "{free} free");
+        let white = DfpnConfig { prune_for: Some(Color::White), vl_free: Some(free), komi_times_two: 5, ..c };
+        assert_eq!(winner::<4, 4, 1, 16>(white), Some(Color::White), "{free} free");
+        let c34 = DfpnConfig { prune_for: Some(Color::Black), vl_free: Some(free), komi_times_two: 7, ..c };
+        assert_eq!(winner::<3, 4, 1, 12>(c34), Some(Color::Black), "{free} free");
+    }
+}
+
+#[test]
 fn kill_all_configuration_proves_full_board_win() {
     // 3×5 is a full-board Black win (B+15): the conjectured-winner pruning,
     // kill-all prior and closed-region solver must still find the proof...
