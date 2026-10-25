@@ -2,7 +2,7 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-2610.29414-b31b1b.svg)](https://arxiv.org/abs/2610.29414)
 
-Sanko solves Go on small rectangular boards under positional superko (PSK), the repetition rule of the Chinese rules, with area scoring and no suicide. It is the solver behind the paper *Solving Go under Positional Superko: Sound Proof Transfer and New Board Values* (Sami Kharma and Florian Schintke, [arXiv:2610.29414](https://arxiv.org/abs/2610.29414), see [Citation](#citation)). It established the PSK values of 25 boards, 13 of which had no earlier value under any rules, among them 1×18, 2×15, 3×10, 4×8 and 3×11, the first boards above 30 points with a value.
+Sanko solves Go on small rectangular boards under positional superko (PSK), the repetition rule of the Chinese rules, with area scoring and no suicide. It is the solver behind the paper *Solving Go under Positional Superko: Sound Proof Transfer and New Board Values* (Sami Kharma and Florian Schintke, [arXiv:2610.29414](https://arxiv.org/abs/2610.29414), see [Citation](#citation)). It established the PSK values of 26 boards, 14 of which had no earlier value under any rules, among them 1×18, 2×15, 3×10, and 4×8, 3×11 and 2×16, the first boards above 30 points with a value.
 
 This crate is the command-line solver. The search is in [`sanko-search`](https://crates.io/crates/sanko-search) and the rules engine in [`sanko-core`](https://crates.io/crates/sanko-core). The source, the logs of every run behind the board values and the full documentation are at [github.com/cookiephone/sanko](https://github.com/cookiephone/sanko).
 

@@ -190,9 +190,11 @@ Build: sanko 0.4.1 (63014da88da067d1), sanko 0.4.2 (af01dd77d1c0e3b0), sanko 0.5
 | 186 | 2x7 k13.5 black-pruned | 0.4.2 | Black | D2 | 172,909 | 0.1 | 16 | [cmds-5534430-8.out](logs/cmds-5534430-8.out) |
 | 187 | 2x8 k15.5 black-pruned | 0.4.2 | Black | D2 | 2,017,119 | 0.4 | 16 | [cmds-5534430-9.out](logs/cmds-5534430-9.out) |
 | 188 | 3x11 k8.5 black-pruned | 0.5.1 | Black | E2 | 3,383,103,832,592 | 176,874.6 | 192 | [cmds-5558083-1.out](logs/cmds-5558083-1.out) |
-| 189 | 4x8 k6.5 unpruned | 0.5.1 | White |  | 449,854,332,805 | 22,090.5 | 192 | [cmds-5558642-1.out](logs/cmds-5558642-1.out) |
-| 190 | 4x8 k5.5 black-pruned | 0.5.1 | Black | D3 | 631,614,203,104 | 31,056.4 | 192 | [cmds-5558643-1.out](logs/cmds-5558643-1.out) |
-| 191 | 3x11 k9.5 white-pruned | 0.5.3 | White |  | 85,141,532,903 | 4,747.4 | 192 | [cmds-5609898-1.out](logs/cmds-5609898-1.out) |
+| 189 | 2x16 k3.5 black-pruned | 0.5.1 | Black | H2 | 3,600,062,470,267 | 163,241.7 | 192 | [cmds-5558608-1.out](logs/cmds-5558608-1.out) |
+| 190 | 2x16 k4.5 white-pruned | 0.5.1 | White |  | 7,196,664,722,114 | 320,533.9 | 192 | [cmds-5558609-1.out](logs/cmds-5558609-1.out) |
+| 191 | 4x8 k6.5 unpruned | 0.5.1 | White |  | 449,854,332,805 | 22,090.5 | 192 | [cmds-5558642-1.out](logs/cmds-5558642-1.out) |
+| 192 | 4x8 k5.5 black-pruned | 0.5.1 | Black | D3 | 631,614,203,104 | 31,056.4 | 192 | [cmds-5558643-1.out](logs/cmds-5558643-1.out) |
+| 193 | 3x11 k9.5 white-pruned | 0.5.3 | White |  | 85,141,532,903 | 4,747.4 | 192 | [cmds-5609898-1.out](logs/cmds-5609898-1.out) |
 
 The command of each run (after `cargo build --release`):
 
@@ -385,7 +387,9 @@ The command of each run (after `cargo build --release`):
 186  sanko --rows 2 --cols 7 --komi 13.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
 187  sanko --rows 2 --cols 8 --komi 15.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 22 --proof-log 21 --sc-log 22 --threads 16
 188  sanko --rows 3 --cols 11 --komi 8.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 32 --sc-log 32 --threads 192
-189  sanko --rows 4 --cols 8 --komi 6.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 32 --sc-log 32 --threads 192
-190  sanko --rows 4 --cols 8 --komi 5.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 32 --sc-log 32 --threads 192
-191  sanko --rows 3 --cols 11 --komi 9.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 32 --sc-log 32 --threads 192
+189  sanko --rows 2 --cols 16 --komi 3.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 32 --sc-log 32 --threads 192
+190  sanko --rows 2 --cols 16 --komi 4.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 32 --sc-log 32 --threads 192
+191  sanko --rows 4 --cols 8 --komi 6.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 32 --sc-log 32 --threads 192
+192  sanko --rows 4 --cols 8 --komi 5.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 32 --sc-log 32 --threads 192
+193  sanko --rows 3 --cols 11 --komi 9.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 32 --sc-log 32 --threads 192
 ```
