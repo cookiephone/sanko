@@ -215,9 +215,9 @@ struct SolverArgs {
     /// Eye prior: count only the area White needs beyond what Black can concede at this komi.
     #[arg(long, help_heading = "Knowledge")]
     eye_komi: bool,
-    /// Growth factor of the 1+ε rule for child thresholds (0 = plain df-pn).
-    #[arg(long, value_name = "E", default_value_t = 0.15, help_heading = "Search")]
-    eps: f64,
+    /// Growth factor of the 1+ε rule for child thresholds (0 = plain df-pn) [default: 0.15, 2.0 on boards of one row].
+    #[arg(long, value_name = "E", help_heading = "Search")]
+    eps: Option<f64>,
     /// Worker threads sharing one table.
     #[arg(long, value_name = "N", default_value_t = 1, help_heading = "Search")]
     threads: usize,
@@ -689,12 +689,20 @@ fn parse_komi(s: &str) -> Result<f64, String> {
     Ok(k)
 }
 
-fn solver_config(s: &SolverArgs) -> DfpnConfig {
+/// The 1+ε growth factor without `--eps`: 0.15, but 2.0 on boards of one row,
+/// whose long games with near-equal siblings make a small factor re-descend
+/// the same lines hundreds of times (1x17 White at 0.5: 2.6 h against 17.4 h,
+/// while multi-row boards run 2.8 times slower with 1.0).
+const fn default_eps(rows: usize) -> f64 {
+    if rows == 1 { 2.0 } else { 0.15 }
+}
+
+fn solver_config(s: &SolverArgs, rows: usize) -> DfpnConfig {
     if s.prior == PriorKind::Learned && (s.eye_init > 0 || s.eye_area || s.eye_weight > 0 || s.eye_komi) {
         eprintln!("note: --eye-init/--eye-area/--eye-weight/--eye-komi apply only with --prior eye (ignored)");
     }
     DfpnConfig {
-        eps: s.eps,
+        eps: s.eps.unwrap_or_else(|| default_eps(rows)),
         prune_for: s.prune_for.and_then(Side::color),
         threads: s.threads,
         exact_only: s.exact_only,
@@ -802,7 +810,7 @@ fn moves_on<const R: usize, const C: usize, const L: usize, const N: usize>(a: &
         Ok(x) => x,
         Err(e) => return fail(&e),
     };
-    let mut cfg = solver_config(&a.solver);
+    let mut cfg = solver_config(&a.solver, R);
     cfg.komi_times_two = komi_times_two(a.position.komi);
     (cfg.tt_log_buckets, cfg.proof_log, cfg.static_cache_log_slots) = (12, 12, 12);
     let kids = sanko_search::root_children::<R, C, L, N>(&moves, cfg);
@@ -835,7 +843,7 @@ fn solve_on<const R: usize, const C: usize, const L: usize, const N: usize>(a: &
         Ok(x) => x,
         Err(e) => return fail(&e),
     };
-    let mut cfg = with_tables(solver_config(&a.solver), &a.tables);
+    let mut cfg = with_tables(solver_config(&a.solver, R), &a.tables);
     cfg.komi_times_two = komi_times_two(a.position.komi);
     cfg.node_limit = a.node_limit;
     cfg.progress = a.progress;
@@ -1322,7 +1330,7 @@ fn selftest_cmd(a: &SelftestArgs) -> ExitCode {
 
 fn selftest_on<const R: usize, const C: usize, const L: usize, const N: usize>(a: &SelftestArgs, pretty: bool) -> bool {
     let n = a.positions;
-    let base0 = solver_config(&a.solver);
+    let base0 = solver_config(&a.solver, R);
     if pretty {
         ui::header("selftest", VERSION, SOURCE);
         ui::row(
@@ -1467,7 +1475,7 @@ fn staticcheck_on<const R: usize, const C: usize, const L: usize, const N: usize
         proof_log: 15,
         static_cache_log_slots: 16,
         node_limit: 30_000_000,
-        ..solver_config(&a.solver)
+        ..solver_config(&a.solver, R)
     };
     if pretty {
         ui::header("staticcheck", VERSION, SOURCE);
@@ -1723,7 +1731,7 @@ fn bench_on<const R: usize, const C: usize, const L: usize, const N: usize>(a: &
         node_limit: a.node_limit,
         progress: false,
         proof_buckets: buckets,
-        ..with_tables(solver_config(&a.solver), &a.tables)
+        ..with_tables(solver_config(&a.solver, R), &a.tables)
     };
     if pretty {
         ui::header("bench", VERSION, SOURCE);

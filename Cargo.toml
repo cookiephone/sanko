@@ -7,7 +7,7 @@ members = [
 ]
 
 [workspace.package]
-version = "0.5.5"
+version = "0.5.6"
 edition = "2024"
 rust-version = "1.88"
 license = "Apache-2.0"
@@ -15,8 +15,8 @@ authors = ["Sami Kharma"]
 repository = "https://github.com/cookiephone/sanko"
 
 [workspace.dependencies]
-sanko-core = { path = "crates/sanko-core", version = "0.5.5" }
-sanko-search = { path = "crates/sanko-search", version = "0.5.5" }
+sanko-core = { path = "crates/sanko-core", version = "0.5.6" }
+sanko-search = { path = "crates/sanko-search", version = "0.5.6" }
 
 proptest = "1"
 

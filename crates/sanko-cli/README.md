@@ -49,7 +49,7 @@ On a terminal, Sanko shows a live panel and board diagrams. With `--plain`, or w
 | `--proof-gib G` | proof table of G GiB, any size |
 | `--node-limit N` | stop after N expansions (result unknown) |
 | `--prior learned\|eye` | initial proof numbers from the learned prior (default) or from White's eye space |
-| `--eps E` | growth factor of the 1+ε rule (default 0.15, 0.3 up to version 0.5.2) |
+| `--eps E` | growth factor of the 1+ε rule (default 0.15, or 2.0 on boards of one row from version 0.5.6, and 0.3 up to version 0.5.2) |
 | `--simulate N` | simulation of sibling proofs, at most N nodes per attempt (default 100, 0 turns it off) |
 | `--checkpoint PATH`, `--checkpoint-every D` | write snapshots of the search to PATH every D (default 6h) and at `--stop-after` |
 | `--resume PATH` | continue from a snapshot (same build, problem and table sizes), or seed a run of a later position or at another komi with it |

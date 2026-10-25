@@ -381,7 +381,7 @@ dependencies = [
 
 [[package]]
 name = "sanko"
-version = "0.5.5"
+version = "0.5.6"
 dependencies = [
  "anstream 0.6.21",
  "anstyle",
@@ -393,14 +393,14 @@ dependencies = [
 
 [[package]]
 name = "sanko-core"
-version = "0.5.5"
+version = "0.5.6"
 dependencies = [
  "proptest",
 ]
 
 [[package]]
 name = "sanko-search"
-version = "0.5.5"
+version = "0.5.6"
 dependencies = [
  "sanko-core",
 ]
