@@ -34,7 +34,7 @@ fn scratch(name: &str) -> PathBuf {
 
 /// Solve 4×4 at `komi_times_two` in segments of `slice`, resuming each from
 /// the last snapshot, and return the winner and the number of segments.
-fn in_segments(path: &Path, komi_times_two: i32, threads: usize, slice: Duration) -> (Option<Color>, u64) {
+fn in_segments(path: &Path, komi_times_two: i32, threads: usize, slice: Duration, part_bytes: u64) -> (Option<Color>, u64) {
     let mut opts = CheckpointOptions {
         write: Some(path.to_path_buf()),
         resume: None,
@@ -42,6 +42,7 @@ fn in_segments(path: &Path, komi_times_two: i32, threads: usize, slice: Duration
         stop_after: Some(slice),
         build: "test".to_string(),
         at_end: false,
+        part_bytes,
     };
     loop {
         let r = solve_dfpn_resumable::<4, 4, 1, 16>(&[], cfg(komi_times_two, threads), &opts).expect("checkpointed solve");
@@ -57,14 +58,23 @@ fn in_segments(path: &Path, komi_times_two: i32, threads: usize, slice: Duration
 
 #[test]
 fn stopped_and_resumed_solves_agree_with_uninterrupted_ones() {
-    for threads in [1, 3] {
-        for komi_times_two in [3, 5] {
-            let want = solve_dfpn::<4, 4, 1, 16>(&[], cfg(komi_times_two, threads)).winner;
-            assert!(want.is_some());
-            let path = scratch(&format!("4x4-{komi_times_two}-{threads}.ckpt"));
-            let (got, segments) = in_segments(&path, komi_times_two, threads, Duration::from_millis(200));
-            assert_eq!(got, want, "komi {komi_times_two}/2, {threads} threads, {segments} segments");
-            std::fs::remove_file(&path).ok();
+    // Snapshots in one file, and in files of 256 KiB (about 80 of them).
+    for part_bytes in [0, 1 << 18] {
+        for threads in [1, 3] {
+            for komi_times_two in [3, 5] {
+                let want = solve_dfpn::<4, 4, 1, 16>(&[], cfg(komi_times_two, threads)).winner;
+                assert!(want.is_some());
+                let path = scratch(&format!("4x4-{komi_times_two}-{threads}-{part_bytes}.ckpt"));
+                let (got, segments) = in_segments(&path, komi_times_two, threads, Duration::from_millis(200), part_bytes);
+                assert_eq!(got, want, "komi {komi_times_two}/2, {threads} threads, {segments} segments, files of {part_bytes}");
+                std::fs::remove_file(&path).ok();
+                for i in 1.. {
+                    if std::fs::remove_file(format!("{}.{i}", path.display())).is_err() {
+                        assert!(part_bytes == 0 || segments == 1 || i > 2, "a snapshot in several files");
+                        break;
+                    }
+                }
+            }
         }
     }
 }
@@ -79,6 +89,7 @@ fn checkpoints_are_refused_by_another_problem_and_kept_from_fresh_runs() {
         stop_after: Some(Duration::from_millis(30)),
         build: "test".to_string(),
         at_end: false,
+        part_bytes: 0,
     };
     let r = solve_dfpn_resumable::<4, 4, 1, 16>(&[], cfg(5, 2), &opts).expect("first segment");
     assert!(path.exists() || !r.stopped);
@@ -106,7 +117,7 @@ fn checkpoints_are_refused_by_another_problem_and_kept_from_fresh_runs() {
 }
 
 #[test]
-fn a_checkpoint_seeds_the_runs_of_later_positions() {
+fn a_checkpoint_seeds_the_runs_of_other_positions() {
     // 4x4 at komi 2.5 is a White win, so White wins after every Black first move.
     let path = scratch("seed.ckpt");
     let base = CheckpointOptions {
@@ -116,6 +127,8 @@ fn a_checkpoint_seeds_the_runs_of_later_positions() {
         stop_after: Some(Duration::from_millis(150)),
         build: "test".to_string(),
         at_end: false,
+        // Snapshots in files of 1 MiB: the seeds below are read from several files.
+        part_bytes: 1 << 20,
     };
     let r = solve_dfpn_resumable::<4, 4, 1, 16>(&[], cfg(5, 2), &base).expect("root segment");
     if !path.exists() {
@@ -125,7 +138,7 @@ fn a_checkpoint_seeds_the_runs_of_later_positions() {
     }
     assert!(!r.root_moves.is_empty(), "the root's children are reported");
     let seed = |m: &[Move<4, 4>], write: Option<PathBuf>, stop: Option<Duration>| {
-        let o = CheckpointOptions { write, resume: Some(path.clone()), every: None, stop_after: stop, at_end: false, build: "test".to_string() };
+        let o = CheckpointOptions { write, resume: Some(path.clone()), every: None, stop_after: stop, at_end: false, build: "test".to_string(), part_bytes: 0 };
         solve_dfpn_resumable::<4, 4, 1, 16>(m, cfg(5, 2), &o)
     };
     for &(code, _, _) in &r.root_moves {
@@ -137,20 +150,31 @@ fn a_checkpoint_seeds_the_runs_of_later_positions() {
         assert_eq!(s.result.winner, want, "after {code}");
         assert_eq!(s.result.winner, Some(Color::White));
     }
-    // A child's checkpoint seeds neither its parent nor a sibling.
+    // A child's checkpoint (with the proofs of its own search) seeds its siblings and its parent too, with the
+    // winners of separate solves: the transfer test on the seeded run's paths decides every reuse.
     if r.root_moves.len() >= 2 {
         let a = [Move::<4, 4>::decode(r.root_moves[0].0).expect("move code")];
-        let b = [Move::<4, 4>::decode(r.root_moves[1].0).expect("move code")];
         let child = scratch("seed-child.ckpt");
-        let _ = seed(&a, Some(child.clone()), Some(Duration::ZERO)).expect("child segment");
-        if child.exists() {
-            for m in [&b[..], &[][..]] {
-                let o = CheckpointOptions { resume: Some(child.clone()), ..CheckpointOptions { build: "test".to_string(),
-        at_end: false, ..CheckpointOptions::default() } };
-                assert!(matches!(solve_dfpn_resumable::<4, 4, 1, 16>(m, cfg(5, 2), &o), Err(CheckpointError::Refused(_))));
-            }
-            std::fs::remove_file(&child).ok();
+        let o = CheckpointOptions {
+            write: Some(child.clone()),
+            resume: Some(path.clone()),
+            stop_after: Some(Duration::from_millis(100)),
+            at_end: true,
+            build: "test".to_string(),
+            ..CheckpointOptions::default()
+        };
+        let _ = solve_dfpn_resumable::<4, 4, 1, 16>(&a, cfg(5, 2), &o).expect("child segment");
+        assert!(child.exists(), "the child writes a snapshot at its stop or its end");
+        let mut lines: Vec<Vec<Move<4, 4>>> =
+            r.root_moves[1..].iter().map(|&(code, _, _)| vec![Move::<4, 4>::decode(code).expect("move code")]).collect();
+        lines.push(Vec::new());
+        for m in &lines {
+            let o = CheckpointOptions { resume: Some(child.clone()), build: "test".to_string(), ..CheckpointOptions::default() };
+            let s = solve_dfpn_resumable::<4, 4, 1, 16>(m, cfg(5, 2), &o).expect("seeded from a sibling or a child");
+            assert_eq!(s.seeded_from.as_deref(), Some(child.as_path()));
+            assert_eq!(s.result.winner, solve_dfpn::<4, 4, 1, 16>(m, cfg(5, 2)).winner, "after {m:?}");
         }
+        std::fs::remove_file(&child).ok();
     }
     std::fs::remove_file(&path).ok();
 }
@@ -206,6 +230,7 @@ fn a_checkpoint_seeds_runs_at_another_komi_soundly() {
             stop_after: Some(Duration::from_millis(40)),
             build: "test".to_string(),
         at_end: false,
+            part_bytes: 0,
         };
         let r1 = solve_dfpn_resumable::<4, 4, 1, 16>(&prefix, DfpnConfig { prune_for: p1, ..cfg(k1, 2) }, &first);
         r1.expect("first run");

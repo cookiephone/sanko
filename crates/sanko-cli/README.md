@@ -52,8 +52,9 @@ On a terminal, Sanko shows a live panel and board diagrams. With `--plain`, or w
 | `--eps E` | growth factor of the 1+ε rule (default 0.15, or 2.0 on boards of one row from version 0.5.6, and 0.3 up to version 0.5.2) |
 | `--simulate N` | simulation of sibling proofs, at most N nodes per attempt (default 100, 0 turns it off) |
 | `--checkpoint PATH`, `--checkpoint-every D` | write snapshots of the search to PATH every D (default 6h) and at `--stop-after` |
-| `--resume PATH` | continue from a snapshot (same build, problem and table sizes), or seed a run of a later position or at another komi with it |
+| `--resume PATH` | continue from a snapshot (same build, problem and table sizes), or seed a run of another position of the same game (any position from version 0.5.7, a later one before) or at another komi with it |
 | `--snapshot-at-end` | with `--checkpoint`: also write a snapshot when the search ends with a result |
+| `--snapshot-file-gib G` | with `--checkpoint`: write each snapshot as files of at most G GiB (`PATH`, `PATH.1`, ...) for file systems that refuse larger files, found again from the snapshot's header (from version 0.5.7) |
 | `--stop-after D` | stop after D of wall time (such as 9d23h), with a last snapshot when writing them (exit code 75) |
 
 The repository README gives the settings of the reported runs and the table sizes they used, and explains long runs in segments with checkpoints.

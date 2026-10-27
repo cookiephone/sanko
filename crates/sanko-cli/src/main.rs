@@ -321,8 +321,8 @@ struct CheckpointArgs {
     #[arg(long, value_name = "PATH")]
     checkpoint: Option<PathBuf>,
     /// Continue the search from the snapshot at PATH (same build, problem and table sizes), or
-    /// seed a search with it: of a later position of the same game (--moves extending its moves),
-    /// or at another komi (keeping the proofs that stay valid there).
+    /// seed a search with it: of another position of the same game (other --moves, such as a later
+    /// position or a sibling), or at another komi (keeping the proofs that stay valid there).
     #[arg(long, value_name = "PATH")]
     resume: Option<PathBuf>,
     /// With --checkpoint: time between snapshots, such as 90m, 6h or 1d12h.
@@ -336,6 +336,10 @@ struct CheckpointArgs {
     /// other komi or of later positions with it (as a value search does).
     #[arg(long)]
     snapshot_at_end: bool,
+    /// With --checkpoint: write each snapshot as files of at most G GiB (PATH, PATH.1, PATH.2, ...), for file
+    /// systems that refuse larger files. A resume finds the files from the snapshot's header.
+    #[arg(long, value_name = "G", value_parser = clap::value_parser!(u64).range(1..))]
+    snapshot_file_gib: Option<u64>,
 }
 
 /// A duration such as `90m`, `6h`, `1d12h` or `3600s` (units d, h, m and s).
@@ -895,6 +899,7 @@ fn solve_on<const R: usize, const C: usize, const L: usize, const N: usize>(a: &
             stop_after: ck.stop_after,
             at_end: ck.snapshot_at_end,
             build: LONG_VERSION.to_string(),
+            part_bytes: ck.snapshot_file_gib.map_or(0, |g| g << 30),
         };
         return solve_resumable::<R, C, L, N>(a, &cfg, &opts, &root, &hist, &moves, pretty, live);
     }

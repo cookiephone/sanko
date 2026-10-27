@@ -9,10 +9,11 @@
 //! on the same problem, with the same table sizes. The static cache is a cache
 //! and is not saved.
 //!
-//! A checkpoint can also seed a run on a later position of the same game (its
-//! moves extended by more moves), which is how a proof is split into parts:
-//! every stored proof is reused there only through the transfer test on the
-//! seeded run's own path, as within one run.
+//! A checkpoint can also seed a run on another position of the same game (a
+//! later one, which is how a proof is split into parts, or a sibling's, so that
+//! a part starts with the proofs of the parts before it): every stored proof is
+//! reused there only through the transfer test on the seeded run's own path,
+//! which starts at the empty board, as within one run.
 //!
 //! And it can seed a run at another komi. A proof's leaves (game ends, static
 //! verdicts, closed regions) compare areas with the komi, so a win for Black
@@ -29,8 +30,16 @@
 //!   words, in chunks of whole buckets of at most `CHUNK_BYTES` bytes.
 //! - One 64-bit checksum per chunk, in chunk order.
 //!
-//! A snapshot is written to `PATH.tmp` and renamed over `PATH` once complete,
-//! so a crash while writing leaves the previous snapshot intact.
+//! A snapshot is one file, unless a file size is set
+//! ([`CheckpointOptions::part_bytes`], the CLI's `--snapshot-file-gib`): then a
+//! larger snapshot continues in `PATH.1`, `PATH.2`, ..., the bytes above
+//! running on from one file to the next, and the header names the number of
+//! files and their size, so that a resume finds them (for file systems that
+//! refuse large files, such as one with a limit of 1 TiB).
+//!
+//! A snapshot is written to `PATH.tmp` (and `PATH.1.tmp`, ...) and renamed over
+//! `PATH` once complete, the first file last, so a crash while writing leaves
+//! the previous snapshot intact.
 
 use std::fmt;
 use std::fs::File;
@@ -76,7 +85,7 @@ pub struct CheckpointOptions {
     /// file is refused unless it is also the `resume` file.
     pub write: Option<PathBuf>,
     /// Continue from the snapshot at this path: the same position, or seed a
-    /// run on a later position of the same game (see the module docs).
+    /// run on another position of the same game (see the module docs).
     pub resume: Option<PathBuf>,
     /// Time between snapshots (with `write`).
     pub every: Option<Duration>,
@@ -88,6 +97,9 @@ pub struct CheckpointOptions {
     /// The solver build (version and source fingerprint). A checkpoint is
     /// resumed only by the build that wrote it.
     pub build: String,
+    /// Largest file of a snapshot, 0 for one file of any size: a larger
+    /// snapshot continues in `PATH.1`, `PATH.2`, ... (see the module docs).
+    pub part_bytes: u64,
 }
 
 /// Why a checkpoint could not be written or resumed.
@@ -105,6 +117,11 @@ pub enum CheckpointError {
 impl fmt::Display for CheckpointError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
+            Self::Io { path, error } if error.kind() == io::ErrorKind::FileTooLarge => write!(
+                f,
+                "{}: {error} (the file system refuses files this large: write snapshots as several files, with --snapshot-file-gib)",
+                path.display()
+            ),
             Self::Io { path, error } => write!(f, "{}: {error}", path.display()),
             Self::Format { path, reason } => write!(f, "{}: {reason}", path.display()),
             Self::Refused(why) => f.write_str(why),
@@ -315,6 +332,52 @@ where
     }
 }
 
+/// The files of one snapshot as one byte range, `part` bytes per file.
+struct Parts {
+    files: Vec<File>,
+    part: u64,
+}
+
+impl Parts {
+    /// The pieces of `len` bytes at `offset`: each piece's file, its offset in
+    /// that file, and its range in the buffer.
+    fn pieces(&self, mut offset: u64, mut len: usize) -> io::Result<Vec<(&File, u64, std::ops::Range<usize>)>> {
+        let (mut out, mut at) = (Vec::new(), 0);
+        while len > 0 {
+            let (i, within) = ((offset / self.part) as usize, offset % self.part);
+            let n = len.min((self.part - within) as usize);
+            let file = self.files.get(i).ok_or_else(|| io::Error::new(io::ErrorKind::UnexpectedEof, "past the last file"))?;
+            out.push((file, within, at..at + n));
+            (offset, len, at) = (offset + n as u64, len - n, at + n);
+        }
+        Ok(out)
+    }
+
+    fn write_at(&self, buf: &[u8], offset: u64) -> io::Result<()> {
+        for (file, at, r) in self.pieces(offset, buf.len())? {
+            write_at(file, &buf[r], at)?;
+        }
+        Ok(())
+    }
+
+    fn read_at(&self, buf: &mut [u8], offset: u64) -> io::Result<()> {
+        for (file, at, r) in self.pieces(offset, buf.len())? {
+            read_at(file, &mut buf[r], at)?;
+        }
+        Ok(())
+    }
+}
+
+/// File `i` of the snapshot at `path` (file 0 is `path` itself).
+fn part_path(path: &Path, i: usize) -> PathBuf {
+    if i == 0 {
+        return path.to_path_buf();
+    }
+    let mut s = path.as_os_str().to_os_string();
+    s.push(format!(".{i}"));
+    PathBuf::from(s)
+}
+
 /// `path` with `.tmp` appended.
 fn tmp_path(path: &Path) -> PathBuf {
     let mut s = path.as_os_str().to_os_string();
@@ -322,38 +385,70 @@ fn tmp_path(path: &Path) -> PathBuf {
     PathBuf::from(s)
 }
 
-/// Write `tt` with `header` to `path`, through `path.tmp`, with `threads` I/O
-/// threads. The table must not change meanwhile (the search is paused).
-pub(crate) fn write_snapshot(tt: &PnTable, header: &CheckpointHeader, path: &Path, threads: usize) -> Result<(), CheckpointError> {
+/// Write `tt` with `header` to `path` (in files of at most `part_bytes`
+/// bytes, 0 for one file), through `path.tmp`, with `threads` I/O threads.
+/// The table must not change meanwhile (the search is paused).
+pub(crate) fn write_snapshot(
+    tt: &PnTable,
+    header: &CheckpointHeader,
+    path: &Path,
+    threads: usize,
+    part_bytes: u64,
+) -> Result<(), CheckpointError> {
     let tmp = tmp_path(path);
     let io_err = |error: io::Error| CheckpointError::Io { path: tmp.clone(), error };
     let (chunks, sums_at) = plan(tt);
-    let file = File::create(&tmp).map_err(io_err)?;
-    file.set_len(sums_at + 8 * chunks.len() as u64).map_err(io_err)?;
+    let size = sums_at + 8 * chunks.len() as u64;
+    let part = if part_bytes == 0 { size } else { part_bytes.max(HEADER_BYTES) };
+    let n = size.div_ceil(part).max(1) as usize;
+    let tmps: Vec<PathBuf> = (0..n).map(|i| tmp_path(&part_path(path, i))).collect();
+    let mut files = Vec::with_capacity(n);
+    for (i, t) in tmps.iter().enumerate() {
+        let file = File::create(t).map_err(|error| CheckpointError::Io { path: t.clone(), error })?;
+        file.set_len(part.min(size - i as u64 * part)).map_err(|error| CheckpointError::Io { path: t.clone(), error })?;
+        files.push(file);
+    }
+    let parts = Parts { files, part };
     let sums = parallel_chunks(&chunks, threads, |_, c, words, bytes| {
         words.clear();
         tt.read_buckets(c.part, c.first..c.first + c.buckets, words);
         bytes.clear();
         bytes.extend(words.iter().flat_map(|w| w.to_le_bytes()));
-        write_at(&file, bytes, c.offset)?;
+        parts.write_at(bytes, c.offset)?;
         Ok(chunk_sum(words))
     })
     .map_err(io_err)?;
     let tail: Vec<u8> = sums.iter().flat_map(|s| s.to_le_bytes()).collect();
-    write_at(&file, &tail, sums_at).map_err(io_err)?;
+    parts.write_at(&tail, sums_at).map_err(io_err)?;
     let mut h = header.clone();
     h.set("chunk_bytes", CHUNK_BYTES);
     h.set("chunks", chunks.len());
     h.set("checksums_offset", sums_at);
+    if n > 1 {
+        h.set("files", n);
+        h.set("file_bytes", part);
+    }
     let mut text = h.text().into_bytes();
     if text.len() as u64 > HEADER_BYTES {
         return Err(CheckpointError::Format { path: tmp.clone(), reason: "header too long".to_string() });
     }
     text.resize(HEADER_BYTES as usize, b'\n');
-    write_at(&file, &text, 0).map_err(io_err)?;
-    file.sync_all().map_err(io_err)?;
-    drop(file);
-    std::fs::rename(&tmp, path).map_err(|error| CheckpointError::Io { path: path.to_path_buf(), error })
+    parts.write_at(&text, 0).map_err(io_err)?;
+    for (file, t) in parts.files.iter().zip(&tmps) {
+        file.sync_all().map_err(|error| CheckpointError::Io { path: t.clone(), error })?;
+    }
+    drop(parts);
+    // The first file last: it holds the header that names the others.
+    for i in (0..n).rev() {
+        let p = part_path(path, i);
+        std::fs::rename(&tmps[i], &p).map_err(|error| CheckpointError::Io { path: p, error })?;
+    }
+    // Files of an earlier, larger snapshot at this path.
+    let mut i = n;
+    while std::fs::remove_file(part_path(path, i)).is_ok() {
+        i += 1;
+    }
+    Ok(())
 }
 
 /// Read the checkpoint at `path`, whose header is `header`, into `tt`, which
@@ -370,18 +465,30 @@ pub(crate) fn load_snapshot(tt: &PnTable, header: &CheckpointHeader, path: &Path
     {
         return Err(bad("its data layout does not match the table sizes".to_string()));
     }
-    let file = File::open(path).map_err(io_err)?;
-    let len = file.metadata().map_err(io_err)?.len();
-    if len != size {
-        return Err(bad(format!("{len} bytes, expected {size}")));
+    let n = header.number("files").max(1) as usize;
+    let part = if n > 1 { header.number("file_bytes") } else { size };
+    if part == 0 || size.div_ceil(part) != n as u64 {
+        return Err(bad(format!("{n} files of {part} bytes cannot hold {size} bytes")));
     }
+    let mut files = Vec::with_capacity(n);
+    for i in 0..n {
+        let p = part_path(path, i);
+        let file = File::open(&p).map_err(|error| CheckpointError::Io { path: p.clone(), error })?;
+        let len = file.metadata().map_err(|error| CheckpointError::Io { path: p.clone(), error })?.len();
+        let want = part.min(size - i as u64 * part);
+        if len != want {
+            return Err(CheckpointError::Format { path: p, reason: format!("{len} bytes, expected {want}") });
+        }
+        files.push(file);
+    }
+    let parts = Parts { files, part };
     let mut tail = vec![0u8; 8 * chunks.len()];
-    read_at(&file, &mut tail, sums_at).map_err(io_err)?;
+    parts.read_at(&mut tail, sums_at).map_err(io_err)?;
     let sums: Vec<u64> = tail.as_chunks::<8>().0.iter().map(|b| u64::from_le_bytes(*b)).collect();
     parallel_chunks(&chunks, threads, |i, c, words, bytes| {
         let per_bucket = tt.parts()[c.part].1;
         bytes.resize(8 * c.buckets * per_bucket, 0);
-        read_at(&file, bytes, c.offset)?;
+        parts.read_at(bytes, c.offset)?;
         words.clear();
         words.extend(bytes.as_chunks::<8>().0.iter().map(|b| u64::from_le_bytes(*b)));
         let sum = chunk_sum(words);

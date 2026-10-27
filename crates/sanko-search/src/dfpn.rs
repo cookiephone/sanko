@@ -2910,7 +2910,7 @@ impl Snapshots<'_> {
         h.set("seconds", format!("{:.1}", self.earlier_seconds + self.started.elapsed().as_secs_f64()));
         h.set("written_unix", SystemTime::now().duration_since(UNIX_EPOCH).map_or(0, |d| d.as_secs()));
         let t = Instant::now();
-        match checkpoint::write_snapshot(tt, &h, path, self.io_threads) {
+        match checkpoint::write_snapshot(tt, &h, path, self.io_threads, self.opts.part_bytes) {
             Ok(()) => {
                 self.written += 1;
                 self.error = None;
@@ -3096,7 +3096,11 @@ fn resumable_inner<const ROWS: usize, const COLS: usize, const LANES: usize, con
                 h.get("moves").unwrap_or("").split(',').filter(|m| !m.is_empty()).map(str::to_string).collect()
             };
             let (theirs, ours) = (moves(&h), moves(&header));
-            let prefix_seed = theirs.len() < ours.len() && ours.starts_with(&theirs);
+            // Another position of the same game (a later one, or a sibling's):
+            // every proof of the snapshot is reused only through the transfer test
+            // on this run's own paths, which start at the empty board, as a proof
+            // found below one move is reused below another within one run.
+            let position_seed = theirs != ours;
             // Another komi keeps the proofs that stay valid at it: Black's wins
             // below the checkpoint's komi, White's above, each only if the
             // checkpoint's run was not pruned for the other side.
@@ -3112,14 +3116,7 @@ fn resumable_inner<const ROWS: usize, const COLS: usize, const LANES: usize, con
                 (Some(_), Some(_)) => {}
                 _ => diff.push("komi_times_two: missing".to_string()),
             }
-            let seeded = prefix_seed || komi_seed.is_some();
-            if theirs != ours && !prefix_seed {
-                diff.push(format!(
-                    "moves: {} in the checkpoint, {} in this run (it must be this position or an earlier one of the same game)",
-                    h.get("moves").unwrap_or(""),
-                    header.get("moves").unwrap_or("")
-                ));
-            }
+            let seeded = position_seed || komi_seed.is_some();
             if seeded {
                 header.set(
                     "seed",
