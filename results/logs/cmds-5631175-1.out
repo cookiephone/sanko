@@ -1,0 +1,18 @@
+sanko 0.5.3 (source d80e7d06004ffc3a): --rows 1 --cols 19 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 32 --sc-log 32 --threads 192 --eps 2.0 --checkpoint ckpt/1x19-k1.5.ckpt --resume ckpt/1x19-k1.5.ckpt --checkpoint-every 1d --stop-after 9d20h
+solving 1x19 komi=1.5 (tt 2^31 buckets = 917504 MB, eps=2, prune_for=None, threads=192, prior=learned(scale 64)) ...
+pv (85 plies): 01 015 017 05 011 08 013 03 09 010 07 06 09 014 07 012 04 010 016 018 011 017 013 06 016 014 015 08 02 017 07 014 05 012 015 010 013 08 011 06 09 03 07 016 018 08 05 04 07 00 05 016 017 06 02 01 05 016 02 014 017 012 015 010 013 08 011 06 09 04 07 01 05 03 02 03 010 04 02 04 03 04 03 00 pass
+pv end: Position<1x19> to_move=White passes=1
+O O . X . X . X . X X X . X . X . X .
+root winning move: 01
+winner: Some(Black)   nodes: 1053827997635   children: 7842434746767   elapsed: 21565.250s   nodes/s: 48866950
+leaves: terminal=546127467518 static=1355   tt: probes=13175626990216 hits=7433155353978   max_ply=257   sym_merged=3375
+ghi: proofs_stored=175547159191 reused=891217751393  reject target=0 bloom=3884012247555  twin hits=31693138320 stores=30022127592 frame-rejects=918  psk_exclusions=163986732087
+static: rejected (superko-unsafe on path)=503644  transfers rejected by territory=862223504100  territory-pruned moves=0
+128-bit proof check: mismatches=1888  proofs with one target: 17430248585
+path-specific proofs: two-targets=2311768016  symmetry-merge=0  from-table=11028450625  alternates: twin-child=145395827002  base-taken=24131  stored=145395851133 reused=230797694957
+simulation: attempts=77322231706 successes=5225025147 nodes=189344318257
+closed-region solver leaves: 0  failures [unused, too big, <2 pure eyes, local loss]: [0, 0, 0, 0]
+first-visit expansions: 4993232737 of 1053827997635 (211.05x revisit factor)
+checkpoint: resumed ckpt/1x19-k1.5.ckpt as segment 2 (earlier segments: 15015749289926 expansions, 173490.5s)
+checkpoint: 0 snapshots written to ckpt/1x19-k1.5.ckpt
+total: 16069577287561 expansions, 195055.8s over 2 segments

@@ -1,0 +1,18 @@
+sanko 0.5.5 (source d2a2d6ab7a9cdf11)
+sanko 0.5.5 (source d2a2d6ab7a9cdf11): --rows 1 --cols 19 --komi 2.5 --regions --region-interior 8 --keep-tempo --eps 1.0 --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 128 --plain --progress --checkpoint ckpt/1x19-k2.5-e1.ckpt --checkpoint-every 1d --stop-after 9d20h
+solving 1x19 komi=2.5 (tt 2^30 buckets = 458752 MB, eps=1, prune_for=None, threads=128, vl_free=16, prior=learned(scale 64)) ...
+pv (88 plies): 01 017 03 013 015 09 06 011 08 07 014 016 08 05 010 07 04 02 06 09 04 07 014 015 08 00 010 03 012 05 014 07 018 09 01 011 015 013 04 016 06 03 08 05 02 00 010 07 012 09 014 011 02 01 010 015 017 011 015 013 02 016 04 01 06 03 08 05 010 07 012 09 014 011 017 013 015 016 015 08 014 016 014 015 014 015 016 018
+pv end: Position<1x19> to_move=Black passes=0
+. O . O . O . O O O . O . O . O . . O
+winner: Some(White)   nodes: 2948076857150   children: 22578448268491   elapsed: 165844.418s   nodes/s: 17776160
+leaves: terminal=1483105447844 static=22925   tt: probes=37170308323264 hits=21613634578332   max_ply=233   sym_merged=4712
+ghi: proofs_stored=527237636996 reused=2674141273314  reject target=0 bloom=11327409183372  twin hits=131413266547 stores=50874997641 frame-rejects=124  psk_exclusions=312223990412
+static: rejected (superko-unsafe on path)=1401926  transfers rejected by territory=2078624647474  territory-pruned moves=0
+128-bit proof check: mismatches=1425  proofs with one target: 27741215016
+path-specific proofs: two-targets=3259383073  symmetry-merge=1  from-table=20956991217  alternates: twin-child=475840348572  base-taken=102880  stored=475840451452 reused=516964532245
+simulation: attempts=236182019239 successes=12741742370 nodes=597459545495
+closed-region solver leaves: 0  failures [unused, too big, <2 pure eyes, local loss]: [0, 0, 0, 0]
+first-visit expansions: 19215802429 of 2948076857150 (153.42x revisit factor)
+root moves: 09:0:inf 08:2196875771904:2196875771904 07:43:2196875771904 06:2196875771904:2196875771904 05:2196875771904:2196875771904 04:0:inf 03:2196875771904:2196875771904 02:2196875771904:2864 01:0:inf 00:2196875771904:2196875771904 pass:0:inf
+checkpoint: 1 snapshots written to ckpt/1x19-k2.5-e1.ckpt
+exit 0 Di 27. Okt 15:00:01 CET 2026

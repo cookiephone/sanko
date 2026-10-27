@@ -1,4 +1,4 @@
-Build: sanko 0.4.1 (63014da88da067d1), sanko 0.4.2 (af01dd77d1c0e3b0), sanko 0.5.1 (10f4dc2943d7e161), sanko 0.5.3 (d80e7d06004ffc3a).
+Build: sanko 0.4.1 (63014da88da067d1), sanko 0.4.2 (af01dd77d1c0e3b0), sanko 0.5.1 (10f4dc2943d7e161), sanko 0.5.3 (d80e7d06004ffc3a), sanko 0.5.5 (d2a2d6ab7a9cdf11).
 
 | # | Run | Build | Winner | Winning move | Expansions | Time (s) | Threads | Log |
 | ---: | --- | --- | --- | --- | ---: | ---: | ---: | --- |
@@ -195,6 +195,8 @@ Build: sanko 0.4.1 (63014da88da067d1), sanko 0.4.2 (af01dd77d1c0e3b0), sanko 0.5
 | 191 | 4x8 k6.5 unpruned | 0.5.1 | White |  | 449,854,332,805 | 22,090.5 | 192 | [cmds-5558642-1.out](logs/cmds-5558642-1.out) |
 | 192 | 4x8 k5.5 black-pruned | 0.5.1 | Black | D3 | 631,614,203,104 | 31,056.4 | 192 | [cmds-5558643-1.out](logs/cmds-5558643-1.out) |
 | 193 | 3x11 k9.5 white-pruned | 0.5.3 | White |  | 85,141,532,903 | 4,747.4 | 192 | [cmds-5609898-1.out](logs/cmds-5609898-1.out) |
+| 194 | 1x19 k1.5 unpruned | 0.5.3 | Black | B1 | 16,069,577,287,561 | 195,055.8 | 192 | [cmds-5631175-1.out](logs/cmds-5631175-1.out) |
+| 195 | 1x19 k2.5 unpruned | 0.5.5 | White |  | 2,948,076,857,150 | 165,844.4 | 128 | [l19e-5631147.out](logs/l19e-5631147.out) |
 
 The command of each run (after `cargo build --release`):
 
@@ -392,4 +394,6 @@ The command of each run (after `cargo build --release`):
 191  sanko --rows 4 --cols 8 --komi 6.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 32 --sc-log 32 --threads 192
 192  sanko --rows 4 --cols 8 --komi 5.5 --prune-for black --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 32 --sc-log 32 --threads 192
 193  sanko --rows 3 --cols 11 --komi 9.5 --prune-for white --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 32 --sc-log 32 --threads 192
+194  sanko --rows 1 --cols 19 --komi 1.5 --regions --region-interior 8 --keep-tempo --pn-tt-log 31 --proof-log 32 --sc-log 32 --threads 192 --eps 2.0 --checkpoint ckpt/1x19-k1.5.ckpt --resume ckpt/1x19-k1.5.ckpt --checkpoint-every 1d --stop-after 9d20h
+195  sanko --rows 1 --cols 19 --komi 2.5 --regions --region-interior 8 --keep-tempo --eps 1.0 --pn-tt-log 30 --proof-log 31 --sc-log 30 --threads 128 --plain --progress --checkpoint ckpt/1x19-k2.5-e1.ckpt --checkpoint-every 1d --stop-after 9d20h
 ```
